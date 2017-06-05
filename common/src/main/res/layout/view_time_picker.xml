@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.jaydenxiao.common.commonwidget.pickerutil.picker.QNumberPicker
+        android:id="@+id/picker_hour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/text_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="时"
+        android:textColor="@color/item_333333"
+        android:textSize="22sp"/>
+
+    <com.jaydenxiao.common.commonwidget.pickerutil.picker.QNumberPicker
+        android:id="@+id/picker_minute"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/text_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="72dp"
+        android:text="分"
+        android:textColor="@color/item_333333"
+        android:textSize="22sp"/>
+
+</LinearLayout>

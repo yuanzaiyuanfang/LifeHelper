@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_cookbook"
+            android:icon="@mipmap/cookbook"
+            android:title="美食"/>
+        <item
+            android:id="@+id/nav_read"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="阅读"/>
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="敬请期待"/>
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="敬请期待"/>
+    </group>
+
+    <item android:title="功能">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="敬请期待"/>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="设置"/>
+        </menu>
+    </item>
+
+</menu>

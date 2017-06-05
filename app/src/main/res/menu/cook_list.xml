@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/switch_count"
+        android:orderInCategory="100"
+        android:title="切换布局"
+        android:icon="@mipmap/list_list"
+        app:showAsAction="always"/>
+
+
+</menu>
