@@ -202,6 +202,7 @@
 -keep class com.yzyfdf.lifehelper.ui.other.model.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.other.presenter.** { *; }
 
+-keep class com.yzyfdf.lifehelper.ui.read.activity.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.read.model.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.read.presenter.** { *; }
 
@@ -214,4 +215,17 @@
 
 -keepclasseswithmembernames class * {
     public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+# Kotlin
+-dontwarn kotlin.**
+-keepclassmembers class **$WhenMappings {
+    <fields>;
+}
+-assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+    static void checkParameterIsNotNull(java.lang.Object, java.lang.String);
+}
+
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
 }

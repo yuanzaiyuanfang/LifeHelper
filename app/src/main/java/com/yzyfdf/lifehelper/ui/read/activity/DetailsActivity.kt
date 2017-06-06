@@ -148,9 +148,9 @@ class DetailsActivity : BaseAppActivity<DetailsPresenter, DetailsModel>(), Detai
 //import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 //import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 //import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
-//import com.yzyfdf.lifehelper.ui.read.contract.DetailsContract;
-//import com.yzyfdf.lifehelper.ui.read.model.DetailsModel;
-//import com.yzyfdf.lifehelper.ui.read.presenter.DetailsPresenter;
+//import DetailsContract;
+//import DetailsModel;
+//import DetailsPresenter;
 //
 //import butterknife.Bind;
 //

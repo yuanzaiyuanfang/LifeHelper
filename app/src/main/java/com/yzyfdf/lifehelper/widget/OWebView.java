@@ -304,7 +304,7 @@ public class OWebView extends WebView {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //            view.loadUrl(url);
-            HttpActivity.startSelf(view.getContext(),url);
+            HttpActivity.Companion.startSelf(view.getContext(),url);
             return true;
         }
 
