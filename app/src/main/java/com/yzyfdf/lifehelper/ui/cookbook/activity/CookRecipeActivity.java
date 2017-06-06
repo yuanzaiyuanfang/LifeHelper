@@ -20,14 +20,19 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
 import com.yzyfdf.lifehelper.bean.cookbean.MyFavoriteBean;
 import com.yzyfdf.lifehelper.ui.cookbook.adapter.CookRecipeAdapter;
+import com.yzyfdf.lifehelper.ui.other.activity.SplashActivity;
 import com.yzyfdf.lifehelper.util.HawkUtil;
 import com.yzyfdf.lifehelper.util.ShareUtil;
+import com.yzyfdf.lifehelper.util.WxUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,13 +197,41 @@ public class CookRecipeActivity extends BaseAppActivity {
         switch (id) {
             case R.id.action_share:
                 ToastUtils.showShortToast("分享中...稍等");
-                savePic(mShareView);
+//                savePic(mShareView);
+                sharePic(mShareView);
                 return true;
             case R.id.my_favorites_cook:
                 CookFavoritesActivity.startSelf(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void sharePic(LinearLayout linearLayout) {
+        Bitmap bitmap = ShareUtil.getLinearLayoutBitmap(linearLayout);
+        if (bitmap == null) {
+            showShortToast("保存失败了");
+            return;
+        }
+
+        WXImageObject imageObject = new WXImageObject(bitmap);
+
+        WXMediaMessage mediaMessage = new WXMediaMessage();
+        mediaMessage.mediaObject = imageObject;
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, true);
+        bitmap.recycle();
+        mediaMessage.thumbData = WxUtil.bmpToByteArray(scaledBitmap, true);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = mediaMessage;
+        req.scene = SendMessageToWX.Req.WXSceneSession;
+
+        if (SplashActivity.mWXAPI != null) {
+            SplashActivity.mWXAPI.sendReq(req);
         }
 
     }

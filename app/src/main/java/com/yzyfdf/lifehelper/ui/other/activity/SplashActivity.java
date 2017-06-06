@@ -2,8 +2,11 @@ package com.yzyfdf.lifehelper.ui.other.activity;
 
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yzyfdf.lifehelper.R;
-import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
+import com.yzyfdf.lifehelper.base.activity.PermissionActivity;
 import com.yzyfdf.lifehelper.ui.other.contract.SplashContract;
 import com.yzyfdf.lifehelper.ui.other.model.SplashModel;
 import com.yzyfdf.lifehelper.ui.other.presenter.SplashPresenter;
@@ -11,11 +14,16 @@ import com.yzyfdf.lifehelper.ui.other.presenter.SplashPresenter;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class SplashActivity extends BaseAppActivity<SplashPresenter, SplashModel> implements SplashContract.View {
+public class SplashActivity extends PermissionActivity<SplashPresenter, SplashModel> implements SplashContract.View {
 
 
     @Bind(R.id.timer)
     TextView mTimer;
+
+    private static final String APP_ID = "wx225167515bf0be19";
+    private boolean hasPermission = false;
+    private boolean timeOver = false;
+    public static IWXAPI mWXAPI;
 
     @Override
     public int getLayoutId() {
@@ -29,7 +37,30 @@ public class SplashActivity extends BaseAppActivity<SplashPresenter, SplashModel
 
     @Override
     public void initView() {
+        regToWx();
+
         mPresenter.smsTimer();
+
+    }
+
+    private void initPermission() {
+        requestPermission(FORCE_REQUIRE_PERMISSIONS, true, new PermissionsResultListener() {
+            @Override
+            public void onPermissionGranted() {
+                HomeActivity.startSelf(SplashActivity.this);
+                finish();
+            }
+
+            @Override
+            public void onPermissionDenied() {
+                ToastUtils.showShortToast("拒绝申请权限");
+            }
+        });
+    }
+
+    private void regToWx() {
+        mWXAPI = WXAPIFactory.createWXAPI(this, APP_ID, true);
+        mWXAPI.registerApp(APP_ID);
     }
 
 
@@ -50,8 +81,8 @@ public class SplashActivity extends BaseAppActivity<SplashPresenter, SplashModel
     }
 
     private void goToHome() {
-        HomeActivity.startSelf(this);
-        finish();
+        initPermission();
+
     }
 
 }

@@ -127,7 +127,7 @@ public class OWebView extends WebView {
 
         removeAllViews();
         clearCache(true);
-
+        System.out.println("浏览器关闭");
         super.destroy();
     }
 
@@ -304,7 +304,7 @@ public class OWebView extends WebView {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //            view.loadUrl(url);
-            HttpActivity.Companion.startSelf(view.getContext(),url);
+            HttpActivity.startSelf(view.getContext(),url);
             return true;
         }
 

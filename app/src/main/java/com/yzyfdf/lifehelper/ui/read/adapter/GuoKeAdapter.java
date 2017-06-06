@@ -32,7 +32,7 @@ public class GuoKeAdapter extends BaseAdapter<GuoKeListBean.ResultBean, BaseAdap
         GuoKeListBean.ResultBean bean = mList.get(position);
         holder.setText(R.id.tv_title, bean.getTitle());
         holder.setImage(R.id.iv_pic, bean.getHeadline_img_tb());
-        holder.itemView.setOnClickListener(v -> DetailsActivity.Companion.startSelf(mContext, Constant.TYPE_GUOKE, bean.getId(),bean.getTitle()));
+        holder.itemView.setOnClickListener(v -> DetailsActivity.startSelf(mContext, Constant.TYPE_GUOKE, bean.getId(),bean.getTitle()));
 
     }
 }

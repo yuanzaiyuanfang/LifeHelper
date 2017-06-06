@@ -21,7 +21,6 @@ public class MyApplication extends BaseApplication {
         return (MyApplication) getAppContext();
     }
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,10 +30,7 @@ public class MyApplication extends BaseApplication {
         LogUtils.logInit(Constant.isDebug);
         Hawk.init(this).build();
 
-
 //        initHotfix();
-
-
 
         sHandler = new Handler();
     }
