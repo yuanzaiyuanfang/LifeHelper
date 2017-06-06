@@ -40,7 +40,7 @@ public class DouBanAdapter extends BaseAdapter<DouBanListBean.PostsBean, BaseAda
         } else {
             pic.setVisibility(View.GONE);
         }
-        holder.itemView.setOnClickListener(v -> DetailsActivity.startSelf(mContext, Constant.TYPE_DOUBAN, bean.getId(),bean.getTitle()));
+        holder.itemView.setOnClickListener(v -> DetailsActivity.Companion.startSelf(mContext, Constant.TYPE_DOUBAN, bean.getId(),bean.getTitle()));
 
     }
 }
