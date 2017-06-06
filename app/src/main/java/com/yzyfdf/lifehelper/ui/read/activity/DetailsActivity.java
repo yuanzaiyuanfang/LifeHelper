@@ -78,6 +78,7 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
         ActionBar bar = getSupportActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(v -> finish());
+
     }
 
 

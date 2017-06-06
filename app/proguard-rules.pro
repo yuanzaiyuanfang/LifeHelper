@@ -24,6 +24,7 @@
 -verbose                                                                    #混淆时记录日志
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*    #优化
 #-applymapping mapping.txt
+-keepattributes SourceFile,LineNumberTable
 
 #-----------------不需要混淆第三方类库------------------------------------------------------------------
 
@@ -121,6 +122,11 @@
 -keep class com.taobao.hotfix.HotFixManager{
     public *;
 }
+
+#bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}
 
  #okgo
  -dontwarn com.lzy.okgo.**

@@ -7,6 +7,7 @@ import com.jaydenxiao.common.commonutils.LogUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.orhanobut.hawk.Hawk;
+import com.tencent.bugly.Bugly;
 
 /**
  * Created by conan on 2017/2/18.
@@ -26,6 +27,7 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
 
         initOkGo();
+        Bugly.init(getApplicationContext(), "35b20221cc", Constant.isDebug);
         LogUtils.logInit(Constant.isDebug);
         Hawk.init(this).build();
 
