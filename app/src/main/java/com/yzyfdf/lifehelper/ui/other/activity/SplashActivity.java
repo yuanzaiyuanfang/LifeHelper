@@ -21,8 +21,6 @@ public class SplashActivity extends PermissionActivity<SplashPresenter, SplashMo
     TextView mTimer;
 
     private static final String APP_ID = "wx225167515bf0be19";
-    private boolean hasPermission = false;
-    private boolean timeOver = false;
     public static IWXAPI mWXAPI;
 
     @Override

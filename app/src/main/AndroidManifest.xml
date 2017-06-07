@@ -56,9 +56,8 @@
         //菜谱收藏
         <activity android:name=".ui.cookbook.activity.CookFavoritesActivity">
         </activity>
-        //菜谱收藏
-        <activity android:name=".ui.cookbook.activity.CookFavoritesActivity2">
-        </activity>
+        <!--<activity android:name=".ui.cookbook.activity.CookFavoritesActivity2">-->
+        <!--</activity>-->
 
         //阅读详情
         <activity android:name=".ui.read.activity.DetailsActivity">

@@ -22,7 +22,7 @@ import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.base.activity.BaseAppFragment;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookCategoryActivity;
-import com.yzyfdf.lifehelper.ui.cookbook.activity.CookFavoritesActivity2;
+import com.yzyfdf.lifehelper.ui.cookbook.activity.CookFavoritesActivity;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookMainFragment;
 import com.yzyfdf.lifehelper.ui.other.contract.HomeContract;
 import com.yzyfdf.lifehelper.ui.other.model.HomeModel;
@@ -213,7 +213,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
                 CookCategoryActivity.startSelf(this);
                 return true;
             case R.id.my_favorites_cook:
-                CookFavoritesActivity2.startSelf(this);
+                CookFavoritesActivity.startSelf(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

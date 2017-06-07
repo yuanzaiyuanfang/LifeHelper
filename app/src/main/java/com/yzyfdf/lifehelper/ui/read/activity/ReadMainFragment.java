@@ -82,25 +82,25 @@ public class ReadMainFragment extends BaseAppFragment   {
         return ((ZhiHuFragment) fragment).mXRecyclerView;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        show();
-//    }
-//
-//    private void show() {
-//        mFab.setOnClickListener(v -> getCurrentRecyclerView().scrollToPosition(0));
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        show();
+    }
 
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        hide();
-//    }
-//
-//    private void hide() {
-//        mFab.setOnClickListener(null);
-//    }
+    private void show() {
+        mFab.setOnClickListener(v -> getCurrentRecyclerView().scrollToPosition(0));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        hide();
+    }
+
+    private void hide() {
+        mFab.setOnClickListener(null);
+    }
 
     ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -110,7 +110,7 @@ public class ReadMainFragment extends BaseAppFragment   {
 
         @Override
         public void onPageSelected(int position) {
-//            mFab.setOnClickListener(v -> getCurrentRecyclerView().scrollToPosition(0));
+            mFab.setOnClickListener(v -> getCurrentRecyclerView().scrollToPosition(0));
         }
 
         @Override
