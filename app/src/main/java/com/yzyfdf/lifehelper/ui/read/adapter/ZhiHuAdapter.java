@@ -32,6 +32,6 @@ public class ZhiHuAdapter extends BaseAdapter<ZhiHuListBean.StoriesBean, BaseAda
         ZhiHuListBean.StoriesBean bean = mList.get(position);
         holder.setText(R.id.tv_title, bean.getTitle());
         holder.setImage(R.id.iv_pic, bean.getImages().get(0));
-        holder.itemView.setOnClickListener(v -> DetailsActivity.startSelf(mContext, Constant.TYPE_ZHIHU, bean.getId(),bean.getTitle()));
+        holder.itemView.setOnClickListener(v -> DetailsActivity.startSelf(mContext, Constant.TYPE_ZHIHU, bean.getId(),bean.getTitle(),""));
     }
 }

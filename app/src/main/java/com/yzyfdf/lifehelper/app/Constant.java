@@ -29,6 +29,7 @@ public class Constant {
     public static final String cook_list     = cook_host + "menu/recipes/";
     public static final String cook_category = cook_host + "recipe/flatcatalogs";
     public static final String cook_search   = cook_host + "recipe/s/";
+    public static final String cook_share   = "http://m.douguo.com/cookbook/share/cookid.html";
     //read
     // 知乎
     public static final String ZHIHU_NEWS = "http://news-at.zhihu.com/api/4/news/";
@@ -44,6 +45,7 @@ public class Constant {
     public static final String READ_TYPE = "read_type";
     public static final String READ_ID  = "read_id";
     public static final String READ_TITLE  = "read_title";
+    public static final String READ_MSG  = "read_msg";
     public static final String READ_URL  = "read_url";
     public static final int TYPE_ZHIHU  = 1001;
     public static final int TYPE_DOUBAN = 1002;

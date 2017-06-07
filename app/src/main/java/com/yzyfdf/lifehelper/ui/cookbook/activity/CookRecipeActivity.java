@@ -20,19 +20,15 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXImageObject;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
 import com.yzyfdf.lifehelper.bean.cookbean.MyFavoriteBean;
 import com.yzyfdf.lifehelper.ui.cookbook.adapter.CookRecipeAdapter;
-import com.yzyfdf.lifehelper.ui.other.activity.SplashActivity;
 import com.yzyfdf.lifehelper.util.HawkUtil;
 import com.yzyfdf.lifehelper.util.ShareUtil;
-import com.yzyfdf.lifehelper.util.WxUtil;
+import com.yzyfdf.lifehelper.util.WxShareUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +65,7 @@ public class CookRecipeActivity extends BaseAppActivity {
     private boolean        mFavorite;
     private MyFavoriteBean mMyFavoriteBean;
     private CookMainBean.ResultBean.ListBean.RBean mRBean;
+    private ArrayList<String> mMajorList = new ArrayList<>();
 
 
     public static void startSelf(Context context, CookMainBean.ResultBean.ListBean.RBean rBean) {
@@ -120,6 +117,7 @@ public class CookRecipeActivity extends BaseAppActivity {
             name.setText(majorBean.getTitle());
             num.setText(majorBean.getNote());
             mLayoutList.addView(view);
+            mMajorList.add(majorBean.getTitle()+" ");
         }
         List<CookMainBean.ResultBean.ListBean.RBean.MinorBean> minor = mRBean.getMinor();
         for (CookMainBean.ResultBean.ListBean.RBean.MinorBean minorBean : minor) {
@@ -129,6 +127,7 @@ public class CookRecipeActivity extends BaseAppActivity {
             name.setText(minorBean.getTitle());
             num.setText(minorBean.getNote());
             mLayoutList.addView(view);
+            mMajorList.add(minorBean.getTitle()+" ");
         }
 
         //步骤
@@ -198,7 +197,7 @@ public class CookRecipeActivity extends BaseAppActivity {
             case R.id.action_share:
                 ToastUtils.showShortToast("分享中...稍等");
 //                savePic(mShareView);
-                sharePic(mShareView);
+                shareCookBook();
                 return true;
             case R.id.my_favorites_cook:
                 CookFavoritesActivity.startSelf(this);
@@ -209,32 +208,12 @@ public class CookRecipeActivity extends BaseAppActivity {
 
     }
 
-    private void sharePic(LinearLayout linearLayout) {
-        Bitmap bitmap = ShareUtil.getLinearLayoutBitmap(linearLayout);
-        if (bitmap == null) {
-            showShortToast("保存失败了");
-            return;
-        }
-
-        WXImageObject imageObject = new WXImageObject(bitmap);
-
-        WXMediaMessage mediaMessage = new WXMediaMessage();
-        mediaMessage.mediaObject = imageObject;
-
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, true);
-        bitmap.recycle();
-        mediaMessage.thumbData = WxUtil.bmpToByteArray(scaledBitmap, true);
-
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = String.valueOf(System.currentTimeMillis());
-        req.message = mediaMessage;
-        req.scene = SendMessageToWX.Req.WXSceneSession;
-
-        if (SplashActivity.mWXAPI != null) {
-            SplashActivity.mWXAPI.sendReq(req);
-        }
-
+    private void shareCookBook() {
+        int id = mRBean.getId();
+        String url = Constant.cook_share.replace("cookid", String.valueOf(id));
+        WxShareUtil.shareWebpage(url,mRBean.getN(),mMajorList.toString());
     }
+
 
     private void savePic(LinearLayout linearLayout) {
         Observable.create((Observable.OnSubscribe<Bitmap>) subscriber -> {

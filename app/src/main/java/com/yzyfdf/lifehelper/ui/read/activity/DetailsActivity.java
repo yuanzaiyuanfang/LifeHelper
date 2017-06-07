@@ -24,6 +24,7 @@ import com.yzyfdf.lifehelper.util.WxShareUtil;
 import butterknife.Bind;
 
 import static com.yzyfdf.lifehelper.app.Constant.READ_ID;
+import static com.yzyfdf.lifehelper.app.Constant.READ_MSG;
 import static com.yzyfdf.lifehelper.app.Constant.READ_TITLE;
 import static com.yzyfdf.lifehelper.app.Constant.READ_TYPE;
 import static com.yzyfdf.lifehelper.app.Constant.TYPE_DOUBAN;
@@ -34,22 +35,25 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
 
 
     @Bind(R.id.toolbar)
-    Toolbar                               mToolbar;
+    Toolbar mToolbar;
     @Bind(R.id.webview)
     com.yzyfdf.lifehelper.widget.OWebView mWebview;
-    private int    mReadType;
-    private int    mId;
+    private int mReadType;
+    private int mId;
     private String mZhiHu_share;
     private String mDouBan_share;
     private String mGuoKe_share;
+    private String share_url;
     private String mTitle;
+    private String mMsg;
 
 
-    public static void startSelf(Context context, int read_type, int id, String title) {
+    public static void startSelf(Context context, int read_type, int id, String title, String msg) {
         Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra(Constant.READ_TYPE, read_type);
         intent.putExtra(Constant.READ_ID, id);
         intent.putExtra(Constant.READ_TITLE, title);
+        intent.putExtra(Constant.READ_MSG, msg);
         context.startActivity(intent);
     }
 
@@ -69,19 +73,20 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
         mReadType = intent.getIntExtra(READ_TYPE, -1);
         mId = intent.getIntExtra(READ_ID, -1);
         mTitle = intent.getStringExtra(READ_TITLE);
+        mMsg = intent.getStringExtra(READ_MSG);
 
         switch (mReadType) {
             case TYPE_ZHIHU:
                 mPresenter.queryZhiHuDetails(mId);
-                mZhiHu_share = "http://daily.zhihu.com/story/" + mId;
+                share_url = "http://daily.zhihu.com/story/" + mId;
                 break;
             case TYPE_DOUBAN:
                 mPresenter.queryDouBanDetails(mId);
-                mDouBan_share = "https://moment.douban.com/post/" + mId;
+                share_url = "https://moment.douban.com/post/" + mId;
                 break;
             case TYPE_GUOKE:
                 mPresenter.queryGuoKeDetails(mId);
-                mGuoKe_share = "http://jingxuan.guokr.com/pick/" + mId;
+                share_url = "http://jingxuan.guokr.com/pick/" + mId;
                 break;
             default:
                 break;
@@ -142,7 +147,7 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
         switch (id) {
             case R.id.action_share:
                 ToastUtils.showShortToast("分享中...稍等");
-                saveUrl();
+                shareUrl();
                 return true;
             case R.id.action_favorite:
                 showShortToast("敬请期待");
@@ -153,23 +158,9 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
 
     }
 
-    private void saveUrl() {
-        String url = "";
-        switch (mReadType) {
-            case TYPE_ZHIHU:
-                url = mZhiHu_share;
-                break;
-            case TYPE_DOUBAN:
-                url = mDouBan_share;
-                break;
-            case TYPE_GUOKE:
-                url = mGuoKe_share;
-                break;
-            default:
-                break;
-        }
-        if (!TextUtils.isEmpty(url))
-            WxShareUtil.shareWebpage(url,mTitle);
+    private void shareUrl() {
+        if (!TextUtils.isEmpty(share_url))
+            WxShareUtil.shareWebpage(share_url, mTitle, mMsg);
     }
 
 

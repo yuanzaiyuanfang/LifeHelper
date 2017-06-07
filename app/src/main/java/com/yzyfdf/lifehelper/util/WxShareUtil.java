@@ -14,12 +14,13 @@ import com.yzyfdf.lifehelper.ui.other.activity.SplashActivity;
  */
 
 public class WxShareUtil {
-    public static void shareWebpage(String url, String title) {
+    public static void shareWebpage(String url, String title,String msg) {
         WXWebpageObject webpageObject = new WXWebpageObject();
         webpageObject.webpageUrl = url;
 
         WXMediaMessage mediaMessage = new WXMediaMessage(webpageObject);
         mediaMessage.title = title;
+        mediaMessage.description = msg;
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());
