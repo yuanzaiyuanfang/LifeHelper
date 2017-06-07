@@ -98,6 +98,7 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile 'com.github.devlight:infinitecycleviewpager:1.0.2'
 }
 repositories {
     mavenCentral()

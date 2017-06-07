@@ -18,7 +18,7 @@ public abstract class BaseVPAdapter<T> extends PagerAdapter {
 
     protected Context mContext;
     protected ArrayList<T> mList;
-    private View mView;
+    protected View mView;
 
     public BaseVPAdapter(Context context,ArrayList<T> list) {
         mContext = context;
