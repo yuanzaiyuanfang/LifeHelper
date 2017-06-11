@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--android:background="@drawable/side_nav_bar"-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,31 +7,70 @@
     android:layout_height="160dp"
     android:background="@drawable/side_nav_bar"
     android:gravity="bottom"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        app:srcCompat="@android:drawable/sym_def_app_icon"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:text="Life Helper"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            app:srcCompat="@android:drawable/sym_def_app_icon"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="Life Helper"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我们的生活小助手"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="right"
         android:layout_height="wrap_content"
-        android:text="你的生活小助手"/>
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_weather"
+            android:layout_width="wrap_content"
+            android:src="@mipmap/weather_error"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/tv_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:text=" ℃ ~  ℃"
+            />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:paddingTop="12dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="-N/A-"/>
+    </LinearLayout>
 
 </LinearLayout>

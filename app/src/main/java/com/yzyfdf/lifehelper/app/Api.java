@@ -17,6 +17,7 @@ import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
+import com.yzyfdf.lifehelper.bean.weather.WeatherBean;
 
 import java.util.HashMap;
 
@@ -100,6 +101,13 @@ public class Api {
     public Observable<CookSearchBean> search(Context context, String keyWord, int num) {
         return getCookRequest2(context, Constant.cook_search + num, "order=0&keyword=" + keyWord).getCall(new JsonConvert<CookSearchBean>() {
         }, RxAdapter.<CookSearchBean>create());
+    }
+
+    //天气
+    public Observable<WeatherBean> queryWeather(Context context, String city) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getReadRequest(context, Constant.weather_weather + city, params).getCall(new JsonConvertNews<WeatherBean>() {
+        }, RxAdapter.create());
     }
 
     //知乎

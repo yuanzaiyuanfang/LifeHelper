@@ -13,14 +13,19 @@ import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.jaydenxiao.common.baseapp.AppManager;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.base.activity.BaseAppFragment;
+import com.yzyfdf.lifehelper.bean.weather.WeatherBean;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookCategoryActivity;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookFavoritesActivity;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookMainFragment;
@@ -61,6 +66,9 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
     private              int      mNowPager = read;
     private              String[] mTitles   = {"美食", "阅读"};
     private              int[]    mMenuIds  = {R.id.nav_cookbook, R.id.nav_read};
+    private TextView  mTv_weather;
+    private TextView  mTv_location;
+    private ImageView mIv_weather;
 
     public static void startSelf(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -74,7 +82,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
@@ -88,16 +96,32 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
 
         //DrawerLayout
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                initWeather();
+            }
+        };
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        //第NavigationView一次选择第一项食谱
+        //NavigationView默认选择
         mNavView.setCheckedItem(mMenuIds[mNowPager]);
         mNavView.setNavigationItemSelectedListener(this);
 
+        View headerView = mNavView.getHeaderView(0);
+        mTv_weather = (TextView) headerView.findViewById(R.id.tv_weather);
+        mTv_location = (TextView) headerView.findViewById(R.id.tv_location);
+        mIv_weather = (ImageView) headerView.findViewById(R.id.iv_weather);
+
 
         initFragment();
+
+    }
+
+    private void initWeather() {
+        mPresenter.queryWeather("苏州");
     }
 
     private void initFragment() {
@@ -182,14 +206,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //        getMenuInflater().inflate(R.menu.home_cook, menu);
-        return true;
-    }
-
-    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        //        menu.clear();
         switch (mNowPager) {
             case cookbook:
                 getMenuInflater().inflate(R.menu.home_cook, menu);
@@ -241,4 +258,20 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
         ToastUtils.showShortToast("再按一下返回键退出");
     }
 
+    @Override
+    public void returnWeather(WeatherBean.HeWeather5Bean bean) {
+        String min = bean.getDaily_forecast().get(0).getTmp().getMin();
+        String max = bean.getDaily_forecast().get(0).getTmp().getMax();
+        mTv_weather.setText(min + "℃ ~ " + max + "℃");
+
+        mTv_location.setText(bean.getBasic().getCity());
+
+        String code = bean.getNow().getCond().getCode();
+        Glide.with(this)
+                .load("https://cdn.heweather.com/cond_icon/" + code + ".png")
+                .placeholder(R.mipmap.weather_error)
+                .error(R.mipmap.weather_error)
+                .into(mIv_weather);
+
+    }
 }
