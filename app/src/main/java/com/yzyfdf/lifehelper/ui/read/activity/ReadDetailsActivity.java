@@ -16,9 +16,9 @@ import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
-import com.yzyfdf.lifehelper.ui.read.contract.DetailsContract;
-import com.yzyfdf.lifehelper.ui.read.model.DetailsModel;
-import com.yzyfdf.lifehelper.ui.read.presenter.DetailsPresenter;
+import com.yzyfdf.lifehelper.ui.read.contract.ReadDetailsContract;
+import com.yzyfdf.lifehelper.ui.read.model.ReadDetailsModel;
+import com.yzyfdf.lifehelper.ui.read.presenter.ReadDetailsPresenter;
 import com.yzyfdf.lifehelper.util.WxShareUtil;
 
 import butterknife.Bind;
@@ -31,7 +31,7 @@ import static com.yzyfdf.lifehelper.app.Constant.TYPE_DOUBAN;
 import static com.yzyfdf.lifehelper.app.Constant.TYPE_GUOKE;
 import static com.yzyfdf.lifehelper.app.Constant.TYPE_ZHIHU;
 
-public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsModel> implements DetailsContract.View {
+public class ReadDetailsActivity extends BaseAppActivity<ReadDetailsPresenter, ReadDetailsModel> implements ReadDetailsContract.View {
 
 
     @Bind(R.id.toolbar)
@@ -49,7 +49,7 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
 
 
     public static void startSelf(Context context, int read_type, int id, String title, String msg) {
-        Intent intent = new Intent(context, DetailsActivity.class);
+        Intent intent = new Intent(context, ReadDetailsActivity.class);
         intent.putExtra(Constant.READ_TYPE, read_type);
         intent.putExtra(Constant.READ_ID, id);
         intent.putExtra(Constant.READ_TITLE, title);
@@ -59,7 +59,7 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_details;
+        return R.layout.activity_read_details;
     }
 
     @Override
@@ -182,12 +182,12 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
 //import com.yzyfdf.lifehelper.base.activity.BaseAppActivity
 //import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean
 //import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean
-//import com.yzyfdf.lifehelper.ui.read.contract.DetailsContract
-//import com.yzyfdf.lifehelper.ui.read.model.DetailsModel
-//import com.yzyfdf.lifehelper.ui.read.presenter.DetailsPresenter
+//import com.yzyfdf.lifehelper.ui.read.contract.ReadDetailsContract
+//import com.yzyfdf.lifehelper.ui.read.model.ReadDetailsModel
+//import com.yzyfdf.lifehelper.ui.read.presenter.ReadDetailsPresenter
 //import kotlinx.android.synthetic.main.activity_details.*
 //
-//class DetailsActivity : BaseAppActivity<DetailsPresenter, DetailsModel>(), DetailsContract.View {
+//class ReadDetailsActivity : BaseAppActivity<ReadDetailsPresenter, ReadDetailsModel>(), ReadDetailsContract.View {
 //
 //    private var mReadType: Int = 0
 //    private var mId: Int = 0
@@ -283,7 +283,7 @@ public class DetailsActivity extends BaseAppActivity<DetailsPresenter, DetailsMo
 //
 //    companion object {
 //        fun startSelf(context: Context, read_type: Int, id: Int, title: String) {
-//            val intent = Intent(context, DetailsActivity::class.java)
+//            val intent = Intent(context, ReadDetailsActivity::class.java)
 //            intent.putExtra(Constant.READ_TYPE, read_type)
 //            intent.putExtra(Constant.READ_ID, id)
 //            intent.putExtra(Constant.READ_TITLE, title)

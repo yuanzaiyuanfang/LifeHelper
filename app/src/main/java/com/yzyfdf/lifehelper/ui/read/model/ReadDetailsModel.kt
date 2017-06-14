@@ -1,14 +1,12 @@
 package com.yzyfdf.lifehelper.ui.read.model
 
 import android.content.Context
-
 import com.jaydenxiao.common.baserx.RxSchedulers
 import com.yzyfdf.lifehelper.app.Api
 import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean
-
+import com.yzyfdf.lifehelper.ui.read.contract.ReadDetailsContract
 import rx.Observable
-import com.yzyfdf.lifehelper.ui.read.contract.DetailsContract
 
 /**
  * Created by Conan on 2017/2/23.
@@ -20,7 +18,7 @@ import com.yzyfdf.lifehelper.ui.read.contract.DetailsContract
 //  Api.getInstance().errorObservable("失败");
 //  Api.getInstance().demoMethod(mContext, params...).flatMap(Func...).map(Func...).compose(RxSchedulers.<Object>io_main());
 
-class DetailsModel : DetailsContract.Model {
+class ReadDetailsModel : ReadDetailsContract.Model {
 
     internal var mContext: Context? = null
 
@@ -53,7 +51,7 @@ class DetailsModel : DetailsContract.Model {
 //import com.yzyfdf.lifehelper.app.Api;
 //import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 //import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
-//import DetailsContract;
+//import ReadDetailsContract;
 //
 //import rx.Observable;
 //
@@ -67,7 +65,7 @@ class DetailsModel : DetailsContract.Model {
 ////  Api.getInstance().errorObservable("失败");
 ////  Api.getInstance().demoMethod(mContext, params...).flatMap(Func...).map(Func...).compose(RxSchedulers.<Object>io_main());
 //
-//public class DetailsModel implements DetailsContract.Model {
+//public class ReadDetailsModel implements ReadDetailsContract.Model {
 //
 //    Context mContext;
 //

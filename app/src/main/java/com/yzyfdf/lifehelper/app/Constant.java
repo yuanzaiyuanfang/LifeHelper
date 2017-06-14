@@ -33,6 +33,7 @@ public class Constant {
 
     /*hawk*/
     public static final String favorites = "favorites";
+    public static final String location  = "location";
 
     /*接口*/
     //cookbook
@@ -55,6 +56,7 @@ public class Constant {
     //weather
     public static final String weather_host    = "https://free-api.heweather.com/v5/";
     public static final String weather_key     = "6532ab1d4d204af385d1616763dfdab2";
+    public static final String weather_icon    = "https://cdn.heweather.com/cond_icon/code.png";
     public static final String weather_now     = weather_host + "now?key=" + weather_key + "&city=";
     public static final String weather_weather = weather_host + "weather?key=" + weather_key + "&city=";
 

@@ -3,13 +3,13 @@ package com.yzyfdf.lifehelper.ui.read.presenter
 import com.jaydenxiao.common.baserx.RxSubscriber
 import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean
-import com.yzyfdf.lifehelper.ui.read.contract.DetailsContract
+import com.yzyfdf.lifehelper.ui.read.contract.ReadDetailsContract
 
 /****************
  * 使用例子
  */
 //mRxManage.add(mModel.demoMethod(params...).subscribe(new RxSubscriber<Object>(mContext, true) {method...}));
-class DetailsPresenter : DetailsContract.Presenter() {
+class ReadDetailsPresenter : ReadDetailsContract.Presenter() {
 
     override fun queryZhiHuDetails(id: Int) {
         mRxManage.add(mModel.queryZhiHuDetails(id).subscribe(object : RxSubscriber<ZhiHuDetailsBean>(mContext, true) {
@@ -59,13 +59,13 @@ class DetailsPresenter : DetailsContract.Presenter() {
 //import com.jaydenxiao.common.baserx.RxSubscriber;
 //import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 //import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
-//import DetailsContract;
+//import ReadDetailsContract;
 //
 ///****************
 // * 使用例子
 // ****************/
 ////mRxManage.add(mModel.demoMethod(params...).subscribe(new RxSubscriber<Object>(mContext, true) {method...}));
-//public class DetailsPresenter extends DetailsContract.Presenter {
+//public class ReadDetailsPresenter extends ReadDetailsContract.Presenter {
 //
 //    @Override
 //    public void queryZhiHuDetails(int id) {

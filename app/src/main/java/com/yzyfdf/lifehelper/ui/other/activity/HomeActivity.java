@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.jaydenxiao.common.baseapp.AppManager;
+import com.orhanobut.hawk.Hawk;
 import com.yzyfdf.lifehelper.R;
+import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.base.activity.BaseAppFragment;
 import com.yzyfdf.lifehelper.bean.weather.WeatherBean;
@@ -33,12 +36,13 @@ import com.yzyfdf.lifehelper.ui.other.contract.HomeContract;
 import com.yzyfdf.lifehelper.ui.other.model.HomeModel;
 import com.yzyfdf.lifehelper.ui.other.presenter.HomePresenter;
 import com.yzyfdf.lifehelper.ui.read.activity.ReadMainFragment;
+import com.yzyfdf.lifehelper.ui.weather.activity.WeatherMainActivity;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 
-public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> implements HomeContract.View, NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> implements HomeContract.View, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
     @Bind(R.id.toolbar)
@@ -69,6 +73,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
     private TextView  mTv_weather;
     private TextView  mTv_location;
     private ImageView mIv_weather;
+    private View      mLayout_weather;
 
     public static void startSelf(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -97,7 +102,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
         //DrawerLayout
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            @Override
+            @Override//打开侧滑菜单时
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 initWeather();
@@ -111,9 +116,11 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
         mNavView.setNavigationItemSelectedListener(this);
 
         View headerView = mNavView.getHeaderView(0);
+        mLayout_weather = headerView.findViewById(R.id.layout_weather);
         mTv_weather = (TextView) headerView.findViewById(R.id.tv_weather);
         mTv_location = (TextView) headerView.findViewById(R.id.tv_location);
         mIv_weather = (ImageView) headerView.findViewById(R.id.iv_weather);
+        mLayout_weather.setOnClickListener(this);
 
 
         initFragment();
@@ -121,7 +128,12 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
     }
 
     private void initWeather() {
-        mPresenter.queryWeather("苏州");
+        String location = Hawk.get(Constant.location, "");
+        if (TextUtils.isEmpty(location)) {
+            mTv_location.setText("请选择");
+        } else {
+            mPresenter.queryWeather(location);
+        }
     }
 
     private void initFragment() {
@@ -232,11 +244,24 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
             case R.id.my_favorites_cook:
                 CookFavoritesActivity.startSelf(this);
                 return true;
+            case R.id.my_favorites_read:
+                showShortToast("敬请期待");
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
 
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.layout_weather:
+                WeatherMainActivity.startSelf(HomeActivity.this);
+                break;
+            default:
+                break;
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @Override
@@ -268,10 +293,12 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
 
         String code = bean.getNow().getCond().getCode();
         Glide.with(this)
-                .load("https://cdn.heweather.com/cond_icon/" + code + ".png")
+                .load(Constant.weather_icon.replace("code",code))
                 .placeholder(R.mipmap.weather_error)
                 .error(R.mipmap.weather_error)
                 .into(mIv_weather);
 
     }
+
+
 }

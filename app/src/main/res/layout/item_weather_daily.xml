@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="10dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="今天"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/iv_cond"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        tools:src="@drawable/ic_check"/>
+
+    <TextView
+        android:id="@+id/tv_minMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        tools:text="11°/22°"/>
+
+    <TextView
+        android:id="@+id/tv_cond"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        tools:text="多云转晴"
+        android:maxLines="1"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
+</LinearLayout>

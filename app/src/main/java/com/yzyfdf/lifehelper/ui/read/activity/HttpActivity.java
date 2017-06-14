@@ -39,7 +39,7 @@ public class HttpActivity extends BaseAppActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_details;
+        return R.layout.activity_read_details;
     }
 
     @Override

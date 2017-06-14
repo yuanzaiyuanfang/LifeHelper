@@ -12,7 +12,7 @@ import rx.Observable
 /**
  * Created by Conan on 2017/2/23.
  */
-interface DetailsContract {
+interface ReadDetailsContract {
 
     abstract class Presenter : BasePresenter<View, Model>() {
         abstract fun queryZhiHuDetails(id: Int)
@@ -50,7 +50,7 @@ interface DetailsContract {
 ///**
 // * Created by Conan on 2017/2/23.
 // */
-//public interface DetailsContract {
+//public interface ReadDetailsContract {
 //
 //    abstract class Presenter extends BasePresenter<View, Model> {
 //                public abstract void queryZhiHuDetails (int id);

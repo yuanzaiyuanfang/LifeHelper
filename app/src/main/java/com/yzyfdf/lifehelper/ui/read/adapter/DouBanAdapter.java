@@ -10,7 +10,7 @@ import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
-import com.yzyfdf.lifehelper.ui.read.activity.DetailsActivity;
+import com.yzyfdf.lifehelper.ui.read.activity.ReadDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class DouBanAdapter extends BaseAdapter<DouBanListBean.PostsBean, BaseAda
         } else {
             pic.setVisibility(View.GONE);
         }
-        holder.itemView.setOnClickListener(v -> DetailsActivity.startSelf(mContext, Constant.TYPE_DOUBAN, bean.getId(),bean.getTitle(),bean.getAbstractX()));
+        holder.itemView.setOnClickListener(v -> ReadDetailsActivity.startSelf(mContext, Constant.TYPE_DOUBAN, bean.getId(),bean.getTitle(),bean.getAbstractX()));
 
     }
 }

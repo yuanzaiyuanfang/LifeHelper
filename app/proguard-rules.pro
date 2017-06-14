@@ -202,9 +202,11 @@
 -keep class com.yzyfdf.lifehelper.ui.other.model.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.other.presenter.** { *; }
 
--keep class com.yzyfdf.lifehelper.ui.read.activity.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.read.model.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.read.presenter.** { *; }
+
+-keep class com.yzyfdf.lifehelper.ui.weather.model.** { *; }
+-keep class com.yzyfdf.lifehelper.ui.weather.presenter.** { *; }
 
 -keep class com.jaydenxiao.common.** { *; }
 
@@ -241,3 +243,12 @@
 -keep class com.tencent.mm.sdk.** {
    *;
 }
+
+#jdaddressselector
+-keep class com.raizlabs.android.dbflow.config.** {
+   *;
+}
+-keep class chihane.jdaddressselector.** {
+   *;
+}
+

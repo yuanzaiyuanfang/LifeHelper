@@ -78,4 +78,6 @@ public class HawkUtil {
         return Hawk.get(Constant.favorites, new ArrayList<MyFavoriteBean>());
 
     }
+
+
 }
