@@ -23,13 +23,17 @@
     <item android:title="功能">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@android:drawable/ic_menu_share"
-                android:title="敬请期待"/>
-            <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_setting"
                 android:icon="@android:drawable/ic_menu_manage"
                 android:title="设置"/>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="分享"/>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@android:drawable/ic_menu_crop"
+                android:title="关于"/>
         </menu>
     </item>
 

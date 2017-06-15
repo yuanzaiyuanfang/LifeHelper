@@ -31,8 +31,6 @@ import java.util.List;
 import butterknife.Bind;
 import chihane.jdaddressselector.AddressSelector;
 
-import static com.yzyfdf.lifehelper.app.Constant.location;
-
 
 public class WeatherMainActivity extends BaseAppActivity<WeatherMainPresenter, WeatherMainModel> implements WeatherMainContract.View {
 
@@ -47,8 +45,10 @@ public class WeatherMainActivity extends BaseAppActivity<WeatherMainPresenter, W
     TextView     mTvMinMax;
     @Bind(R.id.tv_aqi)
     TextView     mTvAqi;
-    @Bind(R.id.recyclerview)
-    RecyclerView mRecyclerview;//后三天气温
+    @Bind(R.id.recyclerview1)
+    RecyclerView mRecyclerview3day;//后三天气温
+    @Bind(R.id.tv_suggest)
+    TextView     mTvSuggest;
 
     private AlertDialog     mDialog;
     private AddressSelector mAddressSelector;
@@ -79,9 +79,10 @@ public class WeatherMainActivity extends BaseAppActivity<WeatherMainPresenter, W
         bar.setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(v -> finish());
 
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        mLater3daysAdapter = new Later3daysAdapter(this,mDailyList);
-        mRecyclerview.setAdapter(mLater3daysAdapter);
+        mRecyclerview3day.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mLater3daysAdapter = new Later3daysAdapter(this, mDailyList);
+        mRecyclerview3day.setAdapter(mLater3daysAdapter);
+
 
         String location = Hawk.get(Constant.location, "");
         if (TextUtils.isEmpty(location)) {
@@ -96,12 +97,24 @@ public class WeatherMainActivity extends BaseAppActivity<WeatherMainPresenter, W
 
     private void initAddressDialog() {
         mAddressSelector = new AddressSelector(this);
-        //        addressSelector.setAddressProvider(new MyAddressProvider());
         mAddressSelector.setOnAddressSelectedListener((province, city, county, street) -> {
-            mPresenter.queryWeather(county.name);
+            String location = "苏州";
+            if (province != null) {
+                location = province.name;
+            }
+            if (city != null) {
+                location = city.name;
+            }
+            if (county != null) {
+                location = county.name;
+            }
+            if (street != null) {
+                location = street.name;
+            }
+            mPresenter.queryWeather(location);
+            Hawk.put(Constant.location, location);
+            mToolbar.setTitle(location);
             mDialog.dismiss();
-            Hawk.put(location, county.name);
-            mToolbar.setTitle(county.name);
         });
         View view = mAddressSelector.getView();
         mDialog = new AlertDialog.Builder(this).setView(view).create();
@@ -148,7 +161,13 @@ public class WeatherMainActivity extends BaseAppActivity<WeatherMainPresenter, W
             mTvAqi.setText(aqi + "·" + qlty);
         }
 
-        mLater3daysAdapter.refresh(dailyList);
+        mLater3daysAdapter.refresh(dailyList);//三天天气
+
+        WeatherBean.HeWeather5Bean.SuggestionBean suggestion = bean.getSuggestion();
+        mTvSuggest.setText("\u3000"+ "\u3000"+ suggestion.getDrsg().getTxt() + "\n"+ "\n"
+                + "\u3000"+ "\u3000"+ suggestion.getComf().getTxt() + "\n"+ "\n"
+                + "\u3000"+ "\u3000"+ suggestion.getUv().getTxt() + "\n"+ "\n"
+                + "\u3000"+ "\u3000"+ suggestion.getFlu().getTxt());//建议
     }
 
     @Override

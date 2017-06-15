@@ -206,10 +206,12 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
             showShortToast("敬请期待");
         } else if (id == R.id.nav_manage) {
             showShortToast("敬请期待");
+        } else if (id == R.id.nav_setting) {
+            SettingActivity.startSelf(this);
         } else if (id == R.id.nav_share) {
             showShortToast("敬请期待");
-        } else if (id == R.id.nav_send) {
-            SettingActivity.startSelf(this);
+        }else if (id == R.id.nav_about) {
+            showShortToast("敬请期待");
         }
         supportInvalidateOptionsMenu();
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -261,7 +263,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
             default:
                 break;
         }
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+        mDrawerLayout.postDelayed(() -> mDrawerLayout.closeDrawer(GravityCompat.START),1000);
     }
 
     @Override
@@ -289,7 +291,8 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
         String max = bean.getDaily_forecast().get(0).getTmp().getMax();
         mTv_weather.setText(min + "℃ ~ " + max + "℃");
 
-        mTv_location.setText(bean.getBasic().getCity());
+        String city = bean.getBasic().getCity();
+        mTv_location.setText(city);
 
         String code = bean.getNow().getCond().getCode();
         Glide.with(this)
@@ -297,6 +300,8 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
                 .placeholder(R.mipmap.weather_error)
                 .error(R.mipmap.weather_error)
                 .into(mIv_weather);
+
+        Hawk.put(Constant.location, city);
 
     }
 
