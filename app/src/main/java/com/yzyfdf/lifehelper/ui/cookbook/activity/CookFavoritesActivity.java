@@ -80,6 +80,8 @@ public class CookFavoritesActivity extends BaseAppActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CookFavoritesAdapter(this, mList);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setPullRefreshEnabled(false);
+        mRecyclerView.setLoadingMoreEnabled(false);
         //RecyclerViewDelete
         mXRecyclerViewDelete.setLayoutManager(new LinearLayoutManager(this));
         mDeleteAdapter = new CookFavoritesDeleteAdapter(this, mList);
