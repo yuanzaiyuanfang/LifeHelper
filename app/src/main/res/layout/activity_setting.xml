@@ -27,21 +27,45 @@
         <TextView
             style="@style/setting_title"
             android:text="全局"/>
-
+        <!--清除磁盘缓存-->
         <LinearLayout
             android:id="@+id/layout_clearCache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/setting_option"
                 android:text="清除磁盘缓存"/>
+
             <TextView
                 android:id="@+id/tv_cache"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 tools:text="11.11M"/>
+        </LinearLayout>
+
+        <ImageView
+            style="@style/setting_divider"/>
+
+        <!--默认显示模块-->
+        <LinearLayout
+            android:id="@+id/layout_nowpage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/setting_option"
+                android:text="默认显示模块"/>
+
+            <TextView
+                android:id="@+id/tv_nowpage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                tools:text="美食"/>
         </LinearLayout>
 
         <ImageView
@@ -56,9 +80,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 style="@style/setting_option"
                 android:text="还没想好"/>
+
             <TextView
                 android:id="@+id/tv_xx"
                 android:layout_width="wrap_content"
@@ -66,7 +92,6 @@
                 android:layout_marginRight="10dp"
                 tools:text="11.11M"/>
         </LinearLayout>
-
 
 
     </LinearLayout>

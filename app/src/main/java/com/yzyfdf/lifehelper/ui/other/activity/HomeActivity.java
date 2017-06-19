@@ -37,6 +37,7 @@ import com.yzyfdf.lifehelper.ui.other.model.HomeModel;
 import com.yzyfdf.lifehelper.ui.other.presenter.HomePresenter;
 import com.yzyfdf.lifehelper.ui.read.activity.ReadMainFragment;
 import com.yzyfdf.lifehelper.ui.weather.activity.WeatherMainActivity;
+import com.yzyfdf.lifehelper.util.WxShareUtil;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
     private static final int      cookbook  = 0;
     private static final int      read      = 1;
     private              int      mNowPager = read;
-    private              String[] mTitles   = {"美食", "阅读"};
+
     private              int[]    mMenuIds  = {R.id.nav_cookbook, R.id.nav_read};
     private TextView  mTv_weather;
     private TextView  mTv_location;
@@ -92,12 +93,12 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
 
     @Override
     public void initView() {
-        //        SetTranslanteBar();
+        mNowPager = Hawk.get(Constant.nowpage, cookbook);
 
         //toolbar
         setSupportActionBar(mToolbar);
         mActionBar = getSupportActionBar();
-        mActionBar.setTitle(mTitles[mNowPager]);
+        mActionBar.setTitle(Constant.mTitles[mNowPager]);
 
         //DrawerLayout
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -209,8 +210,8 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
         } else if (id == R.id.nav_setting) {
             SettingActivity.startSelf(this);
         } else if (id == R.id.nav_share) {
-            showShortToast("敬请期待");
-        }else if (id == R.id.nav_about) {
+            WxShareUtil.shareWebpage(Constant.share_url,"LifeHelper","你的生活小助手");
+        } else if (id == R.id.nav_about) {
             showShortToast("敬请期待");
         }
         supportInvalidateOptionsMenu();
@@ -263,7 +264,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
             default:
                 break;
         }
-        mDrawerLayout.postDelayed(() -> mDrawerLayout.closeDrawer(GravityCompat.START),1000);
+        mDrawerLayout.postDelayed(() -> mDrawerLayout.closeDrawer(GravityCompat.START), 1000);
     }
 
     @Override
@@ -296,7 +297,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
 
         String code = bean.getNow().getCond().getCode();
         Glide.with(this)
-                .load(Constant.weather_icon.replace("code",code))
+                .load(Constant.weather_icon.replace("code", code))
                 .placeholder(R.mipmap.weather_error)
                 .error(R.mipmap.weather_error)
                 .into(mIv_weather);

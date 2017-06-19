@@ -9,6 +9,7 @@ public class Constant {
     public static final boolean isDebug      = true;
     /*常量*/
     public static final String  PACKAGE_NAME = "lifehelper";
+    public static final String[] mTitles   = {"美食", "阅读"};
 
     public static final int TYPE_ZHIHU  = 1001;
     public static final int TYPE_DOUBAN = 1002;
@@ -34,6 +35,7 @@ public class Constant {
     /*hawk*/
     public static final String favorites = "favorites";
     public static final String location  = "location";
+    public static final String nowpage  = "nowpage";
 
     /*接口*/
     //cookbook
@@ -59,5 +61,8 @@ public class Constant {
     public static final String weather_icon    = "https://cdn.heweather.com/cond_icon/code.png";
     public static final String weather_now     = weather_host + "now?key=" + weather_key + "&city=";
     public static final String weather_weather = weather_host + "weather?key=" + weather_key + "&city=";
+
+
+    public static final String share_url = "http://yuanzaiyuanfang.applinzi.com/?p=92";
 
 }
