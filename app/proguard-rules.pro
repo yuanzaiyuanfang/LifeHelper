@@ -205,6 +205,9 @@
 -keep class com.yzyfdf.lifehelper.ui.read.model.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.read.presenter.** { *; }
 
+-keep class com.yzyfdf.lifehelper.ui.travel.model.** { *; }
+-keep class com.yzyfdf.lifehelper.ui.travel.presenter.** { *; }
+
 -keep class com.yzyfdf.lifehelper.ui.weather.model.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.weather.presenter.** { *; }
 

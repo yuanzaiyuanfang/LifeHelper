@@ -17,6 +17,7 @@ import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
 import com.yzyfdf.lifehelper.bean.weather.WeatherBean;
 
 import java.util.HashMap;
@@ -45,6 +46,14 @@ public class Api {
 
     public HashMap<String, Object> addBaseParams(HashMap<String, Object> params) {
         return params;
+    }
+
+
+    private PostRequest getTravelRequest(Context context, String url, HashMap<String, Object> params) {
+        return OkGo.getInstance()
+                .post(url)
+                .tag(context)//以对应activity或fragment作为网络请求tag，以便即时取消网络请求
+                ;
     }
 
     private GetRequest getReadRequest(Context context, String url, HashMap<String, Object> params) {
@@ -150,6 +159,13 @@ public class Api {
         HashMap<String, Object> params = new HashMap<>();
         return getReadRequest(context, Constant.GUOKR_DETAIL + id, params).getCall(new JsonConvertNews2<String>() {
         }, RxAdapter.<String>create());
+    }
+
+
+    public Observable<TravelRoutesBean> getRoutes(Context context, int num) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_routes + num, params).getCall(new JsonConvertTravel<TravelRoutesBean>() {
+        }, RxAdapter.<TravelRoutesBean>create());
     }
 
 }

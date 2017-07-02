@@ -36,6 +36,7 @@ import com.yzyfdf.lifehelper.ui.other.contract.HomeContract;
 import com.yzyfdf.lifehelper.ui.other.model.HomeModel;
 import com.yzyfdf.lifehelper.ui.other.presenter.HomePresenter;
 import com.yzyfdf.lifehelper.ui.read.activity.ReadMainFragment;
+import com.yzyfdf.lifehelper.ui.travel.view.TravelMainFragment;
 import com.yzyfdf.lifehelper.ui.weather.activity.WeatherMainActivity;
 import com.yzyfdf.lifehelper.util.WxShareUtil;
 
@@ -68,13 +69,15 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
 
     private static final int      cookbook  = 0;
     private static final int      read      = 1;
+    private static final int      travel      = 2;
     private              int      mNowPager = read;
 
-    private              int[]    mMenuIds  = {R.id.nav_cookbook, R.id.nav_read};
+    private              int[]    mMenuIds  = {R.id.nav_cookbook, R.id.nav_read,R.id.nav_travel};
     private TextView  mTv_weather;
     private TextView  mTv_location;
     private ImageView mIv_weather;
     private View      mLayout_weather;
+    private TravelMainFragment mTravelMainFragment;
 
     public static void startSelf(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
@@ -140,9 +143,11 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
     private void initFragment() {
         mCookMainFragment = new CookMainFragment();
         mReadMainFragment = new ReadMainFragment();
+        mTravelMainFragment = new TravelMainFragment();
 
         mFragmentList.add(mCookMainFragment);
         mFragmentList.add(mReadMainFragment);
+        mFragmentList.add(mTravelMainFragment);
 
         BaseAppFragment fragment = mFragmentList.get(mNowPager);
 
@@ -174,6 +179,9 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
             if (fragment instanceof ReadMainFragment) {
                 transaction.hide(fragment);
             }
+            if (fragment instanceof TravelMainFragment) {
+                transaction.hide(fragment);
+            }
         }
     }
 
@@ -184,6 +192,9 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
                 break;
             case read:
                 mFab.setOnClickListener(v -> ((ReadMainFragment) fragment).getCurrentRecyclerView().scrollToPosition(0));
+                break;
+            case travel:
+                mFab.setOnClickListener(v -> ((TravelMainFragment) fragment).getCurrentRecyclerView().scrollToPosition(0));
                 break;
             default:
                 break;
@@ -203,8 +214,10 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
             mActionBar.setTitle("阅读");
             mNowPager = read;
             switchFragment();
-        } else if (id == R.id.nav_slideshow) {
-            showShortToast("敬请期待");
+        } else if (id == R.id.nav_travel) {
+            mActionBar.setTitle("远方");
+            mNowPager = travel;
+            switchFragment();
         } else if (id == R.id.nav_manage) {
             showShortToast("敬请期待");
         } else if (id == R.id.nav_setting) {
@@ -229,6 +242,9 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
             case read:
                 getMenuInflater().inflate(R.menu.home_read, menu);
                 break;
+            case travel:
+                getMenuInflater().inflate(R.menu.home_travel, menu);
+                break;
             default:
                 break;
         }
@@ -249,6 +265,9 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
                 return true;
             case R.id.my_favorites_read:
                 showShortToast("敬请期待");
+                return true;
+            case R.id.travel_category:
+                showShortToast("搜索");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
