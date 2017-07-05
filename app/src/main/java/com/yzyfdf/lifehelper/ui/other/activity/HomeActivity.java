@@ -72,7 +72,6 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
     private static final int      travel      = 2;
     private              int      mNowPager = read;
 
-    private              int[]    mMenuIds  = {R.id.nav_cookbook, R.id.nav_read,R.id.nav_travel};
     private TextView  mTv_weather;
     private TextView  mTv_location;
     private ImageView mIv_weather;
@@ -116,7 +115,7 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
         toggle.syncState();
 
         //NavigationView默认选择
-        mNavView.setCheckedItem(mMenuIds[mNowPager]);
+        mNavView.setCheckedItem(Constant.mMenuIds[mNowPager]);
         mNavView.setNavigationItemSelectedListener(this);
 
         View headerView = mNavView.getHeaderView(0);

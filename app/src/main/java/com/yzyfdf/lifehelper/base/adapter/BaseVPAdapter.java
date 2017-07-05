@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SJJ .
@@ -17,10 +17,10 @@ public abstract class BaseVPAdapter<T> extends PagerAdapter {
 
 
     protected Context mContext;
-    protected ArrayList<T> mList;
+    protected List<T> mList;
     protected View mView;
 
-    public BaseVPAdapter(Context context,ArrayList<T> list) {
+    public BaseVPAdapter(Context context,List<T> list) {
         mContext = context;
         mList = list;
     }

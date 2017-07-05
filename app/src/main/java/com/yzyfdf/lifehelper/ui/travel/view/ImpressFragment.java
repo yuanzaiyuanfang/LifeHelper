@@ -1,16 +1,17 @@
 package com.yzyfdf.lifehelper.ui.travel.view;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.activity.BaseAppFragment;
-import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
-import com.yzyfdf.lifehelper.ui.travel.adapter.RoutesAdapter;
-import com.yzyfdf.lifehelper.ui.travel.contract.RoutesContract;
-import com.yzyfdf.lifehelper.ui.travel.model.RoutesModel;
-import com.yzyfdf.lifehelper.ui.travel.presenter.RoutesPresenter;
+import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
+import com.yzyfdf.lifehelper.ui.travel.adapter.ImpressAdapter;
+import com.yzyfdf.lifehelper.ui.travel.contract.ImpressContract;
+import com.yzyfdf.lifehelper.ui.travel.model.ImpressModel;
+import com.yzyfdf.lifehelper.ui.travel.presenter.ImpressPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +23,13 @@ import butterknife.Bind;
  * 描述 ${远方 -  精选  行程}
  */
 
-public class RoutesFragment extends BaseAppFragment<RoutesPresenter,RoutesModel> implements RoutesContract.View {
+public class ImpressFragment extends BaseAppFragment<ImpressPresenter, ImpressModel> implements ImpressContract.View {
     @Bind(R.id.xRecyclerView)
     XRecyclerView mXRecyclerView;
 
-    private int num = 0;
-    private ArrayList<TravelRoutesBean.ItemsBean> mList = new ArrayList<>();
-    private ArrayList<TravelRoutesBean.ItemsBean> mArrayList = new ArrayList<>();
-    private RoutesAdapter mAdapter;
+    private String                                time  = "";
+    private ArrayList<TravelImpressBean.DataBean> mList = new ArrayList<>();
+    private ImpressAdapter mAdapter;
 
     @Override
     protected int getLayoutResource() {
@@ -45,7 +45,7 @@ public class RoutesFragment extends BaseAppFragment<RoutesPresenter,RoutesModel>
     protected void initView() {
         //RecyclerView
         mXRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new RoutesAdapter(getContext(), mList);
+        mAdapter = new ImpressAdapter(getContext(), mList);
         mXRecyclerView.setAdapter(mAdapter);
 
         //设置是否支持上下拉刷新
@@ -59,39 +59,31 @@ public class RoutesFragment extends BaseAppFragment<RoutesPresenter,RoutesModel>
             //下拉
             @Override
             public void onRefresh() {
-                num = 0;
-                mPresenter.getRoutes(num);
+                time = "";
+                mPresenter.getImpress(time);
             }
 
             //上拉
             @Override
             public void onLoadMore() {
-                mPresenter.getRoutes(num);
+                mPresenter.getImpress(time);
             }
         });
 
-        mPresenter.getRoutes(num);
+        mPresenter.getImpress(time);
     }
 
 
-
-
     @Override
-    public void returnRoutes(List<TravelRoutesBean.ItemsBean> list) {
-        //过滤出类型3 请求条目按原来增加 纺织重复
-        mArrayList.clear();
-        for (TravelRoutesBean.ItemsBean bean : list) {
-            if (bean.getRes_type() == 3) {
-                mArrayList.add(bean);
-            }
-        }
-        if (num == 0) {
-            mAdapter.refresh(mArrayList);
+    public void returnImpress(List<TravelImpressBean.DataBean> list) {
+        if (TextUtils.isEmpty(time)) {
+            mAdapter.refresh(list);
             mXRecyclerView.refreshComplete();
         } else {
-            mAdapter.add(mArrayList);
+            mAdapter.add(list);
             mXRecyclerView.loadMoreComplete();
         }
-        num += list.size();
+        if (list.size() > 0)
+            time = list.get(list.size() - 1).getTime();
     }
 }

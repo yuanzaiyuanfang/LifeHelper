@@ -50,12 +50,12 @@ public class TravelMainFragment extends BaseAppFragment {
         mFab = ((HomeActivity) getContext()).mFab;
 
         RoutesFragment routesFragment = new RoutesFragment();
-        RoutesFragment routesFragment2 = new RoutesFragment();
+        ImpressFragment impressFragment = new ImpressFragment();
         RoutesFragment routesFragment3 = new RoutesFragment();
 
         mFragmentList.clear();
         mFragmentList.add(routesFragment);
-        mFragmentList.add(routesFragment2);
+        mFragmentList.add(impressFragment);
         mFragmentList.add(routesFragment3);
 
         mTitleList = Arrays.asList(mTitles);
@@ -80,7 +80,7 @@ public class TravelMainFragment extends BaseAppFragment {
             case 0:
                 return ((RoutesFragment) fragment).mXRecyclerView;
             case 1:
-//                return ((DouBanFragment) fragment).mXRecyclerView;
+                return ((ImpressFragment) fragment).mXRecyclerView;
             case 2:
 //                return ((GuoKeFragment) fragment).mXRecyclerView;
         }

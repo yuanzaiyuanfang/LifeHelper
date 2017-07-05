@@ -2,6 +2,7 @@ package com.yzyfdf.lifehelper.base.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.yzyfdf.lifehelper.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,10 +21,10 @@ import java.util.List;
 
 public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     protected Context                  mContext;
-    protected ArrayList<T>             mList;
+    protected List<T>             mList;
     protected OnSelectStateListener<T> mOnSelectStateListener;
 
-    public BaseAdapter(Context ctx, ArrayList<T> list) {
+    public BaseAdapter(Context ctx, List<T> list) {
         mContext = ctx;
         mList = list;
     }
@@ -130,6 +130,9 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         }
 
         public void setImage(int id, String url) {
+            if (TextUtils.isEmpty(url)) {
+                return;
+            }
             Glide.with(mContext)
                     .load(url)
                     .error(R.mipmap.no_pic)

@@ -15,6 +15,7 @@ import com.yzyfdf.lifehelper.bean.cookbean.MyStepBean;
 import com.yzyfdf.lifehelper.ui.cookbook.adapter.CookStepAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -32,7 +33,7 @@ public class CookStepActivity extends BaseAppActivity implements ViewPager.OnPag
 
     private ArrayList<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> mList = new ArrayList<>();
 
-    public static void startSelf(Context context, ArrayList<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> list, int position) {
+    public static void startSelf(Context context, List<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> list, int position) {
         Intent intent = new Intent(context, CookStepActivity.class);
         intent.putExtra(Constant.MYSTEPBEAN, new MyStepBean(list, position));
         context.startActivity(intent);

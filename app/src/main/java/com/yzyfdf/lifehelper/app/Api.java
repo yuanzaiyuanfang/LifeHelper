@@ -17,6 +17,7 @@ import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
 import com.yzyfdf.lifehelper.bean.weather.WeatherBean;
 
@@ -166,6 +167,12 @@ public class Api {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, Constant.travel_routes + num, params).getCall(new JsonConvertTravel<TravelRoutesBean>() {
         }, RxAdapter.<TravelRoutesBean>create());
+    }
+
+    public Observable<TravelImpressBean> getImpress(Context context, String time) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_impresss + time, params).getCall(new JsonConvertTravel<TravelImpressBean>() {
+        }, RxAdapter.<TravelImpressBean>create());
     }
 
 }

@@ -21,6 +21,7 @@ public class RoutesAdapter extends BaseAdapter<TravelRoutesBean.ItemsBean, BaseA
         super(ctx, list);
     }
 
+
     @Override
     public BaseRVViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new BaseRVViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_travel_route, parent, false));
@@ -30,8 +31,23 @@ public class RoutesAdapter extends BaseAdapter<TravelRoutesBean.ItemsBean, BaseA
     public void onBindViewHolder(BaseAdapter.BaseRVViewHolder holder, int position) {
         TravelRoutesBean.ItemsBean bean = mList.get(position);
         holder.setText(R.id.tv_name, bean.getTitle());
-        holder.setText(R.id.tv_desc, bean.getDestinations());
+        holder.setText(R.id.tv_desc, getDesc(bean.getDestinations()));
         holder.setImage(R.id.iv_pic, bean.getBackground_image());
-        holder.itemView.setOnClickListener(v -> ToastUitl.showShort("......"));
+        holder.itemView.setOnClickListener(v -> ToastUitl.showShort(bean.getId()+""));
+    }
+
+    private String getDesc(String destinations) {
+        StringBuffer sb = new StringBuffer("————·");
+        try {
+            String[] strings = destinations.split("、");
+            for (String s : strings) {
+                sb.append(s + "·");
+            }
+        } catch (Exception e) {
+            sb.delete(0, sb.length());
+            sb.append("————·" + destinations + "·");
+        }
+        sb.append("————");
+        return sb.toString();
     }
 }

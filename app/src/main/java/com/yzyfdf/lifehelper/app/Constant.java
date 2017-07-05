@@ -1,5 +1,7 @@
 package com.yzyfdf.lifehelper.app;
 
+import com.yzyfdf.lifehelper.R;
+
 /**
  * Created by SJJ .
  * 描述 ${TODO}
@@ -9,7 +11,9 @@ public class Constant {
     public static final boolean  isDebug      = true;
     /*常量*/
     public static final String   PACKAGE_NAME = "lifehelper";
-    public static final String[] mTitles      = {"美食", "阅读"};
+    public static final String[] mTitles      = {"美食", "阅读","远方"};
+    public static final int[]    mMenuIds     = {R.id.nav_cookbook, R.id.nav_read, R.id.nav_travel};
+
 
     public static final int TYPE_ZHIHU  = 1001;
     public static final int TYPE_DOUBAN = 1002;
@@ -64,8 +68,9 @@ public class Constant {
 
 
     //远方
-    public static final String travel_host   = "https://api.chufaba.me/v2/";
-    public static final String travel_routes = travel_host + "discovery/index.json?offset=";
+    public static final String travel_host     = "https://api.chufaba.me/v2/";
+    public static final String travel_routes   = travel_host + "discovery/index.json?offset=";
+    public static final String travel_impresss = travel_host + "discovery/feed.json?before=";
 
 
     public static final String share_url = "http://yuanzaiyuanfang.applinzi.com/?p=92";
