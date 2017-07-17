@@ -17,6 +17,7 @@ import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
 import com.yzyfdf.lifehelper.bean.weather.WeatherBean;
@@ -51,7 +52,10 @@ public class Api {
 
 
     private PostRequest getTravelRequest(Context context, String url, HashMap<String, Object> params) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("User-Agent", "ChufabaAndroid/3.8.2");
         return OkGo.getInstance()
+                .addCommonHeaders(headers)
                 .post(url)
                 .tag(context)//以对应activity或fragment作为网络请求tag，以便即时取消网络请求
                 ;
@@ -162,17 +166,25 @@ public class Api {
         }, RxAdapter.<String>create());
     }
 
-
+    //远方精选
     public Observable<TravelRoutesBean> getRoutes(Context context, int num) {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, Constant.travel_routes + num, params).getCall(new JsonConvertTravel<TravelRoutesBean>() {
         }, RxAdapter.<TravelRoutesBean>create());
     }
 
+    //远方热门
     public Observable<TravelImpressBean> getImpress(Context context, String time) {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, Constant.travel_impresss + time, params).getCall(new JsonConvertTravel<TravelImpressBean>() {
         }, RxAdapter.<TravelImpressBean>create());
+    }
+
+    //远方 发现
+    public Observable<TravelFoundBean> getHots(Context context) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_found, params).getCall(new JsonConvertTravel<TravelFoundBean>() {
+        }, RxAdapter.<TravelFoundBean>create());
     }
 
 }

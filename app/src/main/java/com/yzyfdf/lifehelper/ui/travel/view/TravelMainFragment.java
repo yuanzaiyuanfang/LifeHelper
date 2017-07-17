@@ -51,12 +51,12 @@ public class TravelMainFragment extends BaseAppFragment {
 
         RoutesFragment routesFragment = new RoutesFragment();
         ImpressFragment impressFragment = new ImpressFragment();
-        RoutesFragment routesFragment3 = new RoutesFragment();
+        FoundFragment foundFragment = new FoundFragment();
 
         mFragmentList.clear();
         mFragmentList.add(routesFragment);
         mFragmentList.add(impressFragment);
-        mFragmentList.add(routesFragment3);
+        mFragmentList.add(foundFragment);
 
         mTitleList = Arrays.asList(mTitles);
 
@@ -82,7 +82,7 @@ public class TravelMainFragment extends BaseAppFragment {
             case 1:
                 return ((ImpressFragment) fragment).mXRecyclerView;
             case 2:
-//                return ((GuoKeFragment) fragment).mXRecyclerView;
+                return ((FoundFragment) fragment).mXRecyclerView;
         }
         return ((RoutesFragment) fragment).mXRecyclerView;
     }
