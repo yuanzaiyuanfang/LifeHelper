@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.jaydenxiao.common.commonutils.GlideRoundTransformUtil;
 import com.yzyfdf.lifehelper.R;
 
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
 
 public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     protected Context                  mContext;
-    protected List<T>             mList;
+    protected List<T>                  mList;
     protected OnSelectStateListener<T> mOnSelectStateListener;
 
     public BaseAdapter(Context ctx, List<T> list) {
@@ -115,28 +117,75 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         }
 
         public void setBigImage(int id, String url) {
+            if (TextUtils.isEmpty(url)) {
+                setDefaultImage(id);
+                return;
+            }
             if (url.endsWith("gif")) {
                 Glide.with(mContext)
                         .load(url).asGif()
                         .error(R.mipmap.no_pic)
+                        .placeholder(R.mipmap.no_pic)
                         .into(getImageView(id));
             } else {
                 Glide.with(mContext)
                         .load(url).thumbnail(0.1f)
                         .error(R.mipmap.no_pic)
+                        .placeholder(R.mipmap.no_pic)
                         .into(getImageView(id));
             }
 
         }
 
+        public void setRoundImage(int id, String url) {
+            if (TextUtils.isEmpty(url)) {
+                setDefaultImage(id);
+                return;
+            }
+            Glide.with(mContext).load(url)
+                    .error(R.drawable.toux2)
+                    .placeholder(R.mipmap.toux2)
+                    .centerCrop()
+                    .transform(new GlideRoundTransformUtil(mContext))
+                    .into(getImageView(id));
+
+        }
+
+        public void setSmallImage(int id, String url) {
+            if (TextUtils.isEmpty(url)) {
+                setDefaultImage(id);
+                return;
+            }
+            Glide.with(mContext)
+                    .load(url)
+//                    .override(SizeUtils.dp2px(80), SizeUtils.dp2px(80))
+                    .centerCrop()
+                    .error(R.mipmap.no_pic)
+                    .placeholder(R.mipmap.no_pic)
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .into(getImageView(id));
+        }
+
         public void setImage(int id, String url) {
             if (TextUtils.isEmpty(url)) {
+                setDefaultImage(id);
                 return;
             }
             Glide.with(mContext)
                     .load(url)
                     .error(R.mipmap.no_pic)
+                    .placeholder(R.mipmap.no_pic)
                     .into(getImageView(id));
         }
+
+        public void setDefaultImage(int id) {
+            Glide.with(mContext)
+                    .load(R.mipmap.no_pic)
+                    .placeholder(R.mipmap.no_pic)
+                    .error(R.mipmap.no_pic)
+                    .into(getImageView(id));
+        }
+
+
     }
 }

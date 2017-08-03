@@ -68,11 +68,8 @@
     <TextView
         android:id="@+id/tv_desc"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ellipsize="end"
         android:maxLines="3"
         tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"/>
