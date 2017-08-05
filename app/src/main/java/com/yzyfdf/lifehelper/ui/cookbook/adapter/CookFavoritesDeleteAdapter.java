@@ -57,7 +57,7 @@ public class CookFavoritesDeleteAdapter extends BaseAdapter<MyFavoriteBean, Base
         checkBox.setChecked(myFavoriteBean.isDelete());
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             myFavoriteBean.setDelete(isChecked);
-            mOnSelectStateListener.OnSelectStateChanged(isChecked, null);
+            mOnSelectStateListener.OnSelectStateChanged(isChecked, null,position);
         });
 
 

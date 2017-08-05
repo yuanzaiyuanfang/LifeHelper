@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        style="@style/line_horizontal"
+        android:background="@color/lightGray"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                style="@style/line_vertical"
+                android:layout_width="5dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/lightGray"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_category"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/shape_dot_selected"/>
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="THE END"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/tv_time_week_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="仅供交流学习，请勿作他用"
+                android:textSize="14sp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -65,6 +65,9 @@
         <activity android:name=".ui.read.activity.HttpActivity">
         </activity>
 
+        //精选  行程详情
+        <activity android:name=".ui.travel.view.RouteDetailsActivity"/>
+
         //天气主页
         <activity android:name=".ui.weather.activity.WeatherMainActivity">
         </activity>

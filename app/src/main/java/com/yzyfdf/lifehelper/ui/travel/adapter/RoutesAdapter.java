@@ -8,6 +8,7 @@ import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
+import com.yzyfdf.lifehelper.ui.travel.view.RouteDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,13 @@ public class RoutesAdapter extends BaseAdapter<TravelRoutesBean.ItemsBean, BaseA
         holder.setText(R.id.tv_name, bean.getTitle());
         holder.setText(R.id.tv_desc, getDesc(bean.getDestinations()));
         holder.setImage(R.id.iv_pic, bean.getBackground_image());
-        holder.itemView.setOnClickListener(v -> ToastUitl.showShort(bean.getId()+""));
+        holder.itemView.setOnClickListener(v -> {
+            if (bean.getRes_type() == 3) {
+                RouteDetailsActivity.startSelf(mContext,bean.getUrl());
+            } else {
+                ToastUitl.showShort(bean.getId()+"");
+            }
+        });
     }
 
     private String getDesc(String destinations) {

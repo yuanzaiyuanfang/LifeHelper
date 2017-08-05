@@ -86,7 +86,7 @@ public class CookFavoritesActivity extends BaseAppActivity {
         mXRecyclerViewDelete.setLayoutManager(new LinearLayoutManager(this));
         mDeleteAdapter = new CookFavoritesDeleteAdapter(this, mList);
         mXRecyclerViewDelete.setAdapter(mDeleteAdapter);
-        mDeleteAdapter.setOnSelectStateListener((state, file) -> {
+        mDeleteAdapter.setOnSelectStateListener((state, file,position) -> {
             boolean check = true;
             for (MyFavoriteBean myFavoriteBean : mList) {
                 check = check & myFavoriteBean.isDelete();

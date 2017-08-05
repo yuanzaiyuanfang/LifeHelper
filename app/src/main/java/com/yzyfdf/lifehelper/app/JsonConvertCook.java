@@ -1,14 +1,17 @@
 package com.yzyfdf.lifehelper.app;
 
+import android.text.TextUtils;
+
 import com.jaydenxiao.common.commonutils.JsonUtils;
 import com.lzy.okgo.convert.Converter;
+import com.yzyfdf.lifehelper.bean.cookbean.BaseCookBean;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import okhttp3.Response;
 
-public class JsonConvert<T > implements Converter<T> {
+public class JsonConvertCook<T extends BaseCookBean> implements Converter<T> {
 
     /**
      * 该方法是子线程处理，不能做ui相关的工作
@@ -63,9 +66,9 @@ public class JsonConvert<T > implements Converter<T> {
             t = (T) JsonUtils.fromJson(response.body().string(), type);
             response.close();
 
-//            if (!TextUtils.equals(t.getState(), "success")) {
-//                throw new IllegalStateException("返回数据:" + response.body().string());
-//            }
+            if (!TextUtils.equals(t.getState(), "success")) {
+                throw new IllegalStateException("返回数据:" + response.body().string());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

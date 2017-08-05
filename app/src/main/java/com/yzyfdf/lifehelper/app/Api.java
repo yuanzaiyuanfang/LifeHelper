@@ -17,6 +17,7 @@ import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
+import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
@@ -93,80 +94,80 @@ public class Api {
     //食谱主页
     public Observable<CookMainBean> queryCookHome(Context context, int num) {
         HashMap<String, Object> params = new HashMap<>();
-        return getCookRequest(context, Constant.cook_home + num + "/30", params).getCall(new JsonConvert<CookMainBean>() {
+        return getCookRequest(context, Constant.cook_home + num + "/30", params).getCall(new JsonConvertCook<CookMainBean>() {
         }, RxAdapter.<CookMainBean>create());
     }
 
     //食谱专辑
     public Observable<CookListBean> queryCookList(Context context, int id, int num) {
         HashMap<String, Object> params = new HashMap<>();
-        return getCookRequest(context, Constant.cook_list + id + "/" + num, params).getCall(new JsonConvert<CookListBean>() {
+        return getCookRequest(context, Constant.cook_list + id + "/" + num, params).getCall(new JsonConvertCook<CookListBean>() {
         }, RxAdapter.<CookListBean>create());
     }
 
     //食谱分类
     public Observable<CookCategoryBean> qureyCatalogs(Context context) {
         HashMap<String, Object> params = new HashMap<>();
-        return getCookRequest(context, Constant.cook_category, params).getCall(new JsonConvert<CookCategoryBean>() {
+        return getCookRequest(context, Constant.cook_category, params).getCall(new JsonConvertCook<CookCategoryBean>() {
         }, RxAdapter.<CookCategoryBean>create());
     }
 
     //食谱搜索
     public Observable<CookSearchBean> search(Context context, String keyWord, int num) {
-        return getCookRequest2(context, Constant.cook_search + num, "order=0&keyword=" + keyWord).getCall(new JsonConvert<CookSearchBean>() {
+        return getCookRequest2(context, Constant.cook_search + num, "order=0&keyword=" + keyWord).getCall(new JsonConvertCook<CookSearchBean>() {
         }, RxAdapter.<CookSearchBean>create());
     }
 
     //天气
     public Observable<WeatherBean> queryWeather(Context context, String city) {
         HashMap<String, Object> params = new HashMap<>();
-        return getReadRequest(context, Constant.weather_weather + city, params).getCall(new JsonConvertNews<WeatherBean>() {
+        return getReadRequest(context, Constant.weather_weather + city, params).getCall(new JsonConvert<WeatherBean>() {
         }, RxAdapter.create());
     }
 
     //知乎
     public Observable<ZhiHuListBean> queryDaily(Context context, String url) {
         HashMap<String, Object> params = new HashMap<>();
-        return getReadRequest(context, Constant.ZHIHU_NEWS + url, params).getCall(new JsonConvertNews<ZhiHuListBean>() {
+        return getReadRequest(context, Constant.ZHIHU_NEWS + url, params).getCall(new JsonConvert<ZhiHuListBean>() {
         }, RxAdapter.<ZhiHuListBean>create());
     }
 
     //知乎详情
     public Observable<ZhiHuDetailsBean> queryZhiHuDetails(Context context, int id) {
         HashMap<String, Object> params = new HashMap<>();
-        return getReadRequest(context, Constant.ZHIHU_NEWS + id, params).getCall(new JsonConvertNews<ZhiHuDetailsBean>() {
+        return getReadRequest(context, Constant.ZHIHU_NEWS + id, params).getCall(new JsonConvert<ZhiHuDetailsBean>() {
         }, RxAdapter.<ZhiHuDetailsBean>create());
     }
 
     //豆瓣
     public Observable<DouBanListBean> queryMoment(Context context, String date) {
         HashMap<String, Object> params = new HashMap<>();
-        return getReadRequest(context, Constant.DOUBAN_MOMENT + date, params).getCall(new JsonConvertNews<DouBanListBean>() {
+        return getReadRequest(context, Constant.DOUBAN_MOMENT + date, params).getCall(new JsonConvert<DouBanListBean>() {
         }, RxAdapter.<DouBanListBean>create());
     }
 
     //豆瓣详情
     public Observable<DouBanDetailsBean> queryDouBanDetails(Context context, int id) {
         HashMap<String, Object> params = new HashMap<>();
-        return getReadRequest(context, Constant.DOUBAN_DETAIL + id, params).getCall(new JsonConvertNews<DouBanDetailsBean>() {
+        return getReadRequest(context, Constant.DOUBAN_DETAIL + id, params).getCall(new JsonConvert<DouBanDetailsBean>() {
         }, RxAdapter.<DouBanDetailsBean>create());
     }
 
     //果壳
     public Observable<GuoKeListBean> queryArticle(Context context, int num) {
         HashMap<String, Object> params = new HashMap<>();
-        return getReadRequest(context, Constant.GUOKR_ARTICLE + num, params).getCall(new JsonConvertNews<GuoKeListBean>() {
+        return getReadRequest(context, Constant.GUOKR_ARTICLE + num, params).getCall(new JsonConvert<GuoKeListBean>() {
         }, RxAdapter.<GuoKeListBean>create());
     }
 
     //果壳详情
     public Observable<String> queryGuoKeDetails(Context context, int id) {
         HashMap<String, Object> params = new HashMap<>();
-        return getReadRequest(context, Constant.GUOKR_DETAIL + id, params).getCall(new JsonConvertNews2<String>() {
+        return getReadRequest(context, Constant.GUOKR_DETAIL + id, params).getCall(new JsonConvertNews<String>() {
         }, RxAdapter.<String>create());
     }
 
-    //远方精选
+    //远方精选 行程
     public Observable<TravelRoutesBean> getRoutes(Context context, int num) {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, Constant.travel_routes + num, params).getCall(new JsonConvertTravel<TravelRoutesBean>() {
@@ -186,5 +187,13 @@ public class Api {
         return getTravelRequest(context, Constant.travel_found, params).getCall(new JsonConvertTravel<TravelFoundBean>() {
         }, RxAdapter.<TravelFoundBean>create());
     }
+
+    //远方精选 行程详情
+    public Observable<RouteDetailsBean> getRouteDetails(Context context, String url) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, "https://api.chufaba.me" + url + ".json", params).getCall(new JsonConvert<RouteDetailsBean>() {
+        }, RxAdapter.<RouteDetailsBean>create());
+    }
+
 
 }
