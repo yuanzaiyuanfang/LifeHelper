@@ -5,6 +5,7 @@ package com.yzyfdf.lifehelper.ui.travel.presenter;
  */
 
 import com.jaydenxiao.common.baserx.RxSubscriber;
+import com.yzyfdf.lifehelper.bean.travel.MyRouteRvData;
 import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
 import com.yzyfdf.lifehelper.ui.travel.contract.RouteDetailsContract;
 
@@ -26,6 +27,21 @@ public class RouteDetailsPresenter extends RouteDetailsContract.Presenter {
             @Override
             protected void _onError(String message) {
                 mView.showErrorTip(message);
+            }
+        }));
+    }
+
+    @Override
+    public void getRecyclerViewData(RouteDetailsBean bean) {
+        mRxManage.add(mModel.getRecyclerViewData(bean).subscribe(new RxSubscriber<MyRouteRvData>(mContext, true) {
+            @Override
+            protected void _onNext(MyRouteRvData data) {
+                mView.returnRecyclerViewData(data);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip("数据解析失败");
             }
         }));
     }

@@ -80,9 +80,9 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
                 break;
             case 2:
                 RouteDetailsBean.ItineraryBean.LocationsBean locationsBean = bean.getLocationsBean();
-                //                holder.setText(R.id.iv_type_loc,locationsBean.getDay());
-                holder.setText(R.id.tv_location, TextUtils.isEmpty(locationsBean.getName()) ? locationsBean.getName_en() : locationsBean.getName());
-
+                ImageView type_loc = holder.getImageView(R.id.iv_type_loc);
+                type_loc.setImageResource(getTypeLoc(locationsBean.getCategory()));
+                holder.setText(R.id.tv_location, !TextUtils.isEmpty(locationsBean.getName()) ? locationsBean.getName() : (!TextUtils.isEmpty(locationsBean.getName_en()) ? locationsBean.getName_en() : "未知"));
                 holder.getView(R.id.layout_location).setOnClickListener(v -> ToastUitl.showShort(locationsBean.getName()));
 
                 FrameLayout layout_comment = (FrameLayout) holder.getView(R.id.layout_comment);
@@ -114,7 +114,20 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
         }
     }
 
-    private String getFeel(float rating) {
+    public static int getTypeLoc(String category) {
+        switch (category) {
+            case "美食":
+                return R.mipmap.food;
+            case "景点":
+                return R.mipmap.scenic;
+            case "住宿":
+                return R.mipmap.hotel;
+            default:
+                return R.mipmap.other;
+        }
+    }
+
+    public static String getFeel(float rating) {
         if (rating >= 4.5)
             return "觉得超赞";
         if (rating >= 3.5)

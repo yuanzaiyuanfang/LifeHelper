@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="240dp"
     android:layout_height="match_parent"
     android:layout_gravity="end"
-    android:background="@color/item_content"
-    android:orientation="vertical"
-    tools:showIn="@layout/activity_travel_route_details"
-    >
+    tools:showIn="@layout/activity_travel_route_details">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_menu"
+    <ImageView
+        android:id="@+id/menu_bkg"
+        android:scaleType="fitXY"
+        android:src="@color/transparentBlack"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <TextView
-        style="@style/line_horizontal"
-        android:background="@android:color/white"/>
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_menu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </android.support.v7.widget.RecyclerView>
 
         <TextView
-            android:id="@+id/map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/location"
-            android:drawablePadding="5dp"
-            android:padding="10dp"
-            android:text="地图"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"/>
+            style="@style/line_horizontal"
+            android:background="@android:color/white"/>
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/menu_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@mipmap/favorite_no"/>
+            <TextView
+                android:id="@+id/map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/location"
+                android:drawablePadding="5dp"
+                android:padding="10dp"
+                android:text="地图"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/menu_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@mipmap/favorite_no"/>
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

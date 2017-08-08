@@ -37,9 +37,10 @@
             <ImageView
                 android:id="@+id/iv_type_loc"
                 android:layout_width="20dp"
+                android:padding="4dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/shape_dot_selected"/>
+                android:background="@drawable/shape_dot_selected"/>
         </FrameLayout>
 
         <TextView

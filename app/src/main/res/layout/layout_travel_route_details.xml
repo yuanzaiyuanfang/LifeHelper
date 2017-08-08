@@ -92,32 +92,44 @@
 
             //标签
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:orientation="vertical">
+                android:layout_height="80dp">
 
-                <com.yzyfdf.lifehelper.widget.NoScrollGridView
-                    android:id="@+id/gridview"
+                <ImageView
+                    android:id="@+id/tip_bkg"
+                    android:src="@color/transparentBlack"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:numColumns="2"
-                    android:padding="10dp">
-
-
-
-                </com.yzyfdf.lifehelper.widget.NoScrollGridView>
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"/>
 
                 <LinearLayout
-                    android:id="@+id/layout_tips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <com.yzyfdf.lifehelper.widget.NoScrollGridView
+                        android:id="@+id/gridview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:numColumns="2"
+                        android:padding="10dp">
+
+
+                    </com.yzyfdf.lifehelper.widget.NoScrollGridView>
+
+                    <LinearLayout
+                        android:id="@+id/layout_tips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
 
                 </LinearLayout>
+            </FrameLayout>
 
-            </LinearLayout>
 
             //简介
 
@@ -145,5 +157,14 @@
         android:background="@color/transparent"
         app:popupTheme="@style/OverflowMenuStyle1"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+
+    <ImageView
+        android:id="@+id/open_menu"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/shape_bt_bg_shadow"
+        android:src="@mipmap/list_list"/>
 
 </FrameLayout>

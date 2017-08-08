@@ -1,18 +1,21 @@
 package com.yzyfdf.lifehelper.ui.travel.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
  * Created by SJJ .
@@ -34,41 +37,48 @@ public class ImpressAdapter extends BaseAdapter<TravelImpressBean.DataBean, Base
         TravelImpressBean.DataBean bean = mList.get(position);
         //头部
         TravelImpressBean.DataBean.PoiBean poiBean = bean.getPoi();
-        holder.setText(R.id.tv_name, poiBean.getName());
+        holder.setText(R.id.tv_location, poiBean.getName());
         String city = TextUtils.isEmpty(poiBean.getCity()) ? "" : poiBean.getCity() + " ";
-        holder.setText(R.id.tv_country, city+poiBean.getCountry());
-        holder.setText(R.id.tv_favs, poiBean.getFavs()+"");
-        holder.setText(R.id.tv_adds, poiBean.getAdds()+"");
+        holder.setText(R.id.tv_country, city + poiBean.getCountry());
+        holder.setText(R.id.tv_favs, poiBean.getFavs() + "");
+        holder.setText(R.id.tv_adds, poiBean.getAdds() + "");
+        ImageView iv_location = holder.getImageView(R.id.iv_location);
         if (poiBean.getImages() != null && poiBean.getImages().size() > 0) {
-            holder.setSmallImage(R.id.iv_author, poiBean.getImages().get(0) + "!320");
+            Glide.with(mContext)
+                    .load(poiBean.getImages().get(0) + "!320")
+                    .override(160,160)
+                    .error(R.mipmap.scenic_big)
+                    .placeholder(R.mipmap.scenic_big)
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .into(iv_location);
         } else {
-            holder.setDefaultImage(R.id.iv_author);
+            iv_location.setImageResource(R.mipmap.scenic_big);
         }
+
+
         //图
         List<TravelImpressBean.DataBean.PcBean> pcBeanList = bean.getPc();
 
-//        TravelImpressBean.DataBean.PcBean pcBean = pcBeanList.get(0);
-//        holder.setText(R.id.tv_desc, pcBean.getDesc());
-//        holder.setText(R.id.tv_likes, pcBean.getLikes() + "");
-//        holder.setText(R.id.tv_name, pcBean.getUsername());
-//
-//        MaterialRatingBar rating = (MaterialRatingBar) holder.getView(R.id.rating);
-//        ImageView iv_author = holder.getImageView(R.id.iv_author);
-//        ImageView images = holder.getImageView(R.id.iv_images);
-//
-//        rating.setRating(pcBean.getRating());
-//        ImageLoaderUtils.displayRound(mContext, iv_author, pcBean.getAvatar());
-//        ImageLoaderUtils.displayBigPhoto(mContext, images, "http://img.chufaba.me/" + getimage(pcBean.getImages()) + "!600");
+        TravelImpressBean.DataBean.PcBean pcBean = pcBeanList.get(0);
+        holder.setText(R.id.tv_author, pcBean.getUsername());
+        holder.setText(R.id.tv_feel, RouteDetailsAdapter.getFeel(pcBean.getRating()));
+        holder.setText(R.id.tv_likes, pcBean.getLikes() + "");
+        holder.setText(R.id.tv_desc, pcBean.getDesc());
+        holder.setRoundImage(R.id.iv_author, pcBean.getAvatar());
+        holder.setBigImage(R.id.iv_images, "http://img.chufaba.me/" + getimage(pcBean.getImages()) + "!600");
+
+        MaterialRatingBar rating = (MaterialRatingBar) holder.getView(R.id.rating);
+        rating.setRating(pcBean.getRating());
 
 
         //                ViewPager viewPager = (ViewPager) holder.getView(R.id.viewpager);
-//                viewPager.setPageMargin(30);
-//                viewPager.setOffscreenPageLimit(2);
-//                viewPager.setAdapter(new ImpressItemAdapter(mContext, pcBeanList,bean.getPoi().getImages()));
+        //                viewPager.setPageMargin(30);
+        //                viewPager.setOffscreenPageLimit(2);
+        //                viewPager.setAdapter(new ImpressItemAdapter(mContext, pcBeanList,bean.getPoi().getImages()));
 
-        RecyclerView recyclerview = (RecyclerView) holder.getView(R.id.recyclerview);
-        recyclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        recyclerview.setAdapter(new ImpressItemAdapter(mContext,pcBeanList,bean.getPoi().getImages()));
+        //        RecyclerView recyclerview = (RecyclerView) holder.getView(R.id.recyclerview);
+        //        recyclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        //        recyclerview.setAdapter(new ImpressItemAdapter(mContext,pcBeanList,bean.getPoi().getImages()));
 
 
     }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 
