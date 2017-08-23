@@ -1,5 +1,7 @@
 package com.yzyfdf.lifehelper.base.activity;
 
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.ValueCallback;
 
@@ -43,5 +45,13 @@ public abstract class BaseAppActivity<T extends BasePresenter, E extends BaseMod
         } else {
             listener.callListener();
         }
+    }
+
+    public void initToolbar(Toolbar mToolbar,String title) {
+        this.setSupportActionBar(mToolbar);
+        ActionBar bar = this.getSupportActionBar();
+        bar.setTitle(title);
+        bar.setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(v -> this.finish());
     }
 }

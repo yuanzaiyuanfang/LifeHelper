@@ -10,9 +10,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
+import com.yzyfdf.lifehelper.bean.travel.MyImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
+import com.yzyfdf.lifehelper.ui.travel.view.ImpressDetailsActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
@@ -70,7 +73,11 @@ public class ImpressAdapter extends BaseAdapter<TravelImpressBean.DataBean, Base
         MaterialRatingBar rating = (MaterialRatingBar) holder.getView(R.id.rating);
         rating.setRating(pcBean.getRating());
 
+        String location = !TextUtils.isEmpty(poiBean.getName()) ? poiBean.getName() : (!TextUtils.isEmpty(poiBean.getName_en()) ? poiBean.getName_en() : "未知");
 
+        holder.itemView.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext,
+                new MyImpressBean(pcBean.getDesc(),location,pcBean.getCreated_at(),pcBean.getPlan_name(),
+                        Arrays.asList(getimages(pcBean.getImages())),pcBean.getAvatar(),pcBean.getUsername(),pcBean.getRating())));
         //                ViewPager viewPager = (ViewPager) holder.getView(R.id.viewpager);
         //                viewPager.setPageMargin(30);
         //                viewPager.setOffscreenPageLimit(2);
@@ -84,8 +91,13 @@ public class ImpressAdapter extends BaseAdapter<TravelImpressBean.DataBean, Base
     }
 
     private String getimage(String s) {
+        String[] strings = getimages(s);
+        return strings[0];
+    }
+
+    private String[] getimages(String s) {
         String replace = s.replace("\"", "").replace("[", "").replace("]", "");
         String[] split = replace.split(",");
-        return split[0];
+        return split;
     }
 }

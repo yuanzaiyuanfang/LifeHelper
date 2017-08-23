@@ -10,9 +10,12 @@ import android.widget.ImageView;
 
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.yzyfdf.lifehelper.R;
+import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
+import com.yzyfdf.lifehelper.bean.travel.MyImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.MyItineraryBean;
 import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
+import com.yzyfdf.lifehelper.ui.travel.view.ImpressDetailsActivity;
 
 import java.util.List;
 
@@ -24,6 +27,10 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
  */
 
 public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapter.BaseRVViewHolder> {
+    private String mTitle    = "";
+    private String mUsername = "";
+    private String mAvatar   = "";
+
     public RouteDetailsAdapter(Context ctx, List<MyItineraryBean> list) {
         super(ctx, list);
     }
@@ -82,7 +89,8 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
                 RouteDetailsBean.ItineraryBean.LocationsBean locationsBean = bean.getLocationsBean();
                 ImageView type_loc = holder.getImageView(R.id.iv_type_loc);
                 type_loc.setImageResource(getTypeLoc(locationsBean.getCategory()));
-                holder.setText(R.id.tv_location, !TextUtils.isEmpty(locationsBean.getName()) ? locationsBean.getName() : (!TextUtils.isEmpty(locationsBean.getName_en()) ? locationsBean.getName_en() : "未知"));
+                String location = !TextUtils.isEmpty(locationsBean.getName()) ? locationsBean.getName() : (!TextUtils.isEmpty(locationsBean.getName_en()) ? locationsBean.getName_en() : "未知");
+                holder.setText(R.id.tv_location, location);
                 holder.getView(R.id.layout_location).setOnClickListener(v -> ToastUitl.showShort(locationsBean.getName()));
 
                 FrameLayout layout_comment = (FrameLayout) holder.getView(R.id.layout_comment);
@@ -92,8 +100,9 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
                 } else {
                     layout_comment.setVisibility(View.VISIBLE);
                     ImageView iv = holder.getImageView(R.id.iv_images);
-                    if (comment.getImages() != null && comment.getImages().size() > 0) {
-                        holder.setBigImage(R.id.iv_images, "http://img.chufaba.me/" + comment.getImages().get(0) + "!600");
+                    List<String> images = comment.getImages();
+                    if (images != null && images.size() > 0) {
+                        holder.setBigImage(R.id.iv_images, Constant.travel_image + images.get(0) + "!600");
                         iv.setVisibility(View.VISIBLE);
                     } else {
                         iv.setVisibility(View.GONE);
@@ -104,7 +113,8 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
                     MaterialRatingBar rating = (MaterialRatingBar) holder.getView(R.id.rating);
                     rating.setRating(comment.getRating());
 
-                    layout_comment.setOnClickListener(v -> ToastUitl.showShort(comment.getImages().size() + "张"));
+                    layout_comment.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext, new MyImpressBean(comment.getDesc(), location,
+                            comment.getCreated_at(), mTitle, images, mAvatar, mUsername, comment.getRating())));
                 }
 
                 break;
@@ -137,5 +147,14 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
         if (rating >= 1.5)
             return "觉得较差";
         return "觉得很差";
+    }
+
+    public void setTitle(String title, String username, String avatar) {
+        if (!TextUtils.isEmpty(title))
+            mTitle = title;
+        if (!TextUtils.isEmpty(username))
+            mUsername = username;
+        if (!TextUtils.isEmpty(avatar))
+            mAvatar = avatar;
     }
 }

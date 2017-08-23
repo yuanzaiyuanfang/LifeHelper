@@ -167,6 +167,7 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
     @Override
     public void returnRouteDetails(RouteDetailsBean bean) {
         //行程
+        mAdapter.setTitle(bean.getTitle(),bean.getUsername(),bean.getAvatar());
         mPresenter.getRecyclerViewData(bean);
         //顶部信息
         setMsg1(bean);

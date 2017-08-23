@@ -61,7 +61,7 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 //
 //}
 
-
+@Deprecated
 public class ImpressItemAdapter extends BaseAdapter<TravelImpressBean.DataBean.PcBean, BaseAdapter.BaseRVViewHolder> {
 
     private List<String> mImages;
