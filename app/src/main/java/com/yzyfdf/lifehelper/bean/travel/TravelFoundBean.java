@@ -95,6 +95,10 @@ public class TravelFoundBean extends TravelBaseBean {
             private String name_en;
             private int type;
 
+            public GuidesBean(String country) {
+                this.country = country;
+            }
+
             public int getType() {
                 return type;
             }

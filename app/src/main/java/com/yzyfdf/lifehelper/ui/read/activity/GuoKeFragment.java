@@ -33,7 +33,7 @@ public class GuoKeFragment extends BaseAppFragment<GuoKePresenter, GuoKeModel> i
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_read_zhihu;
+        return R.layout.fragment_xrecyclerview;
     }
 
     @Override

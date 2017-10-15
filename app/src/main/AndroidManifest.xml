@@ -71,6 +71,8 @@
         <activity android:name=".ui.travel.view.ImpressDetailsActivity"/>
         //搜索
         <activity android:name=".ui.travel.view.TravelSearchActivity"/>
+        //发现更多
+        <activity android:name=".ui.travel.view.FoundActivity"/>
 
         //天气主页
         <activity android:name=".ui.weather.activity.WeatherMainActivity">

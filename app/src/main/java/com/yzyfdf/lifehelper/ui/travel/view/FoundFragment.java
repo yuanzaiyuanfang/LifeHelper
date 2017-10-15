@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.activity.BaseAppFragment;
-import com.yzyfdf.lifehelper.bean.travel.MyFoundBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
 import com.yzyfdf.lifehelper.ui.travel.adapter.FoundAdapter;
 import com.yzyfdf.lifehelper.ui.travel.contract.FoundContract;
@@ -27,7 +26,7 @@ public class FoundFragment extends BaseAppFragment<FoundPresenter, FoundModel> i
     @Bind(R.id.xRecyclerView)
     RecyclerView mXRecyclerView;
 
-    private ArrayList<MyFoundBean> mList = new ArrayList<>();
+    private ArrayList<TravelFoundBean.DataBean.GuidesBean> mList = new ArrayList<>();
     private FoundAdapter mAdapter;
 
     @Override
@@ -44,7 +43,7 @@ public class FoundFragment extends BaseAppFragment<FoundPresenter, FoundModel> i
     protected void initView() {
         //RecyclerView
         mXRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        mAdapter = new FoundAdapter(getContext(), mList);
+        mAdapter = new FoundAdapter(getContext(), mList,FoundAdapter.level1);
         mXRecyclerView.setAdapter(mAdapter);
 
 
@@ -54,19 +53,15 @@ public class FoundFragment extends BaseAppFragment<FoundPresenter, FoundModel> i
 
     @Override
     public void returnHots(TravelFoundBean.DataBean bean) {
-        ArrayList<MyFoundBean> list = new ArrayList<>();
+        ArrayList<TravelFoundBean.DataBean.GuidesBean> list = new ArrayList<>();
 
-        list.add(new MyFoundBean("境内"));
+        list.add(new TravelFoundBean.DataBean.GuidesBean("境内"));
         TravelFoundBean.DataBean.DomesticBean domesticBean = bean.getDomestic();
-        for (TravelFoundBean.DataBean.GuidesBean guidesBean : domesticBean.getGuides()) {
-            list.add(new MyFoundBean("",guidesBean));
-        }
+        list.addAll(domesticBean.getGuides());
 
-        list.add(new MyFoundBean("境外"));
+        list.add(new TravelFoundBean.DataBean.GuidesBean("境外"));
         TravelFoundBean.DataBean.AbroadBean abroadBean = bean.getAbroad();
-        for (TravelFoundBean.DataBean.GuidesBean guidesBean : abroadBean.getGuides()) {
-            list.add(new MyFoundBean("",guidesBean));
-        }
+        list.addAll(abroadBean.getGuides());
 
         mAdapter.refresh(list);
 

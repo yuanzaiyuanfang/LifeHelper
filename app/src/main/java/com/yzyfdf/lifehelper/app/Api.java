@@ -19,7 +19,9 @@ import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
 import com.yzyfdf.lifehelper.bean.travel.HotSearch;
 import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelFoundAbroadBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelFoundDomesticBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
 import com.yzyfdf.lifehelper.bean.weather.WeatherBean;
@@ -208,5 +210,19 @@ public class Api {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, Constant.travel_suggestsearch + keyWord, params).getCall(new JsonConvert<HotSearch>() {
         }, RxAdapter.<HotSearch>create());
+    }
+
+    //远方 境外景点
+    public Observable<TravelFoundAbroadBean> getGuidesAbroad(Context context) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_guides_abroad, params).getCall(new JsonConvert<TravelFoundAbroadBean>() {
+        }, RxAdapter.<TravelFoundAbroadBean>create());
+    }
+
+    //远方 境内景点
+    public Observable<TravelFoundDomesticBean> getGuidesDomestic(Context context) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_guides_domestic, params).getCall(new JsonConvert<TravelFoundDomesticBean>() {
+        }, RxAdapter.<TravelFoundDomesticBean>create());
     }
 }

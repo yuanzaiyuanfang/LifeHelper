@@ -68,14 +68,16 @@ public class Constant {
 
 
     //远方
-    public static final String travel_host          = "https://api.chufaba.me/";
-    public static final String travel_image         = "http://img.chufaba.me/";
-    public static final String travel_routes        = travel_host + "v2/discovery/index.json?offset=";
-    public static final String travel_route_details = travel_host;
-    public static final String travel_impresss      = travel_host + "v2/discovery/feed.json?before=";
-    public static final String travel_found         = travel_host + "v2/guides/hot";
-    public static final String travel_hotsearch     = travel_host + "v2/discovery/keywords";
-    public static final String travel_suggestsearch = travel_host + "v2/search/suggest?keyword=";
+    public static final String travel_host            = "https://api.chufaba.me/";
+    public static final String travel_image           = "http://img.chufaba.me/";
+    public static final String travel_routes          = travel_host + "v2/discovery/index.json?offset=";
+    public static final String travel_route_details   = travel_host;
+    public static final String travel_impresss        = travel_host + "v2/discovery/feed.json?before=";
+    public static final String travel_found           = travel_host + "v2/guides/hot";
+    public static final String travel_hotsearch       = travel_host + "v2/discovery/keywords";
+    public static final String travel_suggestsearch   = travel_host + "v2/search/suggest?keyword=";
+    public static final String travel_guides_abroad   = travel_host + "v2/guides/abroad";
+    public static final String travel_guides_domestic = travel_host + "v2/guides/domestic";
 
 
     public static final String share_url = "http://yuanzaiyuanfang.applinzi.com/?p=92";

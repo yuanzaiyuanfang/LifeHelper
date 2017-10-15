@@ -33,7 +33,7 @@ public class ZhiHuFragment extends BaseAppFragment<ZhiHuPresenter, ZhiHuModel> i
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_read_zhihu;
+        return R.layout.fragment_xrecyclerview;
     }
 
     @Override

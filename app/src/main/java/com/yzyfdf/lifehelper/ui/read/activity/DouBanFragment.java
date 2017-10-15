@@ -35,7 +35,7 @@ public class DouBanFragment extends BaseAppFragment<DouBanPresenter, DouBanModel
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_read_zhihu;
+        return R.layout.fragment_xrecyclerview;
     }
 
     @Override

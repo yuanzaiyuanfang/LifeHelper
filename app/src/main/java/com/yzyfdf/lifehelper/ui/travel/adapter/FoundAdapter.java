@@ -5,29 +5,34 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
-import com.yzyfdf.lifehelper.bean.travel.MyFoundBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
+import com.yzyfdf.lifehelper.ui.travel.view.FoundActivity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SJJ .
  * 描述 ${TODO}
  */
 
-public class FoundAdapter extends BaseAdapter<MyFoundBean, BaseAdapter.BaseRVViewHolder>
-        //        implements StickyRecyclerHeadersAdapter<BaseAdapter.BaseRVViewHolder>
-{
+public class FoundAdapter extends BaseAdapter<TravelFoundBean.DataBean.GuidesBean, BaseAdapter.BaseRVViewHolder> {
 
-    public FoundAdapter(Context ctx, ArrayList<MyFoundBean> list) {
+    public static final String level1 = "level1";
+    public static final String level2 = "level2";
+    private             String mLevel = "";
+
+    public FoundAdapter(Context ctx, List<TravelFoundBean.DataBean.GuidesBean> list, String level) {
         super(ctx, list);
+        if (!TextUtils.isEmpty(level))
+            mLevel = level;
     }
-
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -41,7 +46,7 @@ public class FoundAdapter extends BaseAdapter<MyFoundBean, BaseAdapter.BaseRVVie
                 public int getSpanSize(int position) {
                     int type = getItemViewType(position);
                     switch (type) {
-                        case 1:
+                        case 1://标题
                             return 3;
                         case 2:
                             return 1;
@@ -55,7 +60,7 @@ public class FoundAdapter extends BaseAdapter<MyFoundBean, BaseAdapter.BaseRVVie
 
     @Override
     public int getItemViewType(int position) {
-        return TextUtils.isEmpty(mList.get(position).getTitle()) ? 2 : 1;
+        return TextUtils.isEmpty(mList.get(position).getName()) ? 1 : 2;
     }
 
     @Override
@@ -76,20 +81,25 @@ public class FoundAdapter extends BaseAdapter<MyFoundBean, BaseAdapter.BaseRVVie
 
     @Override
     public void onBindViewHolder(BaseAdapter.BaseRVViewHolder holder, int position) {
-        MyFoundBean myFoundBean = mList.get(position);
+        TravelFoundBean.DataBean.GuidesBean bean = mList.get(position);
         int type = getItemViewType(position);
         switch (type) {
             case 1:
-                String title = myFoundBean.getTitle();
-                holder.setText(R.id.where, title);
-                holder.itemView.setOnClickListener(v -> ToastUtils.showShortToast(title));
+                holder.setText(R.id.where, bean.getCountry());
+                TextView more = holder.getTextView(R.id.more);
+                if (TextUtils.equals(mLevel, level1)) {
+                    more.setVisibility(View.VISIBLE);
+                    more.setOnClickListener(v ->
+                            FoundActivity.startSelf(mContext, position == 0 ? position : 1));
+                } else {
+                    more.setVisibility(View.GONE);
+                }
                 break;
             case 2:
-                TravelFoundBean.DataBean.GuidesBean bean = myFoundBean.getGuidesBean();
                 holder.setText(R.id.tv_name, bean.getName());
                 holder.setText(R.id.tv_name_en, bean.getName_en());
                 holder.setImage(R.id.iv_pic, bean.getImg());
-                holder.itemView.setOnClickListener(v -> ToastUtils.showShortToast(bean.getId()+""));
+                holder.itemView.setOnClickListener(v -> ToastUtils.showShortToast(bean.getId() + ""));
                 break;
         }
 
