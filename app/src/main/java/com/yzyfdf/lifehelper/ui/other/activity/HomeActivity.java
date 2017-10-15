@@ -266,7 +266,8 @@ public class HomeActivity extends BaseAppActivity<HomePresenter, HomeModel> impl
                 showShortToast("敬请期待");
                 return true;
             case R.id.travel_category:
-                showShortToast("搜索");
+//                TravelSearchActivity.startSelf(this);
+                showShortToast("敬请期待");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

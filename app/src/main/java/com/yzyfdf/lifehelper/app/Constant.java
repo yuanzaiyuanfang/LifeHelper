@@ -74,6 +74,8 @@ public class Constant {
     public static final String travel_route_details = travel_host;
     public static final String travel_impresss      = travel_host + "v2/discovery/feed.json?before=";
     public static final String travel_found         = travel_host + "v2/guides/hot";
+    public static final String travel_hotsearch     = travel_host + "v2/discovery/keywords";
+    public static final String travel_suggestsearch = travel_host + "v2/search/suggest?keyword=";
 
 
     public static final String share_url = "http://yuanzaiyuanfang.applinzi.com/?p=92";

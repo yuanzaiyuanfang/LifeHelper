@@ -212,6 +212,7 @@
 -keep class com.yzyfdf.lifehelper.ui.weather.presenter.** { *; }
 
 -keep class com.jaydenxiao.common.** { *; }
+-keep class com.jianlv.chufaba.** { *; }
 
 #----------------保护指定的类和类的成员，但条件是所有指定的类和类成员是要存在------------------------------------
 -keepclasseswithmembernames class * {

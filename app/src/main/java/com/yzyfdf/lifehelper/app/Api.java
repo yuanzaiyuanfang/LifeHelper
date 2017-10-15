@@ -17,6 +17,7 @@ import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
+import com.yzyfdf.lifehelper.bean.travel.HotSearch;
 import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
@@ -195,5 +196,17 @@ public class Api {
         }, RxAdapter.<RouteDetailsBean>create());
     }
 
+    //远方 热搜
+    public Observable<HotSearch> getKeyWords(Context context) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_hotsearch, params).getCall(new JsonConvert<HotSearch>() {
+        }, RxAdapter.<HotSearch>create());
+    }
 
+    //远方 推荐搜索
+    public Observable<HotSearch> getSuggests(Context context, String keyWord) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_suggestsearch + keyWord, params).getCall(new JsonConvert<HotSearch>() {
+        }, RxAdapter.<HotSearch>create());
+    }
 }

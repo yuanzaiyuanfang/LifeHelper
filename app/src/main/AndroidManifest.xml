@@ -67,8 +67,10 @@
 
         //精选  行程详情
         <activity android:name=".ui.travel.view.RouteDetailsActivity"/>
-        //印象详情
+        //热门 印象详情
         <activity android:name=".ui.travel.view.ImpressDetailsActivity"/>
+        //搜索
+        <activity android:name=".ui.travel.view.TravelSearchActivity"/>
 
         //天气主页
         <activity android:name=".ui.weather.activity.WeatherMainActivity">
