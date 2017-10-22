@@ -104,7 +104,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
             return ((TextView) getView(id));
         }
 
-        public void setText(int id, String text) {
+        public void setText(int id, CharSequence text) {
             getTextView(id).setText(text);
         }
 

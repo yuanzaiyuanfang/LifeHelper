@@ -262,6 +262,24 @@ public class TravelImpressBean extends TravelBaseBean {
             private boolean      faved;
             private int          adds;
             private List<String>      images;
+            private String image_index;
+            private String note;
+
+            public String getImage_index() {
+                return image_index;
+            }
+
+            public void setImage_index(String image_index) {
+                this.image_index = image_index;
+            }
+
+            public String getNote() {
+                return note;
+            }
+
+            public void setNote(String note) {
+                this.note = note;
+            }
 
             public int getId() {
                 return id;

@@ -17,7 +17,9 @@ import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.ZhiHuListBean;
+import com.yzyfdf.lifehelper.bean.travel.DestinationBean;
 import com.yzyfdf.lifehelper.bean.travel.HotSearch;
+import com.yzyfdf.lifehelper.bean.travel.JournalDetailsBean;
 import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundAbroadBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
@@ -192,6 +194,12 @@ public class Api {
     }
 
     //远方精选 行程详情
+    public Observable<JournalDetailsBean> getJournalDetails(Context context, String url) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, "https://api.chufaba.me" + url + ".json", params).getCall(new JsonConvert<JournalDetailsBean>() {
+        }, RxAdapter.<JournalDetailsBean>create());
+    }
+    //远方精选 行程详情
     public Observable<RouteDetailsBean> getRouteDetails(Context context, String url) {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, "https://api.chufaba.me" + url + ".json", params).getCall(new JsonConvert<RouteDetailsBean>() {
@@ -224,5 +232,12 @@ public class Api {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, Constant.travel_guides_domestic, params).getCall(new JsonConvert<TravelFoundDomesticBean>() {
         }, RxAdapter.<TravelFoundDomesticBean>create());
+    }
+
+    //远方 目的地
+    public Observable<DestinationBean> getDestination(Context context, int id) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, Constant.travel_destination + id, params).getCall(new JsonConvert<DestinationBean>() {
+        }, RxAdapter.<DestinationBean>create());
     }
 }

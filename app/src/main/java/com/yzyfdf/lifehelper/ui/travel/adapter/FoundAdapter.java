@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.blankj.utilcode.utils.ToastUtils;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
+import com.yzyfdf.lifehelper.ui.travel.view.DestinationActivity;
 import com.yzyfdf.lifehelper.ui.travel.view.FoundActivity;
 
 import java.util.List;
@@ -99,7 +99,7 @@ public class FoundAdapter extends BaseAdapter<TravelFoundBean.DataBean.GuidesBea
                 holder.setText(R.id.tv_name, bean.getName());
                 holder.setText(R.id.tv_name_en, bean.getName_en());
                 holder.setImage(R.id.iv_pic, bean.getImg());
-                holder.itemView.setOnClickListener(v -> ToastUtils.showShortToast(bean.getId() + ""));
+                holder.itemView.setOnClickListener(v -> DestinationActivity.startSelf(mContext, bean.getId()));
                 break;
         }
 

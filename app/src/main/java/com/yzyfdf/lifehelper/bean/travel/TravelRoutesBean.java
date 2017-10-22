@@ -48,7 +48,9 @@ public class TravelRoutesBean extends TravelBaseBean {
         private int     id;
         private String  title;
         private String  destinations;
+        private String  highlights;
         private String  background_image;
+        private String  image;
         private String  url;
         private String  hot;
         private int     user_id;
@@ -56,6 +58,22 @@ public class TravelRoutesBean extends TravelBaseBean {
         private String  username;
         private String  avatar;
         private String  user;
+
+        public String getHighlights() {
+            return highlights;
+        }
+
+        public void setHighlights(String highlights) {
+            this.highlights = highlights;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
 
         public int getRes_type() {
             return res_type;

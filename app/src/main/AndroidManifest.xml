@@ -66,13 +66,16 @@
         </activity>
 
         //精选  行程详情
+        <activity android:name=".ui.travel.view.JournalDetailsActivity"/>
         <activity android:name=".ui.travel.view.RouteDetailsActivity"/>
         //热门 印象详情
         <activity android:name=".ui.travel.view.ImpressDetailsActivity"/>
         //搜索
         <activity android:name=".ui.travel.view.TravelSearchActivity"/>
-        //发现更多
+        //发现更多 目的地列表
         <activity android:name=".ui.travel.view.FoundActivity"/>
+        //目的地详情
+        <activity android:name=".ui.travel.view.DestinationActivity"/>
 
         //天气主页
         <activity android:name=".ui.weather.activity.WeatherMainActivity">

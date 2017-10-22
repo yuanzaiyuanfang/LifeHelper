@@ -22,12 +22,12 @@ import butterknife.Bind;
  * 描述 ${远方 -  精选  行程}
  */
 
-public class RoutesFragment extends BaseAppFragment<RoutesPresenter,RoutesModel> implements RoutesContract.View {
+public class RoutesFragment extends BaseAppFragment<RoutesPresenter, RoutesModel> implements RoutesContract.View {
     @Bind(R.id.xRecyclerView)
     XRecyclerView mXRecyclerView;
 
-    private int num = 0;
-    private ArrayList<TravelRoutesBean.ItemsBean> mList = new ArrayList<>();
+    private int                                   num        = 0;
+    private ArrayList<TravelRoutesBean.ItemsBean> mList      = new ArrayList<>();
     private ArrayList<TravelRoutesBean.ItemsBean> mArrayList = new ArrayList<>();
     private RoutesAdapter mAdapter;
 
@@ -74,14 +74,12 @@ public class RoutesFragment extends BaseAppFragment<RoutesPresenter,RoutesModel>
     }
 
 
-
-
     @Override
     public void returnRoutes(List<TravelRoutesBean.ItemsBean> list) {
         //过滤出类型3 请求条目按原来增加 纺织重复
         mArrayList.clear();
         for (TravelRoutesBean.ItemsBean bean : list) {
-            if (bean.getRes_type() == 3) {
+            if (bean.getRes_type() == 1 || bean.getRes_type() == 3) {
                 mArrayList.add(bean);
             }
         }

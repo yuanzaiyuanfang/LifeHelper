@@ -74,7 +74,8 @@ public class ImpressDetailsActivity extends BaseAppActivity {
             mTvDesc.setText(desc);
         }
         mTvLocation.setText("@" + myImpressBean.getLocation());
-        mTvWritetime.setText(myImpressBean.getWriteTime().substring(0, 10) + " 发布");
+        if (!TextUtils.isEmpty(myImpressBean.getWriteTime()))
+            mTvWritetime.setText(myImpressBean.getWriteTime().substring(0, 10) + " 发布");
 
         String from = "来自行程 " + myImpressBean.getFrom();
         SpannableString ss = new SpannableString(from);
@@ -95,7 +96,11 @@ public class ImpressDetailsActivity extends BaseAppActivity {
 
             @Override
             public void onBindViewHolder(BaseAdapter.BaseRVViewHolder holder, int position) {
-                ImageUtil.setBigImage(mContext, (ImageView) holder.itemView, Constant.travel_image + mList.get(position) + "!600");
+                String url = mList.get(position);
+                if (!url.startsWith("http")) {
+                    url = Constant.travel_image + url + "!600";
+                }
+                ImageUtil.setBigImage(mContext, (ImageView) holder.itemView, url);
             }
         });
 

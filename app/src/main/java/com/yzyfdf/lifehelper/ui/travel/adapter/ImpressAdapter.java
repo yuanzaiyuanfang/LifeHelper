@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yzyfdf.lifehelper.R;
+import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.travel.MyImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.ui.travel.view.ImpressDetailsActivity;
+import com.yzyfdf.lifehelper.util.TravelUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,11 +66,11 @@ public class ImpressAdapter extends BaseAdapter<TravelImpressBean.DataBean, Base
 
         TravelImpressBean.DataBean.PcBean pcBean = pcBeanList.get(0);
         holder.setText(R.id.tv_author, pcBean.getUsername());
-        holder.setText(R.id.tv_feel, RouteDetailsAdapter.getFeel(pcBean.getRating()));
+        holder.setText(R.id.tv_feel, JournalDetailsAdapter.getFeel(pcBean.getRating()));
         holder.setText(R.id.tv_likes, pcBean.getLikes() + "");
         holder.setText(R.id.tv_desc, pcBean.getDesc());
         holder.setRoundImage(R.id.iv_author, pcBean.getAvatar());
-        holder.setBigImage(R.id.iv_images, "http://img.chufaba.me/" + getimage(pcBean.getImages()) + "!600");
+        holder.setBigImage(R.id.iv_images, Constant.travel_image + TravelUtil.getimage(pcBean.getImages()) + "!600");
 
         MaterialRatingBar rating = (MaterialRatingBar) holder.getView(R.id.rating);
         rating.setRating(pcBean.getRating());
@@ -77,7 +79,7 @@ public class ImpressAdapter extends BaseAdapter<TravelImpressBean.DataBean, Base
 
         holder.itemView.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext,
                 new MyImpressBean(pcBean.getDesc(),location,pcBean.getCreated_at(),pcBean.getPlan_name(),
-                        Arrays.asList(getimages(pcBean.getImages())),pcBean.getAvatar(),pcBean.getUsername(),pcBean.getRating())));
+                        Arrays.asList(TravelUtil.getimages(pcBean.getImages())),pcBean.getAvatar(),pcBean.getUsername(),pcBean.getRating())));
         //                ViewPager viewPager = (ViewPager) holder.getView(R.id.viewpager);
         //                viewPager.setPageMargin(30);
         //                viewPager.setOffscreenPageLimit(2);
@@ -90,14 +92,14 @@ public class ImpressAdapter extends BaseAdapter<TravelImpressBean.DataBean, Base
 
     }
 
-    private String getimage(String s) {
-        String[] strings = getimages(s);
-        return strings[0];
-    }
-
-    private String[] getimages(String s) {
-        String replace = s.replace("\"", "").replace("[", "").replace("]", "");
-        String[] split = replace.split(",");
-        return split;
-    }
+//    private String getimage(String s) {
+//        String[] strings = getimages(s);
+//        return strings[0];
+//    }
+//
+//    private String[] getimages(String s) {
+//        String replace = s.replace("\"", "").replace("[", "").replace("]", "");
+//        String[] split = replace.split(",");
+//        return split;
+//    }
 }

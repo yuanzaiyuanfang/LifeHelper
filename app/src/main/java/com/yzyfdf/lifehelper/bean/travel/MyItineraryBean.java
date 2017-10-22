@@ -6,10 +6,10 @@ package com.yzyfdf.lifehelper.bean.travel;
  */
 
 public class MyItineraryBean {
-    private MyItineraryTitle myItineraryTitle;
-    private RouteDetailsBean.ItineraryBean.LocationsBean locationsBean;
+    private MyItineraryTitle                               myItineraryTitle;
+    private JournalDetailsBean.ItineraryBean.LocationsBean locationsBean;
 
-    public  MyItineraryBean(MyItineraryTitle myItineraryTitle, RouteDetailsBean.ItineraryBean.LocationsBean locationsBean) {
+    public  MyItineraryBean(MyItineraryTitle myItineraryTitle, JournalDetailsBean.ItineraryBean.LocationsBean locationsBean) {
         this.myItineraryTitle = myItineraryTitle;
         this.locationsBean = locationsBean;
     }
@@ -22,11 +22,11 @@ public class MyItineraryBean {
         this.myItineraryTitle = myItineraryTitle;
     }
 
-    public RouteDetailsBean.ItineraryBean.LocationsBean getLocationsBean() {
+    public JournalDetailsBean.ItineraryBean.LocationsBean getLocationsBean() {
         return locationsBean;
     }
 
-    public void setLocationsBean(RouteDetailsBean.ItineraryBean.LocationsBean locationsBean) {
+    public void setLocationsBean(JournalDetailsBean.ItineraryBean.LocationsBean locationsBean) {
         this.locationsBean = locationsBean;
     }
 

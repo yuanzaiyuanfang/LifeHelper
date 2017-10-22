@@ -1,20 +1,24 @@
 package com.yzyfdf.lifehelper.ui.travel.adapter;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
+import com.yzyfdf.lifehelper.bean.travel.JournalDetailsBean;
 import com.yzyfdf.lifehelper.bean.travel.MyImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.MyItineraryBean;
-import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
 import com.yzyfdf.lifehelper.ui.travel.view.ImpressDetailsActivity;
 
 import java.util.List;
@@ -26,12 +30,13 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
  * 描述 ${TODO}
  */
 
-public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapter.BaseRVViewHolder> {
-    private String mTitle    = "";
-    private String mUsername = "";
-    private String mAvatar   = "";
+public class JournalDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapter.BaseRVViewHolder> {
+    private String   mTitle    = "";
+    private String   mUsername = "";
+    private String   mAvatar   = "";
+    private String[] tipArrs   = {"出发君说：", "游玩方式：", "如何到达："};
 
-    public RouteDetailsAdapter(Context ctx, List<MyItineraryBean> list) {
+    public JournalDetailsAdapter(Context ctx, List<MyItineraryBean> list) {
         super(ctx, list);
     }
 
@@ -74,7 +79,7 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
             case 1:
                 MyItineraryBean.MyItineraryTitle itineraryTitle = bean.getMyItineraryTitle();
                 holder.setText(R.id.tv_day, itineraryTitle.getDay());
-                holder.setText(R.id.tv_time_week_city, itineraryTitle.getTime() + "," + itineraryTitle.getWeek() + "," + itineraryTitle.getCity());
+                holder.setText(R.id.tv_time_week_city, itineraryTitle.getTime() + itineraryTitle.getWeek() + itineraryTitle.getCity());
                 View layout_desc = holder.getView(R.id.layout_desc);
                 if (TextUtils.isEmpty(itineraryTitle.getDesc())) {
                     layout_desc.setVisibility(View.GONE);
@@ -86,20 +91,40 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
                 holder.getView(R.id.layout_day).setOnClickListener(v -> ToastUitl.showShort(itineraryTitle.getDay()));
                 break;
             case 2:
-                RouteDetailsBean.ItineraryBean.LocationsBean locationsBean = bean.getLocationsBean();
+                JournalDetailsBean.ItineraryBean.LocationsBean locationsBean = bean.getLocationsBean();
                 ImageView type_loc = holder.getImageView(R.id.iv_type_loc);
                 type_loc.setImageResource(getTypeLoc(locationsBean.getCategory()));
                 String location = !TextUtils.isEmpty(locationsBean.getName()) ? locationsBean.getName() : (!TextUtils.isEmpty(locationsBean.getName_en()) ? locationsBean.getName_en() : "未知");
                 holder.setText(R.id.tv_location, location);
                 holder.getView(R.id.layout_location).setOnClickListener(v -> ToastUitl.showShort(locationsBean.getName()));
 
+                JournalDetailsBean.ItineraryBean.LocationsBean.CommentBean comment = locationsBean.getComment();
                 FrameLayout layout_comment = (FrameLayout) holder.getView(R.id.layout_comment);
-                RouteDetailsBean.ItineraryBean.LocationsBean.CommentBean comment = locationsBean.getComment();
+                ImageView iv = holder.getImageView(R.id.iv_images);
+                MaterialRatingBar rating = (MaterialRatingBar) holder.getView(R.id.rating);
+                LinearLayout layoutFeel = (LinearLayout) holder.getView(R.id.layout_feel);
                 if (comment == null) {
-                    layout_comment.setVisibility(View.GONE);
+                    List<String> images = locationsBean.getImages();
+                    if (images != null && images.size() > 0) {
+                        //route
+                        layout_comment.setVisibility(View.VISIBLE);
+
+                        holder.setBigImage(R.id.iv_images, images.get(0) + "!600");
+                        iv.setVisibility(View.VISIBLE);
+
+                        layoutFeel.setVisibility(View.GONE);
+                        holder.setText(R.id.tv_comment_desc, getNote(locationsBean.getNote()));
+
+                        layout_comment.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext, new MyImpressBean(locationsBean.getIntro(), location,
+                                "", mTitle, images, mAvatar, mUsername, (float) locationsBean.getRating())));
+
+
+                    } else {
+                        layout_comment.setVisibility(View.GONE);
+                    }
                 } else {
+                    //journal
                     layout_comment.setVisibility(View.VISIBLE);
-                    ImageView iv = holder.getImageView(R.id.iv_images);
                     List<String> images = comment.getImages();
                     if (images != null && images.size() > 0) {
                         holder.setBigImage(R.id.iv_images, Constant.travel_image + images.get(0) + "!600");
@@ -110,7 +135,6 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
                     holder.setText(R.id.tv_feel, getFeel(comment.getRating()));
                     holder.setText(R.id.tv_comment_desc, comment.getDesc());
 
-                    MaterialRatingBar rating = (MaterialRatingBar) holder.getView(R.id.rating);
                     rating.setRating(comment.getRating());
 
                     layout_comment.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext, new MyImpressBean(comment.getDesc(), location,
@@ -122,6 +146,23 @@ public class RouteDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdapte
 
                 break;
         }
+    }
+
+    private SpannableString getNote(String note) {
+        if (TextUtils.isEmpty(note))
+            return new SpannableString("\n无介绍");
+
+        note = "\n" + note.replace("#", "");
+        int i1 = note.indexOf("\n", 1);
+        SpannableString ss = new SpannableString(note);
+        ss.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, i1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        for (int j = 0; j < tipArrs.length; j++) {
+            if (note.contains(tipArrs[j])) {
+                int i = note.indexOf(tipArrs[j]);
+                ss.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), i, i + tipArrs[j].length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+        }
+        return ss;
     }
 
     public static int getTypeLoc(String category) {

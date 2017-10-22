@@ -26,12 +26,13 @@ import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.bean.travel.MyItineraryBean;
 import com.yzyfdf.lifehelper.bean.travel.MyRouteRvData;
-import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
+import com.yzyfdf.lifehelper.bean.travel.JournalDetailsBean;
 import com.yzyfdf.lifehelper.ui.travel.adapter.JournalDetailsAdapter;
 import com.yzyfdf.lifehelper.ui.travel.adapter.RouteDetailsMenuAdapter;
-import com.yzyfdf.lifehelper.ui.travel.contract.RouteDetailsContract;
-import com.yzyfdf.lifehelper.ui.travel.model.RouteDetailsModel;
-import com.yzyfdf.lifehelper.ui.travel.presenter.RouteDetailsPresenter;
+import com.yzyfdf.lifehelper.ui.travel.contract.JournalDetailsContract;
+import com.yzyfdf.lifehelper.ui.travel.model.JournalDetailsModel;
+import com.yzyfdf.lifehelper.ui.travel.presenter.JournalDetailsPresenter;
+import com.yzyfdf.lifehelper.util.ImageUtil;
 import com.yzyfdf.lifehelper.widget.NoScrollGridView;
 import com.yzyfdf.lifehelper.widget.ObservableScrollView;
 
@@ -48,8 +49,8 @@ import jp.wasabeef.blurry.Blurry;
  * 描述 ${远方 -  精选  行程详情}
  */
 
-public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter, RouteDetailsModel>
-        implements RouteDetailsContract.View {
+public class JournalDetailsActivity extends BaseAppActivity<JournalDetailsPresenter, JournalDetailsModel>
+        implements JournalDetailsContract.View {
 
     @Bind(R.id.tv_name)
     TextView             mTvName;
@@ -97,7 +98,7 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
     private int                     mSize;
 
     public static void startSelf(Context context, String url) {
-        Intent intent = new Intent(context, RouteDetailsActivity.class);
+        Intent intent = new Intent(context, JournalDetailsActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
     }
@@ -114,8 +115,6 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
 
     @Override
     public void initView() {
-        ((View) mTipBkg.getParent()).setVisibility(View.GONE);
-
         String url = getIntent().getStringExtra("url");
         mPresenter.getRouteDetails(url);
 
@@ -166,23 +165,22 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
     }
 
     @Override
-    public void returnRouteDetails(RouteDetailsBean bean) {
+    public void returnRouteDetails(JournalDetailsBean bean) {
         //行程
-        mAdapter.setTitle(bean.getTitle(),"","");
+        mAdapter.setTitle(bean.getTitle(),bean.getUsername(),bean.getAvatar());
         mPresenter.getRecyclerViewData(bean);
         //顶部信息
         setMsg1(bean);
         //标签
-//        setMsg2(bean);
+        setMsg2(bean);
 
+        if (!TextUtils.isEmpty(bean.getIntro()))
+            mTvIntro.setText(bean.getIntro());
 
-        if (!TextUtils.isEmpty(bean.getDesc()))
-            mTvIntro.setText(bean.getDesc());
-
-//        if (bean.getItinerary() != null && bean.getItinerary().size() > 30) {
-//            mSize = bean.getItinerary().size();
-//            showLongToast("当前行程共" + mSize + "天，暂时只支持查看一个月");
-//        }
+        if (bean.getItinerary() != null && bean.getItinerary().size() > 30) {
+            mSize = bean.getItinerary().size();
+            showLongToast("当前行程共" + mSize + "天，暂时只支持查看一个月");
+        }
 
     }
 
@@ -194,17 +192,17 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
     }
 
 
-    private void setMsg2(RouteDetailsBean bean) {
+    private void setMsg2(JournalDetailsBean bean) {
         ArrayList<Map<String, String>> list = new ArrayList<>();
 
-//        Map<String, String> map = new HashMap<>();
-//        map.put("text1", "出发时间：");
-//        map.put("text2", TextUtils.isEmpty(bean.getDeparture_date()) ? "未填写" : bean.getDeparture_date());
-//        list.add(map);
+        Map<String, String> map = new HashMap<>();
+        map.put("text1", "出发时间：");
+        map.put("text2", TextUtils.isEmpty(bean.getDeparture_date()) ? "未填写" : bean.getDeparture_date());
+        list.add(map);
 
         Map<String, String> map2 = new HashMap<>();
         map2.put("text1", "紧凑程度：");
-        map2.put("text2", TextUtils.isEmpty(bean.getCompact()) ? "未填写" : bean.getCompact() + "（" + bean.getDays() + "天," + bean.getComments() + "个地点）");
+        map2.put("text2", TextUtils.isEmpty(bean.getCompact()) ? "未填写" : bean.getCompact() + "（" + bean.getDuration() + "天," + bean.getLocations() + "个地点）");
         list.add(map2);
 
         Map<String, String> map3 = new HashMap<>();
@@ -236,7 +234,7 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
 
     }
 
-    private void setMsg1(RouteDetailsBean bean) {
+    private void setMsg1(JournalDetailsBean bean) {
         //背景
         Glide.with(mContext)
                 .load(bean.getBackground_image()).asBitmap()
@@ -249,13 +247,13 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
                         mBitmapBg = resource;
                         mTitleBkg.setImageBitmap(mBitmapBg);
 
-//                        Blurry.with(RouteDetailsActivity.this)
-//                                .radius(25)
-//                                .sampling(8)
-//                                .from(mBitmapBg)
-//                                .into(mTipBkg);
+                        Blurry.with(JournalDetailsActivity.this)
+                                .radius(25)
+                                .sampling(8)
+                                .from(mBitmapBg)
+                                .into(mTipBkg);
 
-                        Blurry.with(RouteDetailsActivity.this)
+                        Blurry.with(JournalDetailsActivity.this)
                                 .radius(30)
                                 .sampling(10)
                                 .from(mBitmapBg)
@@ -267,15 +265,14 @@ public class RouteDetailsActivity extends BaseAppActivity<RouteDetailsPresenter,
         mTvName.setText(mTitle);
         //地点
         StringBuffer sb = new StringBuffer("————·");
-        sb.append(bean.getHighlights());
-//        for (JournalDetailsBean.DestinationsBean destinationsBean : bean.getDestinations()) {
-//            sb.append(destinationsBean.getName() + "·");
-//        }
+        for (JournalDetailsBean.DestinationsBean destinationsBean : bean.getDestinations()) {
+            sb.append(destinationsBean.getName() + "·");
+        }
         sb.append("————");
         mTvDesc.setText(sb.toString());
         //作者
-//        mTvAuthor.setText(bean.getUsername());
-//        ImageUtil.setRoundImage(this, mIvAuthor, bean.getAvatar());
+        mTvAuthor.setText(bean.getUsername());
+        ImageUtil.setRoundImage(this, mIvAuthor, bean.getAvatar());
     }
 
 
