@@ -79,7 +79,7 @@ public class RoutesFragment extends BaseAppFragment<RoutesPresenter, RoutesModel
         //过滤出类型3 请求条目按原来增加 纺织重复
         mArrayList.clear();
         for (TravelRoutesBean.ItemsBean bean : list) {
-            if (bean.getRes_type() == 1 || bean.getRes_type() == 3) {
+            if (bean.getRes_type() == 1 || bean.getRes_type() == 2 || bean.getRes_type() == 3) {
                 mArrayList.add(bean);
             }
         }

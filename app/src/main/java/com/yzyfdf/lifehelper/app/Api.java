@@ -21,6 +21,7 @@ import com.yzyfdf.lifehelper.bean.travel.DestinationBean;
 import com.yzyfdf.lifehelper.bean.travel.HotSearch;
 import com.yzyfdf.lifehelper.bean.travel.JournalDetailsBean;
 import com.yzyfdf.lifehelper.bean.travel.RouteDetailsBean;
+import com.yzyfdf.lifehelper.bean.travel.ThemeDetailsBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundAbroadBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundBean;
 import com.yzyfdf.lifehelper.bean.travel.TravelFoundDomesticBean;
@@ -204,6 +205,13 @@ public class Api {
         HashMap<String, Object> params = new HashMap<>();
         return getTravelRequest(context, "https://api.chufaba.me" + url + ".json", params).getCall(new JsonConvert<RouteDetailsBean>() {
         }, RxAdapter.<RouteDetailsBean>create());
+    }
+
+    //远方精选 去处详情
+    public Observable<ThemeDetailsBean> getThemeDetails(Context context, String url) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getTravelRequest(context, "https://api.chufaba.me" + url + ".json", params).getCall(new JsonConvert<ThemeDetailsBean>() {
+        }, RxAdapter.<ThemeDetailsBean>create());
     }
 
     //远方 热搜

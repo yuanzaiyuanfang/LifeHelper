@@ -59,14 +59,14 @@ public class JournalDetailsModel implements JournalDetailsContract.Model {
             if (itineraryList != null && itineraryList.size() > 0) {
                 for (int i = 0; i < itineraryList.size(); i++) {
                     //每一天
+                    String day = "DAY" + (i + 1);
+                    String time = TimeUtil.getStringByOffset(departure_date, "yyyy.MM.dd", Calendar.DATE, i) + ",";
+                    String week = TimeUtil.getWeekNumber(time, "yyyy.MM.dd") + ",";
+                    //每天简介
+                    list.add(new MyItineraryBean(new MyItineraryBean.MyItineraryTitle(day, time, week, itineraryList.get(i).getCity(), itineraryList.get(i).getDesc()), null));
+                    menuList.add(day + "，" + itineraryList.get(i).getCity());
                     List<JournalDetailsBean.ItineraryBean.LocationsBean> locations = itineraryList.get(i).getLocations();
                     if (locations != null & locations.size() > 0) {
-                        String day = "DAY" + (i + 1);
-                        String time = TimeUtil.getStringByOffset(departure_date, "yyyy.MM.dd", Calendar.DATE, i)+",";
-                        String week = TimeUtil.getWeekNumber(time, "yyyy.MM.dd")+",";
-                        //每天简介
-                        list.add(new MyItineraryBean(new MyItineraryBean.MyItineraryTitle(day, time, week, itineraryList.get(i).getCity(), itineraryList.get(i).getDesc()), null));
-                        menuList.add(day + "，" + itineraryList.get(i).getCity());
                         for (JournalDetailsBean.ItineraryBean.LocationsBean location : locations) {
                             //每个地点
                             list.add(new MyItineraryBean(null, location));

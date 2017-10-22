@@ -158,7 +158,7 @@ public class DestinationActivity extends BaseAppActivity<DestinationPresenter, D
                 holder.setText(R.id.tv_name, bean.getTitle());
                 holder.setText(R.id.tv_desc, "————·" + bean.getHighlights() + "·————");
                 holder.setImage(R.id.iv_pic, bean.getImage());
-                holder.itemView.setOnClickListener(v -> showShortToast(bean.getUrl()));
+                holder.itemView.setOnClickListener(v -> ThemeDetailsActivity.startSelf(DestinationActivity.this,bean.getUrl()));
             }
         });
     }

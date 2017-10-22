@@ -93,7 +93,6 @@
             //标签
 
             <FrameLayout
-                android:id="@+id/layout_tip"
                 android:layout_width="match_parent"
                 android:layout_height="80dp">
 

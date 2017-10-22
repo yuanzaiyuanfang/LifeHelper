@@ -9,6 +9,7 @@ import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.travel.TravelRoutesBean;
 import com.yzyfdf.lifehelper.ui.travel.view.JournalDetailsActivity;
 import com.yzyfdf.lifehelper.ui.travel.view.RouteDetailsActivity;
+import com.yzyfdf.lifehelper.ui.travel.view.ThemeDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,12 @@ public class RoutesAdapter extends BaseAdapter<TravelRoutesBean.ItemsBean, BaseA
                 holder.setText(R.id.tv_desc, getDesc(bean.getHighlights()));
                 holder.setImage(R.id.iv_pic, bean.getBackground_image());
                 holder.itemView.setOnClickListener(v -> RouteDetailsActivity.startSelf(mContext, bean.getUrl()));
+                break;
+            case 2:
+                holder.setText(R.id.tv_name, bean.getTitle());
+                holder.setText(R.id.tv_desc, getDesc(bean.getHighlights()));
+                holder.setImage(R.id.iv_pic, bean.getImage());
+                holder.itemView.setOnClickListener(v -> ThemeDetailsActivity.startSelf(mContext, bean.getUrl()));
                 break;
             case 3:
                 holder.setText(R.id.tv_name, bean.getTitle());

@@ -68,6 +68,8 @@
         //精选  行程详情
         <activity android:name=".ui.travel.view.JournalDetailsActivity"/>
         <activity android:name=".ui.travel.view.RouteDetailsActivity"/>
+        //去处
+        <activity android:name=".ui.travel.view.ThemeDetailsActivity"/>
         //热门 印象详情
         <activity android:name=".ui.travel.view.ImpressDetailsActivity"/>
         //搜索
