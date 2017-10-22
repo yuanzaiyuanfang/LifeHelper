@@ -17,9 +17,10 @@ import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.travel.JournalDetailsBean;
-import com.yzyfdf.lifehelper.bean.travel.MyImpressBean;
 import com.yzyfdf.lifehelper.bean.travel.MyItineraryBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.ui.travel.view.ImpressDetailsActivity;
+import com.yzyfdf.lifehelper.util.TravelUtil;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class JournalDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdap
     private String   mTitle    = "";
     private String   mUsername = "";
     private String   mAvatar   = "";
+    private String   mUrl      = "";
     private String[] tipArrs   = {"出发君说：", "游玩方式：", "如何到达："};
 
     public JournalDetailsAdapter(Context ctx, List<MyItineraryBean> list) {
@@ -115,10 +117,9 @@ public class JournalDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdap
                         layoutFeel.setVisibility(View.GONE);
                         holder.setText(R.id.tv_comment_desc, getNote(locationsBean.getNote()));
 
-                        layout_comment.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext, new MyImpressBean(locationsBean.getIntro(), location,
-                                "", mTitle, images, mAvatar, mUsername, (float) locationsBean.getRating())));
-
-
+//                        layout_comment.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext,
+//                                new TravelImpressBean.DataBean.PcBean(locationsBean.getIntro(),
+//                                        images.toArray().toString(), location, mUrl, "", mTitle)));
                     } else {
                         layout_comment.setVisibility(View.GONE);
                     }
@@ -137,8 +138,11 @@ public class JournalDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdap
 
                     rating.setRating(comment.getRating());
 
-                    layout_comment.setOnClickListener(v -> ImpressDetailsActivity.startSelf(mContext, new MyImpressBean(comment.getDesc(), location,
-                            comment.getCreated_at(), mTitle, images, mAvatar, mUsername, comment.getRating())));
+                    layout_comment.setOnClickListener(v -> {
+                        TravelImpressBean.DataBean.PcBean pcBean = new TravelImpressBean.DataBean.PcBean(comment.getDesc(),
+                                TravelUtil.toStrImages(images), location, "", comment.getCreated_at(), mTitle);
+                        ImpressDetailsActivity.startSelf(mContext,pcBean);
+                    });
                 }
 
                 break;
@@ -190,12 +194,14 @@ public class JournalDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdap
         return "觉得很差";
     }
 
-    public void setTitle(String title, String username, String avatar) {
+    public void setTitle(String title, String username, String avatar, String url) {
         if (!TextUtils.isEmpty(title))
             mTitle = title;
         if (!TextUtils.isEmpty(username))
             mUsername = username;
         if (!TextUtils.isEmpty(avatar))
             mAvatar = avatar;
+        if (!TextUtils.isEmpty(url))
+            mUrl = url;
     }
 }

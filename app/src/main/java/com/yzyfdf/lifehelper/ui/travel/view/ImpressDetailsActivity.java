@@ -19,10 +19,15 @@ import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
-import com.yzyfdf.lifehelper.bean.travel.MyImpressBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.util.ImageUtil;
+import com.yzyfdf.lifehelper.util.TravelUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by SJJ .
@@ -44,10 +49,11 @@ public class ImpressDetailsActivity extends BaseAppActivity {
     RecyclerView mRecyclerview;
     @Bind(R.id.yinhao)
     ImageView    mYinhao;
+    private TravelImpressBean.DataBean.PcBean mPcBean;
 
-    public static void startSelf(Context context, MyImpressBean myImpressBean) {
+    public static void startSelf(Context context, TravelImpressBean.DataBean.PcBean pcBean) {
         Intent intent = new Intent(context, ImpressDetailsActivity.class);
-        intent.putExtra("myImpressBean", myImpressBean);
+        intent.putExtra("pcBean", pcBean);
         context.startActivity(intent);
     }
 
@@ -65,19 +71,19 @@ public class ImpressDetailsActivity extends BaseAppActivity {
     public void initView() {
         initToolbar(mToolbar, "印象详情");
 
-        MyImpressBean myImpressBean = (MyImpressBean) getIntent().getSerializableExtra("myImpressBean");
-        String desc = myImpressBean.getDesc();
+        mPcBean = (TravelImpressBean.DataBean.PcBean) getIntent().getSerializableExtra("pcBean");
+        String desc = mPcBean.getDesc();
         if (TextUtils.isEmpty(desc)) {
             mYinhao.setVisibility(View.GONE);
             mTvDesc.setVisibility(View.GONE);
         } else {
             mTvDesc.setText(desc);
         }
-        mTvLocation.setText("@" + myImpressBean.getLocation());
-        if (!TextUtils.isEmpty(myImpressBean.getWriteTime()))
-            mTvWritetime.setText(myImpressBean.getWriteTime().substring(0, 10) + " 发布");
+        mTvLocation.setText("@" + mPcBean.getPoi_name());
+        if (!TextUtils.isEmpty(mPcBean.getUpdated_at()))
+            mTvWritetime.setText(mPcBean.getUpdated_at().substring(0, 10) + " 发布");
 
-        String from = "来自行程 " + myImpressBean.getFrom();
+        String from = "来自行程 " + mPcBean.getPlan_name();
         SpannableString ss = new SpannableString(from);
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), 5, ss.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         mTvFrom.setText(ss);
@@ -88,7 +94,8 @@ public class ImpressDetailsActivity extends BaseAppActivity {
                 return false;
             }
         });
-        mRecyclerview.setAdapter(new BaseAdapter<String, BaseAdapter.BaseRVViewHolder>(this, myImpressBean.getImageList()) {
+        List<String> strings = Arrays.asList(TravelUtil.getimages(mPcBean.getImages()));
+        mRecyclerview.setAdapter(new BaseAdapter<String, BaseAdapter.BaseRVViewHolder>(this, strings) {
             @Override
             public BaseRVViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 return new BaseRVViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_travel_impress_details, parent, false));
@@ -108,4 +115,16 @@ public class ImpressDetailsActivity extends BaseAppActivity {
     }
 
 
+    @OnClick({R.id.tv_location, R.id.tv_from})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_location:
+                break;
+            case R.id.tv_from:
+                if (!TextUtils.isEmpty(mPcBean.getJournal())) {
+                    JournalDetailsActivity.startSelf(this, mPcBean.getJournal());
+                }
+                break;
+        }
+    }
 }

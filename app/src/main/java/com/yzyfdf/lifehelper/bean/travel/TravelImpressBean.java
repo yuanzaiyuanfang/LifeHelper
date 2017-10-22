@@ -2,6 +2,7 @@ package com.yzyfdf.lifehelper.bean.travel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public class TravelImpressBean extends TravelBaseBean {
 
     private List<TopicsBean> topics;
-    private List<DataBean> data;
+    private List<DataBean>   data;
 
     public List<TopicsBean> getTopics() {
         return topics;
@@ -43,7 +44,7 @@ public class TravelImpressBean extends TravelBaseBean {
          * res_type : 8
          */
 
-        private int id;
+        private int     id;
         private String  name;
         private String  desc;
         private String  image;
@@ -135,8 +136,8 @@ public class TravelImpressBean extends TravelBaseBean {
          * pc : [{"desc":"等我们喝完早茶.已是10点多了.便动身前往正佳广场.\n一到正佳广场.我姐便拉着我们去找那家Line熊的店.\n当时人不多.我们一下子就进去了.\n便在里面拍照.那一天的旅程已经不想再回忆起来了.\n毕竟有好也有不好.","extra_info":"{\"poi_comment_8ec9913a-cbf0-4d0b-8798-a749f192bdd5.JPG\":{\"w\":1504,\"h\":1000},\"poi_comment_e753014b-64ec-4c04-92d6-cad5b4540420.JPG\":{\"w\":1504,\"h\":1000},\"poi_comment_0bce734d-8b0f-4df6-8126-84c87ab2479a.JPG\":{\"w\":1504,\"h\":1000},\"poi_comment_9f112b85-2724-49e1-ab99-796954bbb255.jpg\":{\"w\":1504,\"h\":1000},\"poi_comment_99d06530-88da-46fb-b724-b419232bbfb8.jpg\":{\"w\":1504,\"h\":1000},\"poi_comment_e2cf76fe-0e37-4622-9a3e-165c5ff2ff66.jpg\":{\"w\":1504,\"h\":1000}}","id":84147,"images":"[\"poi_comment_8ec9913a-cbf0-4d0b-8798-a749f192bdd5.JPG\",\"poi_comment_e753014b-64ec-4c04-92d6-cad5b4540420.JPG\",\"poi_comment_0bce734d-8b0f-4df6-8126-84c87ab2479a.JPG\",\"poi_comment_9f112b85-2724-49e1-ab99-796954bbb255.jpg\",\"poi_comment_99d06530-88da-46fb-b724-b419232bbfb8.jpg\",\"poi_comment_e2cf76fe-0e37-4622-9a3e-165c5ff2ff66.jpg\"]","location_uuid":"66d1f547-4672-4682-be49-cc6d02d50877","pintu":false,"plan_uuid":"23814870-ccf7-40b4-9b70-c426c077080b","poi_category":"其它","poi_destination":"广州，中国","poi_id":114726,"poi_name":"正佳广场","rating":5,"revision":74,"topic":"印象@广州","travel_date":"2017.04","user_id":343785,"uuid":"5dcfa532-0b43-4185-8f46-e1e10a24e8ec","custom_poi_uuid":null,"username":"Lonely和谐","vip":false,"avatar":"http://img.chufaba.me/0ff975a8-2141-4d03-aa3c-1ae3d0791274.jpg","intro":"叫我和谐.高二党.爱旅游.港铁迷.蜜汁技术宅.","followed":false,"url":"/notes/Xc-lMgtDQYWPRuHhCiTo7A","created_at":"2017-07-01 19:52:22","updated_at":"2017-07-03 14:26:33","likes":5,"liked":false,"comments":0,"plan_name":"广州摄影之旅","journal":"/journals/12d3e83c8cea1","topics":"印象@广州","image_index":5}]
          */
 
-        private int id;
-        private String         time;
+        private int          id;
+        private String       time;
         private int          type;
         private PoiBean      poi;
         private List<PcBean> pc;
@@ -201,8 +202,8 @@ public class TravelImpressBean extends TravelBaseBean {
              * category : 其它
              * address : 广东省广州市天河区天河路228号
              * transport : 地铁：
-             乘坐1号线至「体育中心」
-             乘坐3号线至 「石牌桥」
+             * 乘坐1号线至「体育中心」
+             * 乘坐3号线至 「石牌桥」
              * opening :
              * fee :
              * duration :
@@ -215,8 +216,8 @@ public class TravelImpressBean extends TravelBaseBean {
              * images : []
              * location : {"lat":23.132098151611,"lon":113.327003479}
              * tips : #人气商铺#
-             1.购物：H&M、YOYNOT、NIKE、broadcast：播、Stradivarius、Calvin Klein Jeans等
-             2.美食：佬湘楼、仙踪林、汉堡王、摩斯汉堡、伊太郎日本料理、泰满冠
+             * 1.购物：H&M、YOYNOT、NIKE、broadcast：播、Stradivarius、Calvin Klein Jeans等
+             * 2.美食：佬湘楼、仙踪林、汉堡王、摩斯汉堡、伊太郎日本料理、泰满冠
              * intro : 以体验式主题购物乐园为设计定位的正佳广场，是当今中国最大的完全贯彻“体验式消费”模式、集零售、休闲、娱乐、餐饮、会展、康体、旅游及商务于一体的现代化购物中心之一。
              * img : null
              * rating : 0
@@ -225,7 +226,7 @@ public class TravelImpressBean extends TravelBaseBean {
              * adds : 107
              */
 
-            private int id;
+            private int          id;
             private String       name;
             private String       name_en;
             private String       name_py;
@@ -257,13 +258,13 @@ public class TravelImpressBean extends TravelBaseBean {
             private String       tips;
             private String       intro;
             private Object       img;
-            private double          rating;
+            private double       rating;
             private int          favs;
             private boolean      faved;
             private int          adds;
-            private List<String>      images;
-            private String image_index;
-            private String note;
+            private List<String> images;
+            private String       image_index;
+            private String       note;
 
             public String getImage_index() {
                 return image_index;
@@ -596,13 +597,22 @@ public class TravelImpressBean extends TravelBaseBean {
             }
         }
 
-        public static class PcBean {
+        public static class PcBean implements Serializable{
+            public PcBean(String desc, String images, String poi_name, String journal, String updated_at, String plan_name) {
+                this.desc = desc;
+                this.images = images;
+                this.poi_name = poi_name;
+                this.journal = journal;
+                this.updated_at = updated_at;
+                this.plan_name = plan_name;
+            }
+
             /**
              * desc : 等我们喝完早茶.已是10点多了.便动身前往正佳广场.
-             一到正佳广场.我姐便拉着我们去找那家Line熊的店.
-             当时人不多.我们一下子就进去了.
-             便在里面拍照.那一天的旅程已经不想再回忆起来了.
-             毕竟有好也有不好.
+             * 一到正佳广场.我姐便拉着我们去找那家Line熊的店.
+             * 当时人不多.我们一下子就进去了.
+             * 便在里面拍照.那一天的旅程已经不想再回忆起来了.
+             * 毕竟有好也有不好.
              * extra_info : {"poi_comment_8ec9913a-cbf0-4d0b-8798-a749f192bdd5.JPG":{"w":1504,"h":1000},"poi_comment_e753014b-64ec-4c04-92d6-cad5b4540420.JPG":{"w":1504,"h":1000},"poi_comment_0bce734d-8b0f-4df6-8126-84c87ab2479a.JPG":{"w":1504,"h":1000},"poi_comment_9f112b85-2724-49e1-ab99-796954bbb255.jpg":{"w":1504,"h":1000},"poi_comment_99d06530-88da-46fb-b724-b419232bbfb8.jpg":{"w":1504,"h":1000},"poi_comment_e2cf76fe-0e37-4622-9a3e-165c5ff2ff66.jpg":{"w":1504,"h":1000}}
              * id : 84147
              * images : ["poi_comment_8ec9913a-cbf0-4d0b-8798-a749f192bdd5.JPG","poi_comment_e753014b-64ec-4c04-92d6-cad5b4540420.JPG","poi_comment_0bce734d-8b0f-4df6-8126-84c87ab2479a.JPG","poi_comment_9f112b85-2724-49e1-ab99-796954bbb255.jpg","poi_comment_99d06530-88da-46fb-b724-b419232bbfb8.jpg","poi_comment_e2cf76fe-0e37-4622-9a3e-165c5ff2ff66.jpg"]
@@ -637,7 +647,7 @@ public class TravelImpressBean extends TravelBaseBean {
              * image_index : 5
              */
 
-            private String desc;
+            private String  desc;
             private String  extra_info;
             private int     id;
             private String  images;
@@ -648,7 +658,7 @@ public class TravelImpressBean extends TravelBaseBean {
             private String  poi_destination;
             private int     poi_id;
             private String  poi_name;
-            private float  rating;
+            private float   rating;
             private int     revision;
             private String  topic;
             private String  travel_date;

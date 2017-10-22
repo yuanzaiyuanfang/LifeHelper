@@ -26,7 +26,7 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
 
         initOkGo();
-        if (!Constant.isDebug)Bugly.init(getApplicationContext(), "35b20221cc", !Constant.isDebug);
+        if (Constant.isDebug)Bugly.init(getApplicationContext(), "35b20221cc", Constant.isDebug);
         LogUtils.logInit(Constant.isDebug);
         Hawk.init(this).build();
 

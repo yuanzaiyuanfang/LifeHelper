@@ -22,6 +22,7 @@ import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.travel.DestinationBean;
+import com.yzyfdf.lifehelper.bean.travel.TravelImpressBean;
 import com.yzyfdf.lifehelper.ui.travel.contract.DestinationContract;
 import com.yzyfdf.lifehelper.ui.travel.model.DestinationModel;
 import com.yzyfdf.lifehelper.ui.travel.presenter.DestinationPresenter;
@@ -104,9 +105,9 @@ public class DestinationActivity extends BaseAppActivity<DestinationPresenter, D
     }
 
     //印象
-    private void setPoi(List<DestinationBean.DataBean.PoiCommentsBean> list) {
+    private void setPoi(List<TravelImpressBean.DataBean.PcBean> list) {
         mRvPoi.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mRvPoi.setAdapter(new BaseAdapter<DestinationBean.DataBean.PoiCommentsBean, BaseAdapter.BaseRVViewHolder>(this, list) {
+        mRvPoi.setAdapter(new BaseAdapter<TravelImpressBean.DataBean.PcBean, BaseAdapter.BaseRVViewHolder>(this, list) {
 
             @Override
             public BaseRVViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -115,10 +116,10 @@ public class DestinationActivity extends BaseAppActivity<DestinationPresenter, D
 
             @Override
             public void onBindViewHolder(BaseAdapter.BaseRVViewHolder holder, int position) {
-                DestinationBean.DataBean.PoiCommentsBean bean = mList.get(position);
+                TravelImpressBean.DataBean.PcBean bean = mList.get(position);
                 holder.setText(R.id.tv_name, bean.getPoi_name());
                 holder.setImage(R.id.iv_pic, Constant.travel_image + TravelUtil.getimage(bean.getImages()) + Constant.travel_image_375);
-                holder.itemView.setOnClickListener(v -> showShortToast(bean.getUrl()));
+                holder.itemView.setOnClickListener(v -> ImpressDetailsActivity.startSelf(DestinationActivity.this,bean));
             }
         });
     }

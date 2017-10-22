@@ -30,6 +30,7 @@ public class ImpressFragment extends BaseAppFragment<ImpressPresenter, ImpressMo
     private String                                time  = "";
     private ArrayList<TravelImpressBean.DataBean> mList = new ArrayList<>();
     private ImpressAdapter mAdapter;
+    private boolean again = true;
 
     @Override
     protected int getLayoutResource() {
@@ -60,16 +61,18 @@ public class ImpressFragment extends BaseAppFragment<ImpressPresenter, ImpressMo
             @Override
             public void onRefresh() {
                 time = "";
+                again = true;
                 mPresenter.getImpress(time);
             }
 
             //上拉
             @Override
             public void onLoadMore() {
+                again = true;
                 mPresenter.getImpress(time);
             }
         });
-
+        again = true;
         mPresenter.getImpress(time);
     }
 
@@ -85,5 +88,10 @@ public class ImpressFragment extends BaseAppFragment<ImpressPresenter, ImpressMo
         }
         if (list.size() > 0)
             time = list.get(list.size() - 1).getTime();
+
+        if (again) {
+            mPresenter.getImpress(time);
+        }
+        again = !again;
     }
 }

@@ -167,7 +167,7 @@ public class JournalDetailsActivity extends BaseAppActivity<JournalDetailsPresen
     @Override
     public void returnRouteDetails(JournalDetailsBean bean) {
         //行程
-        mAdapter.setTitle(bean.getTitle(),bean.getUsername(),bean.getAvatar());
+        mAdapter.setTitle(bean.getTitle(),bean.getUsername(),bean.getAvatar(),bean.getUrl());
         mPresenter.getRecyclerViewData(bean);
         //顶部信息
         setMsg1(bean);

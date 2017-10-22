@@ -17,7 +17,20 @@ public class MyImpressBean implements Serializable{
 
     String userIcon;
     String userName;
+    String url;
     float rating;
+
+    public MyImpressBean(String desc, String location, String writeTime, String from, List<String> imageList, String userIcon, String userName, String url, float rating) {
+        this.desc = desc;
+        this.location = location;
+        this.writeTime = writeTime;
+        this.from = from;
+        this.imageList = imageList;
+        this.userIcon = userIcon;
+        this.userName = userName;
+        this.url = url;
+        this.rating = rating;
+    }
 
     public MyImpressBean(String desc, String location, String writeTime, String from, List<String> imageList, String userIcon, String userName, float rating) {
         this.desc = desc;
@@ -30,6 +43,13 @@ public class MyImpressBean implements Serializable{
         this.rating = rating;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getDesc() {
         return desc;
