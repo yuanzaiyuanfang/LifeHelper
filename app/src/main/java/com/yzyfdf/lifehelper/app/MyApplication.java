@@ -17,6 +17,8 @@ public class MyApplication extends BaseApplication {
 
     private static Handler sHandler;
 
+
+
     public static MyApplication getInstance() {
         return (MyApplication) getAppContext();
     }
@@ -24,16 +26,20 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        sHandler = new Handler();
 
         initOkGo();
         if (Constant.isDebug)Bugly.init(getApplicationContext(), "35b20221cc", Constant.isDebug);
         LogUtils.logInit(Constant.isDebug);
         Hawk.init(this).build();
+        //初始化计步模块
+//        TodayStepManager.init(this);
+
 
 //        initHotfix();
 
-        sHandler = new Handler();
     }
+
 
     public static void runOnUIThread(Runnable runnable) {
         sHandler.post(runnable);
@@ -84,6 +90,7 @@ public class MyApplication extends BaseApplication {
         }
 
     }
+
 
 
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Priority;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
 import com.yzyfdf.lifehelper.bean.travel.ThemeDetailsBean;
@@ -129,7 +130,7 @@ public class ThemeDetailsActivity extends BaseAppActivity<ThemeDetailsPresenter,
 
     @Override
     public void returnThemeDetails(ThemeDetailsBean bean) {
-        ImageUtil.setBigImage(this,mTitleBkg,bean.getImage());
+        ImageUtil.setBigImage(this,mTitleBkg,bean.getImage(), Priority.IMMEDIATE);
         //标题
         mTitle = bean.getTitle();
         mTvName.setText(mTitle);

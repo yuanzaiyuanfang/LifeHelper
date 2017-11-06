@@ -1,15 +1,15 @@
 package com.yzyfdf.lifehelper.widget;
 
 import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.widget.ScrollView;
 
 /**
  * Created by SJJ .
  * 描述 ${ScrollView监听滚动}
  */
 
-public class ObservableScrollView extends ScrollView {
+public class ObservableScrollView extends NestedScrollView {
 
     private ScrollViewListener scrollViewListener = null;
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Priority;
 import com.yzyfdf.lifehelper.util.ImageUtil;
 
 import java.util.List;
@@ -79,7 +80,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     }
 
     public interface OnSelectStateListener<T> {
-        void OnSelectStateChanged(boolean state, T file,int position);
+        void OnSelectStateChanged(boolean state, T file, int position);
     }
 
 
@@ -126,7 +127,11 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         }
 
         public void setImage(int id, String url) {
-            ImageUtil.setImage(mContext, getImageView(id), url);
+            setImage(id, url, Priority.NORMAL);
+        }
+
+        public void setImage(int id, String url, Priority priority) {
+            ImageUtil.setImage(mContext, getImageView(id), url, priority);
         }
 
         public void setDefaultImage(int id) {

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -119,7 +120,7 @@ public class DestinationActivity extends BaseAppActivity<DestinationPresenter, D
                 TravelImpressBean.DataBean.PcBean bean = mList.get(position);
                 holder.setText(R.id.tv_name, bean.getPoi_name());
                 holder.setImage(R.id.iv_pic, Constant.travel_image + TravelUtil.getimage(bean.getImages()) + Constant.travel_image_375);
-                holder.itemView.setOnClickListener(v -> ImpressDetailsActivity.startSelf(DestinationActivity.this,bean));
+                holder.itemView.setOnClickListener(v -> ImpressDetailsActivity.startSelf(DestinationActivity.this, bean));
             }
         });
     }
@@ -138,7 +139,7 @@ public class DestinationActivity extends BaseAppActivity<DestinationPresenter, D
                 DestinationBean.DataBean.RoutesBean bean = mList.get(position);
                 holder.setText(R.id.tv_name, bean.getTitle());
                 holder.setText(R.id.tv_desc, "————·" + bean.getHighlights() + "·————");
-                holder.setImage(R.id.iv_pic, bean.getBackground_image());
+                holder.setImage(R.id.iv_pic, bean.getBackground_image(), Priority.LOW);
                 holder.itemView.setOnClickListener(v -> RouteDetailsActivity.startSelf(mContext, bean.getUrl()));
             }
         });
@@ -158,8 +159,8 @@ public class DestinationActivity extends BaseAppActivity<DestinationPresenter, D
                 DestinationBean.DataBean.ThemesBean bean = mList.get(position);
                 holder.setText(R.id.tv_name, bean.getTitle());
                 holder.setText(R.id.tv_desc, "————·" + bean.getHighlights() + "·————");
-                holder.setImage(R.id.iv_pic, bean.getImage());
-                holder.itemView.setOnClickListener(v -> ThemeDetailsActivity.startSelf(DestinationActivity.this,bean.getUrl()));
+                holder.setImage(R.id.iv_pic, bean.getImage(), Priority.LOW);
+                holder.itemView.setOnClickListener(v -> ThemeDetailsActivity.startSelf(DestinationActivity.this, bean.getUrl()));
             }
         });
     }
@@ -169,6 +170,7 @@ public class DestinationActivity extends BaseAppActivity<DestinationPresenter, D
                 .load(img).asBitmap()
                 .thumbnail(0.1f)
                 .error(R.mipmap.no_pic)
+                .priority(Priority.IMMEDIATE)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override

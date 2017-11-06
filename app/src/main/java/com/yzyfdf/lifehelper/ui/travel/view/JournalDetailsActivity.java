@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.utils.BarUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -240,7 +241,8 @@ public class JournalDetailsActivity extends BaseAppActivity<JournalDetailsPresen
                 .load(bean.getBackground_image()).asBitmap()
                 .thumbnail(0.1f)
                 .error(R.mipmap.no_pic)
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .priority(Priority.IMMEDIATE)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
