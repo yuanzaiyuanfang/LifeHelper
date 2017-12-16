@@ -16,6 +16,7 @@ public class CookRBean implements Serializable {
     private int                cook_id;
     private String             cookstory;
     private String             n;
+    private String             title;
     private String             img;
     private String             image;
     private int                stc;
@@ -87,11 +88,19 @@ public class CookRBean implements Serializable {
     }
 
     public String getN() {
-        return n;
+        return TextUtils.isEmpty(n) ? title : n;
     }
 
     public void setN(String n) {
         this.n = n;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getImage() {

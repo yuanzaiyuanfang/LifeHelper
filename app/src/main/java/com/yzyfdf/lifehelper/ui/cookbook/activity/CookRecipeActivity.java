@@ -152,7 +152,6 @@ public class CookRecipeActivity extends BaseAppActivity<CookRecipePresenter, Coo
         }
 
         //步骤
-        mTvStepnum.setText("共 " + mRBean.getStc() + " 步 点击进入大图");
         ArrayList<CookRBean.CookstepBean> list = (ArrayList<CookRBean.CookstepBean>) mRBean.getCookstep();
         CookRecipeAdapter adapter = new CookRecipeAdapter(this, list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -164,6 +163,7 @@ public class CookRecipeActivity extends BaseAppActivity<CookRecipePresenter, Coo
         mRecyclerview.setNestedScrollingEnabled(false);
 
         mRecyclerview.setAdapter(adapter);
+        mTvStepnum.setText(String.format("共 %d 步 点击进入大图", mRBean.getStc() == 0 ? list.size() : mRBean.getStc()));
 
         //fab
         mFab.setOnClickListener(v -> {
