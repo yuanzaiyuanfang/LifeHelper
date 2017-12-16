@@ -6,22 +6,20 @@ package com.yzyfdf.lifehelper.ui.cookbook.presenter;
 
 import com.jaydenxiao.common.baserx.RxSubscriber;
 import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
-import com.yzyfdf.lifehelper.ui.cookbook.contract.CookListContract;
-
-import java.util.List;
+import com.yzyfdf.lifehelper.ui.cookbook.contract.CookRecipeContract;
 
 /****************
  * 使用例子
  ****************/
 //mRxManage.add(mModel.demoMethod(params...).subscribe(new RxSubscriber<Object>(mContext, true) {method...}));
-public class CookListPresenter extends CookListContract.Presenter {
+public class CookRecipePresenter extends CookRecipeContract.Presenter {
 
     @Override
-    public void queryCookList(int id, int num) {
-        mRxManage.add(mModel.queryCookList(id, num).subscribe(new RxSubscriber<List<CookRBean>>(mContext,false) {
+    public void getDetail( int id) {
+        mRxManage.add(mModel.getDetail(id).subscribe(new RxSubscriber<CookRBean>(mContext, false) {
             @Override
-            protected void _onNext(List<CookRBean> list) {
-                mView.returnCookList(list);
+            protected void _onNext(CookRBean bean) {
+                mView.returnDetail(bean);
             }
 
             @Override

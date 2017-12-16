@@ -65,6 +65,8 @@ public class HawkUtil {
 
 
     public static boolean isFavorite(MyFavoriteBean bean) {
+        if (bean==null)
+            return false;
         ArrayList<MyFavoriteBean> list = Hawk.get(Constant.favorites, new ArrayList<MyFavoriteBean>());
         for (MyFavoriteBean myFavoriteBean : list) {
             if (TextUtils.equals(bean.getId(), myFavoriteBean.getId())) {

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseVPAdapter;
-import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 
 import java.util.ArrayList;
 
@@ -18,10 +18,10 @@ import uk.co.senab.photoview.PhotoView;
  * 描述 ${TODO}
  */
 
-public class CookStepAdapter extends BaseVPAdapter<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> {
+public class CookStepAdapter extends BaseVPAdapter<CookRBean.CookstepBean> {
 
 
-    public CookStepAdapter(Context context, ArrayList<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> list) {
+    public CookStepAdapter(Context context, ArrayList<CookRBean.CookstepBean> list) {
         super(context, list);
     }
 

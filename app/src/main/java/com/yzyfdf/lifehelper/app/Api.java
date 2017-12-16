@@ -11,6 +11,7 @@ import com.lzy.okrx.RxAdapter;
 import com.yzyfdf.lifehelper.bean.cookbean.CookCategoryBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookListBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRecipeBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookSearchBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
@@ -122,6 +123,13 @@ public class Api {
     public Observable<CookSearchBean> search(Context context, String keyWord, int num) {
         return getCookRequest2(context, Constant.cook_search + num, "order=0&keyword=" + keyWord).getCall(new JsonConvertCook<CookSearchBean>() {
         }, RxAdapter.<CookSearchBean>create());
+    }
+
+    //食谱详情
+    public Observable<CookRecipeBean> getDetail(Context context, int id) {
+        HashMap<String, Object> params = new HashMap<>();
+        return getCookRequest(context, Constant.cook_detail + id,params).getCall(new JsonConvertCook<CookRecipeBean>() {
+        }, RxAdapter.<CookRecipeBean>create());
     }
 
     //天气

@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 import com.yzyfdf.lifehelper.bean.cookbean.MyFavoriteBean;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookRecipeActivity;
 
@@ -36,14 +37,14 @@ public class CookFavoritesDeleteAdapter extends BaseAdapter<MyFavoriteBean, Base
     @Override
     public void onBindViewHolder(BaseAdapter.BaseRVViewHolder holder, int position) {
         MyFavoriteBean myFavoriteBean = mList.get(position);
-        CookMainBean.ResultBean.ListBean.RBean rBean = myFavoriteBean.getrBean();
+        CookRBean rBean = myFavoriteBean.getrBean();
 
         holder.setImage(R.id.iv_pic, rBean.getImg());
         holder.setText(R.id.tv_name, rBean.getN());
 
         StringBuilder sb = new StringBuilder();
-        List<CookMainBean.ResultBean.ListBean.RBean.MajorBean> majorList = rBean.getMajor();
-        for (CookMainBean.ResultBean.ListBean.RBean.MajorBean majorBean : majorList) {
+        List<CookRBean.MajorBean> majorList = rBean.getMajor();
+        for (CookRBean.MajorBean majorBean : majorList) {
             sb.append(majorBean.getTitle() + "、");
         }
         sb.deleteCharAt(sb.length() - 1);
@@ -62,10 +63,7 @@ public class CookFavoritesDeleteAdapter extends BaseAdapter<MyFavoriteBean, Base
 
 
         holder.itemView.setOnClickListener(v -> {
-            Gson gson = new Gson();
-            String json = gson.toJson(rBean);
-            CookMainBean.ResultBean.ListBean.RBean new_rBean = gson.fromJson(json, CookMainBean.ResultBean.ListBean.RBean.class);
-            CookRecipeActivity.startSelf(mContext, new_rBean);
+            CookRecipeActivity.startSelf(mContext, rBean);
         });
     }
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
-import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookStepActivity;
 
 import java.util.ArrayList;
@@ -16,11 +16,11 @@ import java.util.ArrayList;
  * 描述 ${TODO}
  */
 
-public class CookRecipeAdapter extends BaseAdapter<CookMainBean.ResultBean.ListBean.RBean.CookstepBean,BaseAdapter.BaseRVViewHolder> {
+public class CookRecipeAdapter extends BaseAdapter<CookRBean.CookstepBean,BaseAdapter.BaseRVViewHolder> {
     private ArrayList<String> urlList = new ArrayList<>();
-    public CookRecipeAdapter(Context ctx, ArrayList<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> list) {
+    public CookRecipeAdapter(Context ctx, ArrayList<CookRBean.CookstepBean> list) {
         super(ctx, list);
-        for (CookMainBean.ResultBean.ListBean.RBean.CookstepBean cookstepBean : list) {
+        for (CookRBean.CookstepBean cookstepBean : list) {
             urlList.add(cookstepBean.getContent());
         }
     }
@@ -32,7 +32,7 @@ public class CookRecipeAdapter extends BaseAdapter<CookMainBean.ResultBean.ListB
 
     @Override
     public void onBindViewHolder(BaseAdapter.BaseRVViewHolder holder, int position) {
-        final CookMainBean.ResultBean.ListBean.RBean.CookstepBean cookstepBean = mList.get(position);
+        final CookRBean.CookstepBean cookstepBean = mList.get(position);
         holder.setBigImage(R.id.iv_steppic, cookstepBean.getImage());
         holder.setText(R.id.tv_stepname, cookstepBean.getPosition() + "\u3000" + cookstepBean.getContent());
         holder.itemView.setOnClickListener(v -> CookStepActivity.startSelf(mContext,mList,position));

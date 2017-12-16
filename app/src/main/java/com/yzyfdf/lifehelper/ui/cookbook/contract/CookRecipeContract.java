@@ -6,26 +6,24 @@ import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
 import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 
-import java.util.List;
-
 import rx.Observable;
 
 /**
  * Created by Conan on 2017/2/23.
  */
-public interface CookListContract {
+public interface CookRecipeContract {
 
     abstract class Presenter extends BasePresenter<View, Model> {
-                public abstract void queryCookList (int id,int num);
+                public abstract void getDetail (int id);
     }
 
     interface Model extends BaseModel {
-                Observable<List<CookRBean>> queryCookList (int id, int num);
+                Observable<CookRBean> getDetail(int id);
 
     }
 
     interface View extends BaseView {
-                void returnCookList(List<CookRBean> list);
+                void returnDetail(CookRBean bean);
     }
 
 }

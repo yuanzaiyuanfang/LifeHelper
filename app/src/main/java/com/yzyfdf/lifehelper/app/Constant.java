@@ -26,6 +26,7 @@ public class Constant {
     /*意图*/
     public static final String RBean      = "rBean";
     public static final String MBean      = "mBean";
+    public static final String COOK_ID      = "cook_id";
     public static final String MYSTEPBEAN = "myStepBean";
     public static final String KEY_WORD   = "keyWord";
 
@@ -48,6 +49,7 @@ public class Constant {
     public static final String cook_list     = cook_host + "menu/recipes/";
     public static final String cook_category = cook_host + "recipe/flatcatalogs";
     public static final String cook_search   = cook_host + "recipe/s/";
+    public static final String cook_detail   = cook_host + "recipe/detail/";
     public static final String cook_share    = "http://m.douguo.com/cookbook/share/cookid.html";
     //read
     // 知乎

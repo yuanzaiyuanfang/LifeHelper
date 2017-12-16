@@ -54,6 +54,7 @@ public class CookMainFragment extends BaseAppFragment<CookMainPresenter, CookMai
     private int                 mCurrentItem;
     private TextView            mHeadNum;
     private boolean             hasHeader;
+    private View                mHeadView;
 
 
     @Override
@@ -113,11 +114,11 @@ public class CookMainFragment extends BaseAppFragment<CookMainPresenter, CookMai
         });
 
         //头部
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_head_cook_main, (ViewGroup) rootView, false);
-        mViewPager = ((ViewPager) view.findViewById(R.id.viewpager));
-        mHeadName = ((TextView) view.findViewById(R.id.head_name));
-        mRadioGroup = ((RadioGroup) view.findViewById(R.id.radioGroup));
-        mHeadNum = ((TextView) view.findViewById(R.id.head_num));
+        mHeadView = LayoutInflater.from(getContext()).inflate(R.layout.layout_head_cook_main, (ViewGroup) rootView, false);
+        mViewPager = ((ViewPager) mHeadView.findViewById(R.id.viewpager));
+        mHeadName = ((TextView) mHeadView.findViewById(R.id.head_name));
+        mRadioGroup = ((RadioGroup) mHeadView.findViewById(R.id.radioGroup));
+        mHeadNum = ((TextView) mHeadView.findViewById(R.id.head_num));
 
         mHeadAdapter = new CookMainHeadAdapter(getContext(), mHeadList);
         mViewPager.setAdapter(mHeadAdapter);
@@ -138,7 +139,7 @@ public class CookMainFragment extends BaseAppFragment<CookMainPresenter, CookMai
             }
         });
         if (!hasHeader) {
-            mXRecyclerView.addHeaderView(view);
+            //            mXRecyclerView.addHeaderView(mHeadView);
             hasHeader = true;
         }
 
@@ -165,17 +166,22 @@ public class CookMainFragment extends BaseAppFragment<CookMainPresenter, CookMai
         if (isProgressLoading()) {
             stopLoading();
         }
-        if (num == 0) {
-            mCurrentItem = 0;
-            addDots(headList.size());
-
-            mHeadList.clear();
-            mHeadList.addAll(headList);
-            mHeadAdapter.notifyDataSetChanged();
-
-            mViewPager.setCurrentItem(mCurrentItem);
-            swipepager(mCurrentItem);
-        }
+        return;
+//        if (headList.size() > 0) {
+//
+//        } else {
+//        }
+//        if (num == 0) {
+//            mCurrentItem = 0;
+//            addDots(headList.size());
+//
+//            mHeadList.clear();
+//            mHeadList.addAll(headList);
+//            mHeadAdapter.notifyDataSetChanged();
+//
+//            mViewPager.setCurrentItem(mCurrentItem);
+//            swipepager(mCurrentItem);
+//        }
     }
 
     private void swipepager(int position) {
@@ -239,13 +245,13 @@ public class CookMainFragment extends BaseAppFragment<CookMainPresenter, CookMai
         }
     }
 
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        if (hidden) {
-//            hide();
-//        } else {
-//            show();
-//        }
-//    }
+    //    @Override
+    //    public void onHiddenChanged(boolean hidden) {
+    //        super.onHiddenChanged(hidden);
+    //        if (hidden) {
+    //            hide();
+    //        } else {
+    //            show();
+    //        }
+    //    }
 }

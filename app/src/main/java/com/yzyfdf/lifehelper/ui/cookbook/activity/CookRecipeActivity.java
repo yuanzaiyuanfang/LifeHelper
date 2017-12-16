@@ -1,5 +1,6 @@
 package com.yzyfdf.lifehelper.ui.cookbook.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,9 +24,12 @@ import com.bumptech.glide.Glide;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
-import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 import com.yzyfdf.lifehelper.bean.cookbean.MyFavoriteBean;
 import com.yzyfdf.lifehelper.ui.cookbook.adapter.CookRecipeAdapter;
+import com.yzyfdf.lifehelper.ui.cookbook.contract.CookRecipeContract;
+import com.yzyfdf.lifehelper.ui.cookbook.model.CookRecipeModel;
+import com.yzyfdf.lifehelper.ui.cookbook.presenter.CookRecipePresenter;
 import com.yzyfdf.lifehelper.util.HawkUtil;
 import com.yzyfdf.lifehelper.util.ShareUtil;
 import com.yzyfdf.lifehelper.util.WxShareUtil;
@@ -39,7 +43,8 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class CookRecipeActivity extends BaseAppActivity {
+public class CookRecipeActivity extends BaseAppActivity<CookRecipePresenter, CookRecipeModel>
+        implements CookRecipeContract.View {
 
 
     @Bind(R.id.image_view)
@@ -64,15 +69,20 @@ public class CookRecipeActivity extends BaseAppActivity {
 
     private boolean        mFavorite;
     private MyFavoriteBean mMyFavoriteBean;
-    private CookMainBean.ResultBean.ListBean.RBean mRBean;
+    private CookRBean      mRBean;
     private ArrayList<String> mMajorList = new ArrayList<>();
 
 
-    public static void startSelf(Context context, CookMainBean.ResultBean.ListBean.RBean rBean) {
+    public static void startSelf(Context context, CookRBean rBean) {
         Intent intent = new Intent(context, CookRecipeActivity.class);
         intent.putExtra(Constant.RBean, rBean);
         context.startActivity(intent);
+    }
 
+    public static void startSelf(Context context, int id) {
+        Intent intent = new Intent(context, CookRecipeActivity.class);
+        intent.putExtra(Constant.COOK_ID, id);
+        context.startActivity(intent);
     }
 
     @Override
@@ -82,14 +92,25 @@ public class CookRecipeActivity extends BaseAppActivity {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
     public void initView() {
         SetTranslanteBar();
 
-        mRBean = (CookMainBean.ResultBean.ListBean.RBean) getIntent().getSerializableExtra(Constant.RBean);
+        Intent intent = getIntent();
+        int id = intent.getIntExtra(Constant.COOK_ID, 0);
+        if (id == 0) {
+            mRBean = (CookRBean) intent.getSerializableExtra(Constant.RBean);
+            setData();
+        } else {
+            mPresenter.getDetail(id);
+        }
+
+    }
+
+    private void setData() {
         mMyFavoriteBean = new MyFavoriteBean("cook" + mRBean.getId(), mRBean);
         //toolbar
         mToolbar.setTitle(mRBean.getN());
@@ -109,30 +130,30 @@ public class CookRecipeActivity extends BaseAppActivity {
         String cook_difficulty = TextUtils.isEmpty(mRBean.getCook_difficulty()) ? "未知" : mRBean.getCook_difficulty();
         mTvTime.setText("时间:" + cook_time + "\u3000难度:" + cook_difficulty);
         //配料
-        List<CookMainBean.ResultBean.ListBean.RBean.MajorBean> major = mRBean.getMajor();
-        for (CookMainBean.ResultBean.ListBean.RBean.MajorBean majorBean : major) {
+        List<CookRBean.MajorBean> major = mRBean.getMajor();
+        for (CookRBean.MajorBean majorBean : major) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_cook_recipe_list, mLayoutList, false);
             TextView name = (TextView) view.findViewById(R.id.tv_listname);
             TextView num = (TextView) view.findViewById(R.id.tv_listnum);
             name.setText(majorBean.getTitle());
             num.setText(majorBean.getNote());
             mLayoutList.addView(view);
-            mMajorList.add(majorBean.getTitle()+" ");
+            mMajorList.add(majorBean.getTitle() + " ");
         }
-        List<CookMainBean.ResultBean.ListBean.RBean.MinorBean> minor = mRBean.getMinor();
-        for (CookMainBean.ResultBean.ListBean.RBean.MinorBean minorBean : minor) {
+        List<CookRBean.MinorBean> minor = mRBean.getMinor();
+        for (CookRBean.MinorBean minorBean : minor) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_cook_recipe_list, mLayoutList, false);
             TextView name = (TextView) view.findViewById(R.id.tv_listname);
             TextView num = (TextView) view.findViewById(R.id.tv_listnum);
             name.setText(minorBean.getTitle());
             num.setText(minorBean.getNote());
             mLayoutList.addView(view);
-            mMajorList.add(minorBean.getTitle()+" ");
+            mMajorList.add(minorBean.getTitle() + " ");
         }
 
         //步骤
-        mTvStepnum.setText("共 "+ mRBean.getStc()+" 步 点击进入大图");
-        ArrayList<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> list = (ArrayList<CookMainBean.ResultBean.ListBean.RBean.CookstepBean>) mRBean.getCookstep();
+        mTvStepnum.setText("共 " + mRBean.getStc() + " 步 点击进入大图");
+        ArrayList<CookRBean.CookstepBean> list = (ArrayList<CookRBean.CookstepBean>) mRBean.getCookstep();
         CookRecipeAdapter adapter = new CookRecipeAdapter(this, list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -165,11 +186,11 @@ public class CookRecipeActivity extends BaseAppActivity {
             mFavorite = !mFavorite;
         });
 
+        isFavourite();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+
+    protected void isFavourite() {
         mFavorite = HawkUtil.isFavorite(mMyFavoriteBean);
         if (mFavorite) {
             mFab.setImageResource(R.mipmap.favorite_yes);
@@ -184,6 +205,7 @@ public class CookRecipeActivity extends BaseAppActivity {
         return true;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         ((MenuBuilder) menu).setOptionalIconsVisible(true);
@@ -196,7 +218,7 @@ public class CookRecipeActivity extends BaseAppActivity {
         switch (id) {
             case R.id.action_share:
                 ToastUtils.showShortToast("分享中...稍等");
-//                savePic(mShareView);
+                //                savePic(mShareView);
                 shareCookBook();
                 return true;
             case R.id.my_favorites_cook:
@@ -211,7 +233,7 @@ public class CookRecipeActivity extends BaseAppActivity {
     private void shareCookBook() {
         int id = mRBean.getId();
         String url = Constant.cook_share.replace("cookid", String.valueOf(id));
-        WxShareUtil.shareWebpage(url,mRBean.getN(),mMajorList.toString());
+        WxShareUtil.shareWebpage(url, mRBean.getN(), mMajorList.toString());
     }
 
 
@@ -255,4 +277,9 @@ public class CookRecipeActivity extends BaseAppActivity {
     }
 
 
+    @Override
+    public void returnDetail(CookRBean bean) {
+        mRBean = bean;
+        setData();
+    }
 }

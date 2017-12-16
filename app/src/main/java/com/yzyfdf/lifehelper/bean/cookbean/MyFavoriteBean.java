@@ -7,7 +7,7 @@ package com.yzyfdf.lifehelper.bean.cookbean;
 
 public class MyFavoriteBean {
     String id;
-    CookMainBean.ResultBean.ListBean.RBean rBean;
+    CookRBean rBean;
     boolean delete;
 
     @Override
@@ -27,7 +27,7 @@ public class MyFavoriteBean {
         this.delete = delete;
     }
 
-    public MyFavoriteBean(String id, CookMainBean.ResultBean.ListBean.RBean rBean) {
+    public MyFavoriteBean(String id, CookRBean rBean) {
         this.id = id;
         this.rBean = rBean;
     }
@@ -40,11 +40,11 @@ public class MyFavoriteBean {
         this.id = id;
     }
 
-    public CookMainBean.ResultBean.ListBean.RBean getrBean() {
+    public CookRBean getrBean() {
         return rBean;
     }
 
-    public void setrBean(CookMainBean.ResultBean.ListBean.RBean rBean) {
+    public void setrBean(CookRBean rBean) {
         this.rBean = rBean;
     }
 

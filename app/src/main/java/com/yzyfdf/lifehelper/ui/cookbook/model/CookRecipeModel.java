@@ -5,9 +5,7 @@ import android.content.Context;
 import com.jaydenxiao.common.baserx.RxSchedulers;
 import com.yzyfdf.lifehelper.app.Api;
 import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
-import com.yzyfdf.lifehelper.ui.cookbook.contract.CookListContract;
-
-import java.util.List;
+import com.yzyfdf.lifehelper.ui.cookbook.contract.CookRecipeContract;
 
 import rx.Observable;
 
@@ -21,7 +19,7 @@ import rx.Observable;
 //  Api.getInstance().errorObservable("失败");
 //  Api.getInstance().demoMethod(mContext, params...).flatMap(Func...).map(Func...).compose(RxSchedulers.<Object>io_main());
 
-public class CookListModel implements CookListContract.Model {
+public class CookRecipeModel implements CookRecipeContract.Model {
 
     Context mContext;
 
@@ -31,9 +29,9 @@ public class CookListModel implements CookListContract.Model {
     }
 
     @Override
-    public Observable<List<CookRBean>> queryCookList(int id, int num) {
-        return Api.getInstance().queryCookList(mContext,id,num)
-                .map(cookListBean -> cookListBean.getResult().getRecipes())
+    public Observable<CookRBean> getDetail(int id) {
+        return Api.getInstance().getDetail(mContext, id)
+                .map(cookRecipeBean -> cookRecipeBean.getResult().getRecipe())
                 .compose(RxSchedulers.io_main());
     }
 }

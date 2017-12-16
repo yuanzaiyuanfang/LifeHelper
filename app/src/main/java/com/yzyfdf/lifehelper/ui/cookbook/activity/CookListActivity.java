@@ -14,8 +14,8 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
-import com.yzyfdf.lifehelper.bean.cookbean.CookListBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 import com.yzyfdf.lifehelper.ui.cookbook.adapter.CookListAdapter;
 import com.yzyfdf.lifehelper.ui.cookbook.contract.CookListContract;
 import com.yzyfdf.lifehelper.ui.cookbook.model.CookListModel;
@@ -36,9 +36,9 @@ public class CookListActivity extends BaseAppActivity<CookListPresenter, CookLis
     @Bind(R.id.xRecyclerView)
     XRecyclerView mXRecyclerView;
 
-    private ArrayList<CookListBean.ResultBean.RBean> mList = new ArrayList<>();
-    private int                                      num   = 0;
-    private int                                      id    = 0;
+    private ArrayList<CookRBean> mList = new ArrayList<>();
+    private int                  num   = 0;
+    private int                  id    = 0;
     private CookListAdapter mAdapter;
     private GridLayoutManager mLayoutManager;
 
@@ -112,7 +112,7 @@ public class CookListActivity extends BaseAppActivity<CookListPresenter, CookLis
 
 
     @Override
-    public void returnCookList(List<CookListBean.ResultBean.RBean> list) {
+    public void returnCookList(List<CookRBean> list) {
         if (list == null || list.size() == 0) {
             showShortToast("没有更多了");
         }

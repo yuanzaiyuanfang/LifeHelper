@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
-import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 import com.yzyfdf.lifehelper.bean.cookbean.MyStepBean;
 import com.yzyfdf.lifehelper.ui.cookbook.adapter.CookStepAdapter;
 
@@ -31,9 +31,9 @@ public class CookStepActivity extends BaseAppActivity implements ViewPager.OnPag
     @Bind(R.id.layout_tv)
     LinearLayout mLayoutTv;
 
-    private ArrayList<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> mList = new ArrayList<>();
+    private ArrayList<CookRBean.CookstepBean> mList = new ArrayList<>();
 
-    public static void startSelf(Context context, List<CookMainBean.ResultBean.ListBean.RBean.CookstepBean> list, int position) {
+    public static void startSelf(Context context, List<CookRBean.CookstepBean> list, int position) {
         Intent intent = new Intent(context, CookStepActivity.class);
         intent.putExtra(Constant.MYSTEPBEAN, new MyStepBean(list, position));
         context.startActivity(intent);

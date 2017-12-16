@@ -14,6 +14,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.app.Constant;
 import com.yzyfdf.lifehelper.base.activity.BaseAppActivity;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookSearchBean;
 import com.yzyfdf.lifehelper.ui.cookbook.adapter.CookSearchAdapter;
 import com.yzyfdf.lifehelper.ui.cookbook.contract.CookSearchContract;
@@ -36,7 +37,7 @@ public class CookSearchActivity extends BaseAppActivity<CookSearchPresenter, Coo
 
     private int num = 0;
     private String mKeyWord;
-    private ArrayList<CookSearchBean.ResultBean.ListBean.RBean> mList = new ArrayList<>();
+    private ArrayList<CookRBean> mList = new ArrayList<>();
     private CookSearchAdapter mAdapter;
     private ActionBar         mBar;
 

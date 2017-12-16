@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
+import com.yzyfdf.lifehelper.bean.cookbean.CookRBean;
 import com.yzyfdf.lifehelper.ui.cookbook.activity.CookRecipeActivity;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class CookMainAdapter extends BaseAdapter<CookMainBean.ResultBean.ListBea
         //        final int viewType = getItemViewType(position);
         CookMainBean.ResultBean.ListBean bean = mList.get(position);
         //        if (viewType == 1) {
-        final CookMainBean.ResultBean.ListBean.RBean rBean = bean.getR();
+        final CookRBean rBean = bean.getR();
         setImage(holder, R.id.iv_pic, rBean.getImg());
         holder.setText(R.id.tv_name, rBean.getN());
         holder.setText(R.id.tv_desc, TextUtils.isEmpty(rBean.getCookstory()) ? "暂无介绍" : rBean.getCookstory());
