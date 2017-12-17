@@ -1,1 +1,1 @@
-include ':app', ':common', ':todaystepcounterlib'
+include ':app', ':common'
