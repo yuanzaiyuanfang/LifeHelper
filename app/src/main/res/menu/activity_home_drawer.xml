@@ -15,9 +15,9 @@
             android:icon="@android:drawable/ic_menu_gallery"
             android:title="远方"/>
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_live"
             android:icon="@android:drawable/ic_menu_gallery"
-            android:title="敬请期待"/>
+            android:title="港湾"/>
     </group>
 
     <item android:title="功能">

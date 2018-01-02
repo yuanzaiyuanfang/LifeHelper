@@ -13,6 +13,8 @@ import com.yzyfdf.lifehelper.bean.cookbean.CookListBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookMainBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookRecipeBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookSearchBean;
+import com.yzyfdf.lifehelper.bean.live.LiveChannelBean;
+import com.yzyfdf.lifehelper.bean.live.LiveChannelDataBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
@@ -98,6 +100,16 @@ public class Api {
                 .upString(json, MediaType.parse("application/x-www-form-urlencoded"));
     }
 
+    private PostRequest getLiveRequest(Context context, String url, String json) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        return OkGo.getInstance()
+                .addCommonHeaders(headers)
+                .post(url)
+                .tag(context)//以对应activity或fragment作为网络请求tag，以便即时取消网络请求
+                .upString(json, MediaType.parse("application/x-www-form-urlencoded"));
+    }
+
     //食谱主页
     public Observable<CookMainBean> queryCookHome(Context context, int num) {
         HashMap<String, Object> params = new HashMap<>();
@@ -128,7 +140,7 @@ public class Api {
     //食谱详情
     public Observable<CookRecipeBean> getDetail(Context context, int id) {
         HashMap<String, Object> params = new HashMap<>();
-        return getCookRequest(context, Constant.cook_detail + id,params).getCall(new JsonConvertCook<CookRecipeBean>() {
+        return getCookRequest(context, Constant.cook_detail + id, params).getCall(new JsonConvertCook<CookRecipeBean>() {
         }, RxAdapter.<CookRecipeBean>create());
     }
 
@@ -208,6 +220,7 @@ public class Api {
         return getTravelRequest(context, "https://api.chufaba.me" + url + ".json", params).getCall(new JsonConvert<JournalDetailsBean>() {
         }, RxAdapter.<JournalDetailsBean>create());
     }
+
     //远方精选 行程详情
     public Observable<RouteDetailsBean> getRouteDetails(Context context, String url) {
         HashMap<String, Object> params = new HashMap<>();
@@ -256,4 +269,19 @@ public class Api {
         return getTravelRequest(context, Constant.travel_destination + id, params).getCall(new JsonConvert<DestinationBean>() {
         }, RxAdapter.<DestinationBean>create());
     }
+
+
+    //港湾 频道
+    public Observable<LiveChannelBean> getChannel(Context context, int channel_type) {
+        return getLiveRequest(context, Constant.live_getChannel, "channel_type=" + channel_type).getCall(new JsonConvertLive<LiveChannelBean>() {
+        }, RxAdapter.<LiveChannelBean>create());
+    }
+
+    //港湾 居家经验
+    public Observable<LiveChannelDataBean> getChannelData(Context context, String keyword, int page, int search_type) {
+        return getLiveRequest(context, Constant.live_jujia, String.format("keyword=%s&page=%s&search_type=%s", keyword, page, search_type)).getCall(new JsonConvertLive<LiveChannelDataBean>() {
+        }, RxAdapter.<LiveChannelDataBean>create());
+    }
+
+
 }

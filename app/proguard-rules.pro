@@ -211,6 +211,9 @@
 -keep class com.yzyfdf.lifehelper.ui.weather.model.** { *; }
 -keep class com.yzyfdf.lifehelper.ui.weather.presenter.** { *; }
 
+-keep class com.yzyfdf.lifehelper.ui.live.model.** { *; }
+-keep class com.yzyfdf.lifehelper.ui.live.presenter.** { *; }
+
 -keep class com.jaydenxiao.common.** { *; }
 -keep class com.jianlv.chufaba.** { *; }
 

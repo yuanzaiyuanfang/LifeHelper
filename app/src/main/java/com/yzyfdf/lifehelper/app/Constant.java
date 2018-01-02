@@ -11,8 +11,8 @@ public class Constant {
     public static final boolean  isDebug      = true;
     /*常量*/
     public static final String   PACKAGE_NAME = "lifehelper";
-    public static final String[] mTitles      = {"美食", "阅读", "远方"};
-    public static final int[]    mMenuIds     = {R.id.nav_cookbook, R.id.nav_read, R.id.nav_travel};
+    public static final String[] mTitles      = {"美食", "阅读", "远方", "港湾"};
+    public static final int[]    mMenuIds     = {R.id.nav_cookbook, R.id.nav_read, R.id.nav_travel, R.id.nav_live};
 
 
     public static final int TYPE_ZHIHU  = 1001;
@@ -26,7 +26,7 @@ public class Constant {
     /*意图*/
     public static final String RBean      = "rBean";
     public static final String MBean      = "mBean";
-    public static final String COOK_ID      = "cook_id";
+    public static final String COOK_ID    = "cook_id";
     public static final String MYSTEPBEAN = "myStepBean";
     public static final String KEY_WORD   = "keyWord";
 
@@ -70,9 +70,9 @@ public class Constant {
 
 
     //远方
-    public static final String travel_host            = "https://api.chufaba.me/";
-    public static final String travel_image           = "http://img.chufaba.me/";
-    public static final String travel_image_375       = "!375";
+    public static final String travel_host      = "https://api.chufaba.me/";
+    public static final String travel_image     = "http://img.chufaba.me/";
+    public static final String travel_image_375 = "!375";
 
     public static final String travel_routes          = travel_host + "v2/discovery/index.json?offset=";
     public static final String travel_route_details   = travel_host;
@@ -83,6 +83,12 @@ public class Constant {
     public static final String travel_guides_abroad   = travel_host + "v2/guides/abroad";
     public static final String travel_guides_domestic = travel_host + "v2/guides/domestic";
     public static final String travel_destination     = travel_host + "v2/guides/show?id=";
+
+
+    //港湾
+    public static final String live_host       = "https://api.haohaozhu.com/index.php/";
+    public static final String live_jujia      = live_host + "Home/Search/getChannelData";
+    public static final String live_getChannel = live_host + "Home/Search/setNaviZone";
 
 
     public static final String share_url = "http://yuanzaiyuanfang.applinzi.com/?p=92";
