@@ -170,16 +170,17 @@ public class JournalDetailsAdapter extends BaseAdapter<MyItineraryBean, BaseAdap
     }
 
     public static int getTypeLoc(String category) {
-        switch (category) {
-            case "美食":
-                return R.mipmap.food;
-            case "景点":
-                return R.mipmap.scenic;
-            case "住宿":
-                return R.mipmap.hotel;
-            default:
-                return R.mipmap.other;
-        }
+//        switch (category) {
+//            case "美食":
+//                return R.mipmap.food;
+//            case "景点":
+//                return R.mipmap.scenic;
+//            case "住宿":
+//                return R.mipmap.hotel;
+//            default:
+//                return R.mipmap.other;
+//        }
+        return 1;
     }
 
     public static String getFeel(float rating) {

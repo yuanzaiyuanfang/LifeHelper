@@ -15,6 +15,7 @@ import com.yzyfdf.lifehelper.bean.cookbean.CookRecipeBean;
 import com.yzyfdf.lifehelper.bean.cookbean.CookSearchBean;
 import com.yzyfdf.lifehelper.bean.live.LiveChannelBean;
 import com.yzyfdf.lifehelper.bean.live.LiveChannelDataBean;
+import com.yzyfdf.lifehelper.bean.live.LiveHomeDynamicBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
@@ -102,6 +103,7 @@ public class Api {
 
     private PostRequest getLiveRequest(Context context, String url, String json) {
         HttpHeaders headers = new HttpHeaders();
+        headers.put("User-Agent", "Dalvik/2.1.0 (Linux; U; Android 5.1)hhz2.14.1");
         headers.put("Content-Type", "application/x-www-form-urlencoded");
         return OkGo.getInstance()
                 .addCommonHeaders(headers)
@@ -270,6 +272,11 @@ public class Api {
         }, RxAdapter.<DestinationBean>create());
     }
 
+    //港湾 首页动态
+    public Observable<LiveHomeDynamicBean> getHomeDynamic(Context context, String start_id, int type) {
+        return getLiveRequest(context, Constant.live_homeDynamic, String.format("start_id=%s&type=%s", start_id, type)).getCall(new JsonConvertLive<LiveHomeDynamicBean>() {
+        }, RxAdapter.<LiveHomeDynamicBean>create());
+    }
 
     //港湾 频道
     public Observable<LiveChannelBean> getChannel(Context context, int channel_type) {

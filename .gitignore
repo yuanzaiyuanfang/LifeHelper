@@ -9,3 +9,5 @@
 .externalNativeBuild
 /gradle.properties
 /first.jks
+/.idea/
+/gradlew
