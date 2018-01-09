@@ -10,16 +10,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/layout_jujia"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:drawablePadding="10dp"
+            android:drawablePadding="5dp"
             android:drawableTop="@mipmap/edit"
+            android:gravity="center"
             android:text="居家经验"/>
 
         <TextView
@@ -27,9 +28,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:drawablePadding="10dp"
+            android:drawablePadding="5dp"
             android:drawableTop="@mipmap/edit"
+            android:gravity="center"
+            android:text="居家经验"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/edit"
+            android:gravity="center"
+            android:text="居家经验"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/edit"
+            android:gravity="center"
             android:text="居家经验"/>
     </LinearLayout>
 

@@ -66,8 +66,8 @@ public class Api {
         HttpHeaders headers = new HttpHeaders();
         headers.put("User-Agent", "ChufabaAndroid/3.8.2");
         return OkGo.getInstance()
-                .addCommonHeaders(headers)
                 .post(url)
+                .headers(headers)
                 .tag(context)//以对应activity或fragment作为网络请求tag，以便即时取消网络请求
                 ;
     }
@@ -85,8 +85,8 @@ public class Api {
         HashMap<String, Object> map = addBaseParams(new HashMap<String, Object>());
         map.put(Constant.PARAM, params);
         return OkGo.getInstance()
-                .addCommonHeaders(headers)
                 .post(url)
+                .headers(headers)
                 .tag(context)//以对应activity或fragment作为网络请求tag，以便即时取消网络请求
                 .upJson(new Gson().toJson(map));
     }
@@ -95,8 +95,8 @@ public class Api {
         HttpHeaders headers = new HttpHeaders();
         headers.put("version", "647.2");
         return OkGo.getInstance()
-                .addCommonHeaders(headers)
                 .post(url)
+                .headers(headers)
                 .tag(context)//以对应activity或fragment作为网络请求tag，以便即时取消网络请求
                 .upString(json, MediaType.parse("application/x-www-form-urlencoded"));
     }
@@ -105,9 +105,11 @@ public class Api {
         HttpHeaders headers = new HttpHeaders();
         headers.put("User-Agent", "Dalvik/2.1.0 (Linux; U; Android 5.1)hhz2.14.1");
         headers.put("Content-Type", "application/x-www-form-urlencoded");
+        headers.put("Cookie", "hhz_token=a0c08880e6a722e0932f792e92138486");
         return OkGo.getInstance()
-                .addCommonHeaders(headers)
                 .post(url)
+                .removeHeader("Cookie")
+                .headers(headers)
                 .tag(context)//以对应activity或fragment作为网络请求tag，以便即时取消网络请求
                 .upString(json, MediaType.parse("application/x-www-form-urlencoded"));
     }
@@ -274,7 +276,7 @@ public class Api {
 
     //港湾 首页动态
     public Observable<LiveHomeDynamicBean> getHomeDynamic(Context context, String start_id, int type) {
-        return getLiveRequest(context, Constant.live_homeDynamic, String.format("start_id=%s&type=%s", start_id, type)).getCall(new JsonConvertLive<LiveHomeDynamicBean>() {
+        return getLiveRequest(context, Constant.live_homeDynamic, String.format("hhz_token=a0c08880e6a722e0932f792e92138486&start_id=%s&type=%s", start_id, type)).getCall(new JsonConvertLive<LiveHomeDynamicBean>() {
         }, RxAdapter.<LiveHomeDynamicBean>create());
     }
 

@@ -58,9 +58,12 @@ public class LiveMainFragment extends BaseAppFragment<LiveMainPresenter, LiveMai
     @Override
     protected void initView() {
         mFab = ((HomeActivity) getContext()).mFab;
+        mList = new ArrayList<>();
 
         //RecyclerView
-        mXRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setAutoMeasureEnabled(true);
+        mXRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new LiveMainAdapter(getContext(), mList);
         mXRecyclerView.setAdapter(mAdapter);
 
@@ -109,13 +112,22 @@ public class LiveMainFragment extends BaseAppFragment<LiveMainPresenter, LiveMai
             return;
         }
 
+        for (int i = 0; i < list.size(); i++) {
+            LiveHomeDynamicBean.DataBean.RowsBean.FeedsBean feedsBean = list.get(i);
+            int type = feedsBean.getType();
+            if (type != 11) {
+                showShortToast("type = " + type);
+                list.remove(i--);
+            }
+        }
+
         if (TextUtils.isEmpty(start_id)) {
             mAdapter.refresh(list);
             mXRecyclerView.refreshComplete();
         } else {
             mAdapter.add(list);
-            start_id = list.get(list.size() - 1).getFeed_id();
             mXRecyclerView.loadMoreComplete();
         }
+        start_id = list.get(list.size() - 1).getFeed_id();
     }
 }

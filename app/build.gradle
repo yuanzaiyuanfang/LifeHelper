@@ -50,13 +50,19 @@ android {
     }
 
     signingConfigs {
-
         release {// 自己的签名文件
             storeFile file("../first.jks")
-            storePassword STORE_PASSWORD
+            storePassword 'c695xm8'
             keyAlias "sjj"
-            keyPassword ALIAS_PASSWORD
-
+            keyPassword 'c695xm8'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        debug {
+            storeFile file("../first.jks")
+            storePassword 'c695xm8'
+            keyAlias "sjj"
+            keyPassword 'c695xm8'
             v1SigningEnabled true
             v2SigningEnabled true
         }
