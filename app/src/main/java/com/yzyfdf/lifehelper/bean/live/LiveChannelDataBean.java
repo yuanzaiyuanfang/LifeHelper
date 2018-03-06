@@ -69,7 +69,7 @@ public class LiveChannelDataBean extends LiveBaseBean {
             private String           title;
             private int              admin_score;
             private String           subhead;
-            private LiveUserInfoBean user_info;
+            private UserInfoBean user_info;
             private String           pic_url;
             private int              is_excellent;
 
@@ -129,11 +129,11 @@ public class LiveChannelDataBean extends LiveBaseBean {
                 this.subhead = subhead;
             }
 
-            public LiveUserInfoBean getUser_info() {
+            public UserInfoBean getUser_info() {
                 return user_info;
             }
 
-            public void setUser_info(LiveUserInfoBean user_info) {
+            public void setUser_info(UserInfoBean user_info) {
                 this.user_info = user_info;
             }
 

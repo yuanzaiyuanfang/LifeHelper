@@ -106,6 +106,9 @@ public class OWebView extends WebView {
             case Constant.TYPE_GUOKE:
                 body = convertGuokrContent(((String) content));
                 break;
+            case Constant.TYPE_JUJIA_DETAIL:
+                body = convertJujiaContent(((String) content));
+                break;
             default:
                 break;
         }
@@ -143,6 +146,21 @@ public class OWebView extends WebView {
     //    }
     //
 
+    private String convertJujiaContent(String preResult) {
+        preResult = preResult.replaceAll("<p><br></p><p><br></p>", "");
+        String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/jujia.css\" type=\"text/css\">";
+//        String js = "\"<script src=\\\"file:///android_asset/jujia.js\\\"></script>\"";
+//        String css2 = "<link rel=\"stylesheet\" href=\"file:///android_asset/jujia_android.css\" type=\"text/css\">";
+        return new StringBuilder()
+                .append("<!DOCTYPE html>\n")
+                .append("<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\n")
+                .append("<head>\n")
+                .append("\t<meta charset=\"utf-8\" />")
+                .append(css)
+                .append("\n</head>\n<body>\n")
+                .append(preResult)
+                .append("</body></html>").toString();
+    }
 
     private String convertZhihuContent(String preResult) {
 

@@ -16,6 +16,7 @@ import com.yzyfdf.lifehelper.bean.cookbean.CookSearchBean;
 import com.yzyfdf.lifehelper.bean.live.LiveChannelBean;
 import com.yzyfdf.lifehelper.bean.live.LiveChannelDataBean;
 import com.yzyfdf.lifehelper.bean.live.LiveHomeDynamicBean;
+import com.yzyfdf.lifehelper.bean.live.LiveJujiaDetailBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanDetailsBean;
 import com.yzyfdf.lifehelper.bean.read.DouBanListBean;
 import com.yzyfdf.lifehelper.bean.read.GuoKeListBean;
@@ -45,6 +46,7 @@ import rx.Observable;
 
 public class Api {
     public static volatile Api api;
+    public static final String hhzCookie = "a0c08880e6a722e0932f792e92138486";
 
     private Api() {
     }
@@ -105,7 +107,7 @@ public class Api {
         HttpHeaders headers = new HttpHeaders();
         headers.put("User-Agent", "Dalvik/2.1.0 (Linux; U; Android 5.1)hhz2.14.1");
         headers.put("Content-Type", "application/x-www-form-urlencoded");
-        headers.put("Cookie", "hhz_token=a0c08880e6a722e0932f792e92138486");
+        headers.put("Cookie", "hhz_token=" + hhzCookie);
         return OkGo.getInstance()
                 .post(url)
                 .removeHeader("Cookie")
@@ -276,7 +278,7 @@ public class Api {
 
     //港湾 首页动态
     public Observable<LiveHomeDynamicBean> getHomeDynamic(Context context, String start_id, int type) {
-        return getLiveRequest(context, Constant.live_homeDynamic, String.format("hhz_token=a0c08880e6a722e0932f792e92138486&start_id=%s&type=%s", start_id, type)).getCall(new JsonConvertLive<LiveHomeDynamicBean>() {
+        return getLiveRequest(context, Constant.live_homeDynamic, String.format("hhz_token=%s&start_id=%s&type=%s", hhzCookie, start_id, type)).getCall(new JsonConvertLive<LiveHomeDynamicBean>() {
         }, RxAdapter.<LiveHomeDynamicBean>create());
     }
 
@@ -292,5 +294,10 @@ public class Api {
         }, RxAdapter.<LiveChannelDataBean>create());
     }
 
+    //港湾 居家经验详情
+    public Observable<LiveJujiaDetailBean> getBlankDetail(Context context, String id) {
+        return getLiveRequest(context, Constant.live_jujiaDetail, String.format("hhz_token=%s&blank_id=%s", hhzCookie, id)).getCall(new JsonConvertLive<LiveJujiaDetailBean>() {
+        }, RxAdapter.<LiveJujiaDetailBean>create());
+    }
 
 }

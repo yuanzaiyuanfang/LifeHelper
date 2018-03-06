@@ -83,6 +83,10 @@
         //港湾
         //居家经验
         <activity android:name=".ui.live.ui.LiveJujiaActivity"/>
+        //居家经验详情
+        <activity
+            android:name=".ui.live.ui.LiveJujiaDetailActivity"
+            android:launchMode="singleTop"/>
 
         //天气主页
         <activity android:name=".ui.weather.activity.WeatherMainActivity">

@@ -19,6 +19,8 @@ public class Constant {
     public static final int TYPE_DOUBAN = 1002;
     public static final int TYPE_GUOKE = 1003;
 
+    public static final int TYPE_JUJIA_DETAIL = 1004;
+
 
     /*参数*/
     public static final String PARAM = "data";//参数数组
@@ -90,6 +92,7 @@ public class Constant {
     public static final String live_homeDynamic = live_host + "Home/Dynamic/index2_0";
     public static final String live_getChannel = live_host + "Home/Search/setNaviZone";
     public static final String live_jujia = live_host + "Home/Search/getChannelData";
+    public static final String live_jujiaDetail = live_host + "Home/Blank/detail2_8";
 
 
     public static final String share_url = "http://yuanzaiyuanfang.applinzi.com/?p=92";

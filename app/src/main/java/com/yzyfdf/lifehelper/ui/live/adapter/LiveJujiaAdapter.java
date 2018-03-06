@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.live.LiveChannelDataBean;
-import com.yzyfdf.lifehelper.bean.live.LiveUserInfoBean;
+import com.yzyfdf.lifehelper.bean.live.UserInfoBean;
 
 import java.util.List;
 
@@ -32,9 +32,15 @@ public class LiveJujiaAdapter extends BaseAdapter<LiveChannelDataBean.DataBean.R
         holder.setText(R.id.tv_title, bean.getTitle());
         holder.setBigImage(R.id.iv_pic, bean.getPic_url());
 
-        LiveUserInfoBean userInfoBean = bean.getUser_info();
+        UserInfoBean userInfoBean = bean.getUser_info();
         holder.setText(R.id.tv_author, userInfoBean.getNick());
         holder.setRoundImage(R.id.iv_author, userInfoBean.getAvatar());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnSelectStateListener != null) {
+                mOnSelectStateListener.OnSelectStateChanged(true,bean,position);
+            }
+        });
 
     }
 }

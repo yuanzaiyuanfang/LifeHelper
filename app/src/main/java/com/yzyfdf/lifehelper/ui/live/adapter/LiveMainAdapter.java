@@ -10,6 +10,7 @@ import com.blankj.utilcode.utils.ScreenUtils;
 import com.yzyfdf.lifehelper.R;
 import com.yzyfdf.lifehelper.base.adapter.BaseAdapter;
 import com.yzyfdf.lifehelper.bean.live.LiveHomeDynamicBean;
+import com.yzyfdf.lifehelper.bean.live.PhotoInfoBean;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class LiveMainAdapter extends BaseAdapter<LiveHomeDynamicBean.DataBean.Ro
     @Override
     public void onBindViewHolder(BaseAdapter.BaseRVViewHolder holder, int position) {
         LiveHomeDynamicBean.DataBean.RowsBean.FeedsBean bean = mList.get(position);
-        LiveHomeDynamicBean.DataBean.RowsBean.FeedsBean.PhotoDataBean.PhotoInfoBean photoInfo = bean.getPhoto_data().getPhoto_info();
+        PhotoInfoBean photoInfo = bean.getPhoto_data().getPhoto_info();
         holder.setText(R.id.remark, photoInfo.getRemark());
 
         ImageView iv = holder.getImageView(R.id.iv_pic);

@@ -31,19 +31,19 @@ public class LiveJujiaActivity extends BaseAppActivity<LiveJujiaPresenter, LiveJ
         implements LiveJujiaContract.View {
 
     @Bind(R.id.toolbar)
-    Toolbar       mToolbar;
+    Toolbar mToolbar;
     @Bind(R.id.tabLayout)
-    TabLayout     mTabLayout;
+    TabLayout mTabLayout;
     @Bind(R.id.xRecyclerView)
     XRecyclerView mXRecyclerView;
 
     public static final String mTitle = "居家经验";
     private LinearLayoutManager mLayoutManager;
     private List<LiveChannelDataBean.DataBean.RowsBean> mList = new ArrayList<>();
-    private List<String>     mChannelList;
+    private List<String> mChannelList;
     private LiveJujiaAdapter mAdapter;
-    private int position   = 0;
-    private int page       = 1;
+    private int position = 0;
+    private int page = 1;
     private int searchType = 2;
     private int mIs_over;
 
@@ -59,6 +59,11 @@ public class LiveJujiaActivity extends BaseAppActivity<LiveJujiaPresenter, LiveJ
 
     @Override
     public void initPresenter() {
+        mPresenter.setVM(this, mModel);
+    }
+
+    @Override
+    public void initView() {
         initToolbar(mToolbar, mTitle);
 
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -113,12 +118,8 @@ public class LiveJujiaActivity extends BaseAppActivity<LiveJujiaPresenter, LiveJ
                 }
             }
         });
+        mAdapter.setOnSelectStateListener((state, file, position1) -> LiveJujiaDetailActivity.startSelf(this, file.getId(), file.getTitle()));
 
-        mPresenter.setVM(this, mModel);
-    }
-
-    @Override
-    public void initView() {
         mPresenter.getChannel(2);
     }
 
